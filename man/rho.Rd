@@ -1,8 +1,8 @@
 \name{rho}
 \alias{rho}
 
-\title{Density of seawater (mol/kg)}
-\description{Density of seawater (mol/kg)}
+\title{Density of seawater  (kg/m3)}
+\description{Density of seawater  (kg/m3)}
 \usage{
 rho(S = 35, T = 25, P = 0)
 }

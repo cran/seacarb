@@ -128,7 +128,8 @@ carb(ini = "f")
 
 The file must be located in your home directory and provide the column names 
 (these names MUST match the names listed above) and the data must be separated
-by tabs. Note that, in contrast to the keyboard input, variables used in th file input must be in mol/kg.
+by tabs. Note that, in contrast to the keyboard input, variables used in the
+file input must be in mol/kg.
 
 For example:
 
