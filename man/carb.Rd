@@ -46,7 +46,7 @@ flag = 15     ALK and DIC given
   \item{var1}{enter value of the first variable in umol/kg except for pH, default is pH = 8.2}
   \item{var2}{enter value of the second variable in umol/kg except for pH, default is total alkalinity = 2400 umol/kg}
   \item{S}{Salinity, default is 35}
-  \item{T}{Temperature in degrees Celsius, default is 20oC}
+  \item{T}{Temperature in degrees Celsius, default is 25oC}
   \item{P}{Hydrostatic pressure in bar (surface = 0), default is 0}
   \item{k1k2}{"r" for using K1 and K2 from Roy et al. and "m" for using K1 and K2 from Mehrbach, default is "r"}
   \item{phflag}{The pH scale is either the total scale (0) or the free scale (1), default is 0}
@@ -91,15 +91,15 @@ Zeebe, R. E. and Wolf-Gladrow D. A., 2001 \emph{CO2 in seawater: equilibrium, ki
 \author{Aurelien Proye and Jean-Pierre Gattuso}
 
 \examples{\dontrun{##Data entry via the keyboard}
-carb(8, 8.2, 2400, 35, 20, 0) 
+carb(8, 8.2, 2400, 35, 25, 0) 
 
 \dontrun{The input parameters are pH=8.2, total alkalinity = 2400 umol/kg,
- Salinity = 35, temperature = 20 oC and pressure = 0 bar (that is surface water)
+ Salinity = 35, temperature = 25 oC and pressure = 0 bar (that is surface water)
 
 The output is:
 
 Salinity:                35
-Temperature:             20 oC
+Temperature:             25 oC
 Pressure:                0 bar
 pH:                      8.2
 CO2:                     8.806348e-06 (mol/kg)

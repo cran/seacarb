@@ -10,7 +10,7 @@
 #
 #
 "carb" <-
-function(flag=8,var1=8.2,var2=2400,S=35,T=20,P=0,k1k2='r',phflag=0,ini='s'){
+function(flag=8,var1=8.2,var2=2400,S=35,T=25,P=0,k1k2='r',phflag=0,ini='s'){
 
 
 if (k1k2=='m')
