@@ -98,41 +98,43 @@ carb(8, 8.2, 2400, 35, 25, 0)
 
 The output is:
 
-Salinity:                35
+Salinity:                35 
 Temperature:             25 oC
 Pressure:                0 bar
-pH:                      8.2
-CO2:                     8.806348e-06 (mol/kg)
-pCO2:                    271.7384 (uatm)
-fCO2:                    271.7386 (uatm)
-HCO3:                    0.001745663 (mol/kg)
-CO3:                     0.0002702233 (mol/kg)
-DIC:                     0.002024693 (mol/kg)
+pH:                      8.2 
+CO2:                     7.477544e-06 (mol/kg)
+pCO2:                    263.3691 (uatm)
+fCO2:                    262.54 (uatm)
+HCO3:                    0.001649802 (mol/kg)
+CO3:                     0.0003108231 (mol/kg)
+DIC:                     0.001968102 (mol/kg)
 ALK:                     0.0024 (mol/kg)
-Omega aragonite:         4.198604
-Omega calcite:           6.46017
-PhiD:                    -1480.407
-BetaD:                   8.792809
-PiD:                     1.180102
-PhiB:                    -169.2848
-BetaB:                   1.891109
-PiB:                     0.2538098
-PhiC:                    1141.838
-BetaC:                   -5.010592
-PiC:                     -0.6724823
-PhiH:                    -1311.123
-PiH:                     0.9262921
+Omega aragonite:         4.929621 
+Omega calcite:           7.478931 
+PhiD:                    -1369.120 
+BetaD:                   8.160777 
+PiD:                     1.092065 
+PhiB:                    -182.8422 
+BetaB:                   1.956302 
+PiB:                     0.2617900 
+PhiC:                    1003.436 
+BetaC:                   -4.248173 
+PiC:                     -0.5684854 
+PhiH:                    -1186.278 
+PiH:                     0.8302753 
 
 ## Data entry via a file
 carb(ini = "f")
 
 The file must be located in your home directory and provide the column names 
 (these names MUST match the names listed above) and the data must be separated
-by tabs. For example:
+by tabs. Note that, in contrast to the keyboard input, variables used in th file input must be in mol/kg.
+
+For example:
 
 flag	PH	ALK	S	T	P
-8	8.2	2400	35	20	0
-8	8.2	2400	35	20	0
+8	8.2	2400e-6	35	20	0
+8	8.2	2400e-6	35	20	0
 
 
 }
