@@ -81,6 +81,6 @@ bor = (416.*(S/35.))* 1e-6;   # (mol/kg), DOE94
 
 		
 	}
-	
-	cat("K1P",K1P," mol/kg\n");
+	attr(K1P,"unit") = "mol/kg"
+	print(K1P);
 }

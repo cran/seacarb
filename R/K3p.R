@@ -79,7 +79,6 @@ bor = (416.*(S/35.))* 1e-6;   # (mol/kg), DOE94
 		K3P = K3P*exp(lnkpok0[11]);
 		
 	}
-	
-	cat("K3P",K3P," mol/kg\n");
-
+	attr(K3P,"unit") <- "mol/kg"
+	print(K3P);
 }

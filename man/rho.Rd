@@ -15,7 +15,7 @@ rho(S = 35, T = 25, P = 0)
 
 
 \value{
-  \item{rho}{Density of seawater (mol/kg)}
+  \item{rho}{Density of seawater (kg/m3)}
 
 }
 \references{Millero, F. J. and Poisson, A. 1981 International one-atmosphere equation of state of seawater. \emph{Deep-Sea Research} \bold{28A}, 625-629.}

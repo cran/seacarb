@@ -140,5 +140,6 @@ if (P > 0.0)
 	K1 = K1*exp(lnkpok0[1]);
 		
 	}
-cat("K1",K1," mol/kg\n");
+attr(K1,"unit") = "mol/kg"
+print(K1);
 }

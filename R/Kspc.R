@@ -85,6 +85,6 @@ bor = (416.*(S/35.))* 1e-6;   # (mol/kg), DOE94
 		Kspc = Kspc*exp(lnkpok0[7]);
 		
 	}
-	
-	cat("Kspc",Kspc," mol/kg\n");
+	attr(Kspc,"unit") = "mol/kg"
+	print(Kspc);
 	}

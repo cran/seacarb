@@ -16,7 +16,7 @@ Ks                      Stability constant of hydrogen sulfate
                         (mol/kg)
 Kspa                    Solubility product of aragonite (mol/kg)
 Kspc                    Solubility product of calcite (mol/kg)
-Kw                      Ion product of water (mol2/kg2)
-bor                     Total boron concentration (mol/kg)
+Kw                      Ion product of water (mol^2/kg^2)
+bor                     total boron concentration (mol/kg)
 carb                    Parameters of the seawater carbonate system
-rho                     Density of seawater (mol/kg)
+rho                     Density of seawater (kg/m3)
