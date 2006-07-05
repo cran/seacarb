@@ -4,14 +4,17 @@
 \title{Parameters of the seawater carbonate system}
 \description{Returns parameters of the seawater carbonate system.}
 \usage{
-carb(flag = 8, var1 = 8.2, var2 = 2400, S = 35, T = 25, P = 0, k1k2 = "r", 
-phflag = 0, ini = "s")
+carb(df)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{flag}{select the couple of variables to be used, see below, default is 8 that is pH and total alkalinity
+\item{df}{a data frame containing the input parameters (see below)}
+}
 
-The flags which can be used are: 
+
+\details{The input data frame should contain the following variables in the right order:
+
+  \item{flag}{select the couple of variables available. The flags which can be used are: 
 
 flag = 1      pH and CO2 given
 
@@ -43,17 +46,18 @@ flag = 14     CO3 and DIC given
 
 flag = 15     ALK and DIC given
 }
-  \item{var1}{enter value of the first variable in umol/kg except for pH, default is pH = 8.2}
-  \item{var2}{enter value of the second variable in umol/kg except for pH, default is total alkalinity = 2400 umol/kg}
-  \item{S}{Salinity, default is 35}
-  \item{T}{Temperature in degrees Celsius, default is 25oC}
-  \item{P}{Hydrostatic pressure in bar (surface = 0), default is 0}
-  \item{k1k2}{"r" for using K1 and K2 from Roy et al. and "m" for using K1 and K2 from Mehrbach, default is "r"}
+  \item{var1}{enter value of the first variable in mol/kg except for pH}
+  \item{var2}{enter value of the second variable in mol/kg except for pH}
+  \item{S}{Salinity}
+  \item{T}{Temperature in degrees Celsius}
+  \item{P}{Hydrostatic pressure in bar (surface = 0)}
+  \item{k1k2}{"r" for using K1 and K2 from Roy et al. and "m" for using K1 and K2 from Mehrbach,}
   \item{phflag}{The pH scale is either the total scale (0) or the free scale (1), default is 0}
-  \item{ini}{"s" if the input data are given through the keyboard or "f" if there are provided in a file (see example below), default = s}
-}
 
-\value{
+Note that the results output is NO LONGER stored in a file.}
+
+\value{The function returns a dataframe containing the following columns:
+
   \item{S}{Salinity}
   \item{T}{Temperature in degrees Celsius}
   \item{P}{Pressure in bar}
@@ -79,7 +83,6 @@ flag = 15     ALK and DIC given
   \item{PhiH}{PhiH, chemical buffer factor (dpH/d[DIC]); input/output of strong acid (unit pH per mol/kg)}
   \item{PiH}{PiH, chemical buffer factor (dpCO2/d[DIC]); input/output of strong acid (uatm per mol/kg)}
 }
-\details{Note that the results output is also stored in the file carb.out located in your working directory. It is a text file with tab delimiters. This file is created if it does not exist and the results are appended if it is already present in the directory.}
 
 
 \references{DOE 1994 \emph{Handbook of methods for the analysis of the various parameters of the carbon dioxide system in sea water}. ORNL/CDIAC-74. Oak Ridge,Tenn.: Carbon Dioxide Information Analysis Center, Oak Ridge National Laboratory.
@@ -90,54 +93,34 @@ Zeebe, R. E. and Wolf-Gladrow D. A., 2001 \emph{CO2 in seawater: equilibrium, ki
 }
 \author{Aurelien Proye and Jean-Pierre Gattuso}
 
-\examples{\dontrun{##Data entry via the keyboard}
-carb(8, 8.2, 2400, 35, 25, 0) 
+\examples{\dontrun{
+x1 <- data.frame(flag=8,var1=8.2,var2=2400,S=35,T=25,P=0,k1k2='r',phflag=0)
+x2 <- data.frame(flag=8,var1=8.2,var2=2400,S=30,T=30,P=0,k1k2='r',phflag=0)
+x <- rbind(x1,x2)
 
-\dontrun{The input parameters are pH=8.2, total alkalinity = 2400 umol/kg,
- Salinity = 35, temperature = 25 oC and pressure = 0 bar (that is surface water)
+
+carb(x)
+
+\dontrun{The input parameters are pH and total alkalinity
 
 The output is:
-
-Salinity:                35 
-Temperature:             25 oC
-Pressure:                0 bar
-pH:                      8.2 
-CO2:                     7.477544e-06 (mol/kg)
-pCO2:                    263.3691 (uatm)
-fCO2:                    262.54 (uatm)
-HCO3:                    0.001649802 (mol/kg)
-CO3:                     0.0003108231 (mol/kg)
-DIC:                     0.001968102 (mol/kg)
-ALK:                     0.0024 (mol/kg)
-Omega aragonite:         4.929621 
-Omega calcite:           7.478931 
-PhiD:                    -1369.120 
-BetaD:                   8.160777 
-PiD:                     1.092065 
-PhiB:                    -182.8422 
-BetaB:                   1.956302 
-PiB:                     0.2617900 
-PhiC:                    1003.436 
-BetaC:                   -4.248173 
-PiC:                     -0.5684854 
-PhiH:                    -1186.278 
-PiH:                     0.8302753 
-
-## Data entry via a file
-carb(ini = "f")
-
-The file must be located in your home directory and provide the column names 
-(these names MUST match the names listed above) and the data must be separated
-by tabs. Note that, in contrast to the keyboard input, variables used in the
-file input must be in mol/kg.
-
-For example:
-
-flag	PH	ALK	S	T	P
-8	8.2	2400e-6	35	20	0
-8	8.2	2400e-6	35	20	0
+flag Salinity Temperature Pressure  pH          CO2     pCO2     fCO2
+1     8       35          25        0 8.2 7.477544e-06 263.3691 262.5400
+11    8       30          30        0 8.2 6.914443e-06 267.9528 267.1586
+          HCO3          CO3         DIC    ALK OmegaAragonite OmegaCalcite
+1  0.001649802 0.0003108231 0.001968102 0.0024       4.929621     7.478931
+11 0.001622366 0.0003289170 0.001958198 0.0024       5.522402     8.351172
+        PhiD    BetaD      PiD      PhiB    BetaB       PiB      PhiC     BetaC
+1  -1369.120 8.160777 1.092065 -182.8422 1.956302 0.2617900 1003.4359 -4.248173
+11 -1363.176 8.157162 1.116197 -192.5034 2.010711 0.2751386  978.1697 -4.135739
+          PiC      PhiH       PiH
+1  -0.5684854 -1186.278 0.8302753
+11 -0.5659197 -1170.673 0.8410583
 
 
+## Data entry via a file is NO LONGER possible
+
+}
 }
 }
 \keyword{utilities}

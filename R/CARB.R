@@ -1,5 +1,6 @@
 # Copyright (C) 2003 Jean-Pierre Gattuso and Aurelien Proye
-# with valuable suggestions from Jean-Marie Epitalon <epitalon@lsce.saclay.cea.fr>
+# with a most valuable contribution of Bernard Gentili <gentili@obs-vlfr.fr>
+# and valuable suggestions from Jean-Marie Epitalon <epitalon@lsce.saclay.cea.fr>
 #
 # This file is part of seacarb.
 #
@@ -10,8 +11,22 @@
 # You should have received a copy of the GNU General Public License along with seacarb; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
 #
-"carb" <-
-function(flag=8,var1=8.2,var2=2400,S=35,T=25,P=0,k1k2='r',phflag=0,ini='s'){
+carb <-
+function(df){
+
+res <- data.frame()
+
+for(i in 1:nrow(df)) {
+
+flag <- df[i,1]
+var1 <- df[i,2]
+var2 <- df[i,3]
+S <- df[i,4]
+T <- df[i,5]
+P <- df[i,6]
+k1k2 <- df[i,7]
+phflag <- df[i,8]
+
 
 
 if (k1k2=='m')
@@ -41,99 +56,95 @@ resultat="carb.out";
 # flag = 14     CO3 and DIC given
 # flag = 15     ALK and DIC given
 
-if (ini=='s')
-{
 	if (flag==1)
 	{
 	PH=var1;
-	CO2=var2/1000000;
+	CO2=var2;
 	}
 
 	if (flag==2)
 	{
-	CO2=var1/1000000;
-	HCO3=var2/1000000;
+	CO2=var1;
+	HCO3=var2;
 	}
 
 	if (flag==3)
 	{
-	CO2=var1/1000000;
-	CO3=var2/1000000;
+	CO2=var1;
+	CO3=var2;
 	}
 
 	if (flag==4)
 	{
-	CO2=var1/1000000;
-	ALK=var2/1000000;
+	CO2=var1;
+	ALK=var2;
 	}
 
 	if (flag==5)
 	{
-	CO2=var1/1000000;
-	DIC=var2/1000000;
+	CO2=var1;
+	DIC=var2;
 	}
 
 	if (flag==6)
 	{
 	PH=var1;
-	HCO3=var2/1000000;
+	HCO3=var2;
 	}
 
 	if (flag==7)
 	{
 	PH=var1;
-	CO3=var2/1000000;
+	CO3=var2;
 	}
 
 	if (flag==8)
 	{
 	PH=var1;
-	ALK=var2/1000000;
+	ALK=var2;
 	}
 
 	if (flag==9)
 	{
 	PH=var1;
-	DIC=var2/1000000;
+	DIC=var2;
 	}
 
 	if (flag==10)
 	{
-	HCO3=var1/1000000;
-	CO3=var2/1000000;
+	HCO3=var1;
+	CO3=var2;
 	}
 
 	if (flag==11)
 	{
-	HCO3=var1/1000000;
-	ALK=var2/1000000;
+	HCO3=var1;
+	ALK=var2;
 	}
 
 	if (flag==12)
 	{
-	HCO3=var1/1000000;
-	DIC=var2/1000000;
+	HCO3=var1;
+	DIC=var2;
 	}
 
 	if (flag==13)
 	{
-	CO3=var1/1000000;
-	ALK=var2/1000000;
+	CO3=var1;
+	ALK=var2;
 	}
 
 	if (flag==14)
 	{
-	CO3=var1/1000000;
-	DIC=var2/1000000;
+	CO3=var1;
+	DIC=var2;
 	}
 
 	if (flag==15)
 	{
-	ALK=var1/1000000;
-	DIC=var2/1000000;
+	ALK=var1;
+	DIC=var2;
 	}
-n=1;
-}
 
 
 #phflag =  ;
@@ -147,52 +158,6 @@ n=1;
 
 tk = 273.15;           # [K] (for conversion [deg C] <-> [K])
 
-
-if (ini=='f')
-{
-    fich<-file.choose();
-    # fich<-"seacarb.inp"
-    Data <- read.delim(fich, sep="\t", header=TRUE);
-    l=nchar(fich);
-    st=l-3;
-    r=substr(fich,1,st);
-    resu=paste(r,"out",sep="");
-    # JME: added read flag value from file
-    Tflag=Data$flag;
-    TPH=Data$PH;
-    TCO2=Data$CO2;
-    THCO3=Data$HCO3;
-    TCO3=Data$CO3;
-    TDIC=Data$DIC;
-    TALK=Data$ALK;
-    TS=Data$S;
-    TT=Data$T;
-    TP=Data$P;
-    n=nrow(Data);
-
-    cat ("n:\t", n)
-}
-
-
-
-
-for (i in 1:n)
-{
-	if (ini=='f')
-
-	{
-	# JME: added read flag value from file
-	flag=Tflag[i];
-	PH=TPH[i];
-	CO2=TCO2[i];
-	HCO3=THCO3[i];
-	CO3=TCO3[i];
-	DIC=TDIC[i];
-	ALK=TALK[i];
-	S=TS[i];
-	T=TT[i];
-	P=TP[i];
-	}
 
 	# JME: moved following code block here, after reading imput file
 
@@ -710,78 +675,13 @@ for (i in 1:n)
 	
 	
 	
-	if (ini=='s')
-	{
-	cat("Salinity:\t\t",S,"\n");
-	cat("Temperature:\t\t",T,"oC\n");
-	cat("Pressure:\t\t",P,"bar\n");
-	cat("pH:\t\t\t",PH,"\n");
-	cat("CO2:\t\t\t",CO2,"(mol/kg)\n");
-	cat("pCO2:\t\t\t",pCO2,"(uatm)\n");
-	cat("fCO2:\t\t\t",fCO2,"(uatm)\n");
-	cat("HCO3:\t\t\t",HCO3,"(mol/kg)\n");
-	cat("CO3:\t\t\t",CO3,"(mol/kg)\n");
-	cat("DIC:\t\t\t",DIC,"(mol/kg)\n");
-	cat("ALK:\t\t\t",ALK,"(mol/kg)\n");
-	cat("Omega aragonite:\t",Oa,"\n");
-	cat("Omega calcite:\t\t",Oc,"\n");
-	cat("PhiD:\t\t\t",PhiD,"\n");
-	cat("BetaD:\t\t\t",BetaD,"\n");
-	cat("PiD:\t\t\t",PiD,"\n");
-	cat("PhiB:\t\t\t",PhiB,"\n");
-	cat("BetaB:\t\t\t",BetaB,"\n");
-	cat("PiB:\t\t\t",PiB,"\n");
-	cat("PhiC:\t\t\t",PhiC,"\n");
-	cat("BetaC:\t\t\t",BetaC,"\n");
-	cat("PiC:\t\t\t",PiC,"\n");
-	cat("PhiH:\t\t\t",PhiH,"\n");
-	cat("PiH:\t\t\t",PiH,"\n");
 
 
 	date=date();
 		col <- c("date", "flag", "Salinity", "Temperature", "Pressure", "pH", "CO2", "pCO2", "fCO2", "HCO3", "CO3", "DIC", "ALK", "OmegaAragonite", "OmegaCalcite", "PhiD", "BetaD", "PiD", "PhiB", "BetaB", "PiB", "PhiC", "BetaC", "PiC", "PhiH", "PiH")
 	res<-data.frame(date,flag,S,T,P,PH,CO2,pCO2,fCO2,HCO3,CO3,DIC,ALK,Oa,Oc,PhiD,BetaD,PiD,PhiB,BetaB,PiB,PhiC,BetaC,PiC,PhiH,PiH);
-	if (file.exists("carb.out")==TRUE)
-		{
-		write.table(res,resultat,sep="	",append=TRUE,col.name=FALSE,row.names=FALSE);
-		}
-		else
-		{
-		colnames(res) <- col;
-		write.table(res,resultat,sep="	",append=TRUE,row.names=FALSE);
-		}
-	}
+return(res)
 
-	if (ini=='f')
-
-	{
-	Salinity=S;
-	Temperature=paste(T,"oC");
-	Pressure=paste(P,"bar");
-	pH=PH;
-	CO2=paste(CO2,"(mol/kg)");
-	pCO2=paste(pCO2,"(uatm)");
-	fCO2=paste(fCO2,"(uatm)");
-	HCO3=paste(HCO3,"(mol/kg)");
-	CO3=paste(CO3,"(mol/kg)");
-	DIC=paste(DIC,"(mol/kg)");
-	ALK=paste(ALK,"(mol/kg)");
-	OmegaAragonite=Oa;
-	OmegaCalcite=Oc;
-
-	res<-data.frame(Salinity,Temperature,Pressure,pH,CO2,pCO2,fCO2,HCO3,CO3,DIC,ALK,OmegaAragonite,OmegaCalcite,PhiD,BetaD,PiD,PhiB,BetaB,PiB,PhiC,BetaC,PiC,PhiH,PiH);
-
-
-	if(i==1)
-	{
-	write.table(res,resu,sep="	",append=TRUE,row.names=FALSE);
-	}
-	else
-	{
-	write.table(res,resu,sep="	",append=TRUE,row.names=FALSE,col.names=FALSE);
-	}
-
-	}
 
 	}
 
@@ -865,79 +765,14 @@ for (i in 1:n)
 		
 		
 		
-	if (ini=='s')
-	{
-	cat("Salinity:\t\t",S,"\n");
-	cat("Temperature:\t\t",T,"oC\n");
-	cat("Pressure:\t\t",P,"bar\n");
-	cat("pH:\t\t\t",PH,"\n");
-	cat("CO2:\t\t\t",CO2,"(mol/kg)\n");
-	cat("pCO2:\t\t\t",pCO2,"(uatm)\n");
-	cat("fCO2:\t\t\t",fCO2,"(uatm)\n");
-	cat("HCO3:\t\t\t",HCO3,"(mol/kg)\n");
-	cat("CO3:\t\t\t",CO3,"(mol/kg)\n");
-	cat("DIC:\t\t\t",DIC,"(mol/kg)\n");
-	cat("ALK:\t\t\t",ALK,"(mol/kg)\n");
-	cat("Omega aragonite:\t",Oa,"\n");
-	cat("Omega calcite:\t\t",Oc,"\n");
-	cat("PhiD:\t\t\t",PhiD,"\n");
-	cat("BetaD:\t\t\t",BetaD,"\n");
-	cat("PiD:\t\t\t",PiD,"\n");
-	cat("PhiB:\t\t\t",PhiB,"\n");
-	cat("BetaB:\t\t\t",BetaB,"\n");
-	cat("PiB:\t\t\t",PiB,"\n");
-	cat("PhiC:\t\t\t",PhiC,"\n");
-	cat("BetaC:\t\t\t",BetaC,"\n");
-	cat("PiC:\t\t\t",PiC,"\n");
-	cat("PhiH:\t\t\t",PhiH,"\n");
-	cat("PiH:\t\t\t",PiH,"\n");
 
 
 	date=date();
 		col <- c("date", "flag", "Salinity", "Temperature", "Pressure", "pH", "CO2", "pCO2", "fCO2", "HCO3", "CO3", "DIC", "ALK", "OmegaAragonite", "OmegaCalcite", "PhiD", "BetaD", "PiD", "PhiB", "BetaB", "PiB", "PhiC", "BetaC", "PiC", "PhiH", "PiH")
 	res<-data.frame(date,flag,S,T,P,PH,CO2,pCO2,fCO2,HCO3,CO3,DIC,ALK,Oa,Oc,PhiD,BetaD,PiD,PhiB,BetaB,PiB,PhiC,BetaC,PiC,PhiH,PiH);
-	if (file.exists("carb.out")==TRUE)
-		{
-		write.table(res,resultat,sep="	",append=TRUE,col.name=FALSE,row.names=FALSE);
-		}
-		else
-		{
-		colnames(res) <- col;
-		write.table(res,resultat,sep="	",append=TRUE,row.names=FALSE);
-		}
-	}
+return(res)
 
 	
-	if (ini=='f')
-	
-	{
-	Salinity=S;
-	Temperature=paste(T,"oC");
-	Pressure=paste(P,"bar");
-	pH=PH;
-	CO2=paste(CO2,"(mol/kg)");
-	pCO2=paste(pCO2,"(uatm)");
-	fCO2=paste(fCO2,"(uatm)");
-	HCO3=paste(HCO3,"(mol/kg)");
-	CO3=paste(CO3,"(mol/kg)");
-	DIC=paste(DIC,"(mol/kg)");
-	ALK=paste(ALK,"(mol/kg)");
-	OmegaAragonite=Oa;
-	OmegaCalcite=Oc;
-	
-	res<-data.frame(Salinity,Temperature,Pressure,pH,CO2,pCO2,fCO2,HCO3,CO3,DIC,ALK,OmegaAragonite,OmegaCalcite,PhiD,BetaD,PiD,PhiB,BetaB,PiB,PhiC,BetaC,PiC,PhiH,PiH);
-	
-	
-	if(i==1)
-	{
-	write.table(res,resu,sep="	",append=TRUE,row.names=FALSE);
-	}
-	else
-	{
-	write.table(res,resu,sep="	",append=TRUE,row.names=FALSE,col.names=FALSE);
-	}
-	
-	}
 	
 	}
 
@@ -1018,79 +853,12 @@ for (i in 1:n)
 		
 		
 		
-	if (ini=='s')
-	{
-	cat("Salinity:\t\t",S,"\n");
-	cat("Temperature:\t\t",T,"oC\n");
-	cat("Pressure:\t\t",P,"bar\n");
-	cat("pH:\t\t\t",PH,"\n");
-	cat("CO2:\t\t\t",CO2,"(mol/kg)\n");
-	cat("pCO2:\t\t\t",pCO2,"(uatm)\n");
-	cat("fCO2:\t\t\t",fCO2,"(uatm)\n");
-	cat("HCO3:\t\t\t",HCO3,"(mol/kg)\n");
-	cat("CO3:\t\t\t",CO3,"(mol/kg)\n");
-	cat("DIC:\t\t\t",DIC,"(mol/kg)\n");
-	cat("ALK:\t\t\t",ALK,"(mol/kg)\n");
-	cat("Omega aragonite:\t",Oa,"\n");
-	cat("Omega calcite:\t\t",Oc,"\n");
-	cat("PhiD:\t\t\t",PhiD,"\n");
-	cat("BetaD:\t\t\t",BetaD,"\n");
-	cat("PiD:\t\t\t",PiD,"\n");
-	cat("PhiB:\t\t\t",PhiB,"\n");
-	cat("BetaB:\t\t\t",BetaB,"\n");
-	cat("PiB:\t\t\t",PiB,"\n");
-	cat("PhiC:\t\t\t",PhiC,"\n");
-	cat("BetaC:\t\t\t",BetaC,"\n");
-	cat("PiC:\t\t\t",PiC,"\n");
-	cat("PhiH:\t\t\t",PhiH,"\n");
-	cat("PiH:\t\t\t",PiH,"\n");
-
 
 	date=date();
 		col <- c("date", "flag", "Salinity", "Temperature", "Pressure", "pH", "CO2", "pCO2", "fCO2", "HCO3", "CO3", "DIC", "ALK", "OmegaAragonite", "OmegaCalcite", "PhiD", "BetaD", "PiD", "PhiB", "BetaB", "PiB", "PhiC", "BetaC", "PiC", "PhiH", "PiH")
 	res<-data.frame(date,flag,S,T,P,PH,CO2,pCO2,fCO2,HCO3,CO3,DIC,ALK,Oa,Oc,PhiD,BetaD,PiD,PhiB,BetaB,PiB,PhiC,BetaC,PiC,PhiH,PiH);
-	if (file.exists("carb.out")==TRUE)
-		{
-		write.table(res,resultat,sep="	",append=TRUE,col.name=FALSE,row.names=FALSE);
-		}
-		else
-		{
-		colnames(res) <- col;
-		write.table(res,resultat,sep="	",append=TRUE,row.names=FALSE);
-		}
-	}
+return(res)
 
-	
-	if (ini=='f')
-	
-	{
-	Salinity=S;
-	Temperature=paste(T,"oC");
-	Pressure=paste(P,"bar");
-	pH=PH;
-	CO2=paste(CO2,"(mol/kg)");
-	pCO2=paste(pCO2,"(uatm)");
-	fCO2=paste(fCO2,"(uatm)");
-	HCO3=paste(HCO3,"(mol/kg)");
-	CO3=paste(CO3,"(mol/kg)");
-	DIC=paste(DIC,"(mol/kg)");
-	ALK=paste(ALK,"(mol/kg)");
-	OmegaAragonite=Oa;
-	OmegaCalcite=Oc;
-	
-	res<-data.frame(Salinity,Temperature,Pressure,pH,CO2,pCO2,fCO2,HCO3,CO3,DIC,ALK,OmegaAragonite,OmegaCalcite,PhiD,BetaD,PiD,PhiB,BetaB,PiB,PhiC,BetaC,PiC,PhiH,PiH);
-	
-	
-	if(i==1)
-	{
-	write.table(res,resu,sep="	",append=TRUE,row.names=FALSE);
-	}
-	else
-	{
-	write.table(res,resu,sep="	",append=TRUE,row.names=FALSE,col.names=FALSE);
-	}
-	
-	}
 	
 	}
 
@@ -1171,79 +939,12 @@ for (i in 1:n)
 		
 		
 		
-	if (ini=='s')
-	{
-	cat("Salinity:\t\t",S,"\n");
-	cat("Temperature:\t\t",T,"oC\n");
-	cat("Pressure:\t\t",P,"bar\n");
-	cat("pH:\t\t\t",PH,"\n");
-	cat("CO2:\t\t\t",CO2,"(mol/kg)\n");
-	cat("pCO2:\t\t\t",pCO2,"(uatm)\n");
-	cat("fCO2:\t\t\t",fCO2,"(uatm)\n");
-	cat("HCO3:\t\t\t",HCO3,"(mol/kg)\n");
-	cat("CO3:\t\t\t",CO3,"(mol/kg)\n");
-	cat("DIC:\t\t\t",DIC,"(mol/kg)\n");
-	cat("ALK:\t\t\t",ALK,"(mol/kg)\n");
-	cat("Omega aragonite:\t",Oa,"\n");
-	cat("Omega calcite:\t\t",Oc,"\n");
-	cat("PhiD:\t\t\t",PhiD,"\n");
-	cat("BetaD:\t\t\t",BetaD,"\n");
-	cat("PiD:\t\t\t",PiD,"\n");
-	cat("PhiB:\t\t\t",PhiB,"\n");
-	cat("BetaB:\t\t\t",BetaB,"\n");
-	cat("PiB:\t\t\t",PiB,"\n");
-	cat("PhiC:\t\t\t",PhiC,"\n");
-	cat("BetaC:\t\t\t",BetaC,"\n");
-	cat("PiC:\t\t\t",PiC,"\n");
-	cat("PhiH:\t\t\t",PhiH,"\n");
-	cat("PiH:\t\t\t",PiH,"\n");
 
 
 	date=date();
 		col <- c("date", "flag", "Salinity", "Temperature", "Pressure", "pH", "CO2", "pCO2", "fCO2", "HCO3", "CO3", "DIC", "ALK", "OmegaAragonite", "OmegaCalcite", "PhiD", "BetaD", "PiD", "PhiB", "BetaB", "PiB", "PhiC", "BetaC", "PiC", "PhiH", "PiH")
 	res<-data.frame(date,flag,S,T,P,PH,CO2,pCO2,fCO2,HCO3,CO3,DIC,ALK,Oa,Oc,PhiD,BetaD,PiD,PhiB,BetaB,PiB,PhiC,BetaC,PiC,PhiH,PiH);
-	if (file.exists("carb.out")==TRUE)
-		{
-		write.table(res,resultat,sep="	",append=TRUE,col.name=FALSE,row.names=FALSE);
-		}
-		else
-		{
-		colnames(res) <- col;
-		write.table(res,resultat,sep="	",append=TRUE,row.names=FALSE);
-		}
-	}
-
-	
-	if (ini=='f')
-	
-	{
-	Salinity=S;
-	Temperature=paste(T,"oC");
-	Pressure=paste(P,"bar");
-	pH=PH;
-	CO2=paste(CO2,"(mol/kg)");
-	pCO2=paste(pCO2,"(uatm)");
-	fCO2=paste(fCO2,"(uatm)");
-	HCO3=paste(HCO3,"(mol/kg)");
-	CO3=paste(CO3,"(mol/kg)");
-	DIC=paste(DIC,"(mol/kg)");
-	ALK=paste(ALK,"(mol/kg)");
-	OmegaAragonite=Oa;
-	OmegaCalcite=Oc;
-	
-	res<-data.frame(Salinity,Temperature,Pressure,pH,CO2,pCO2,fCO2,HCO3,CO3,DIC,ALK,OmegaAragonite,OmegaCalcite,PhiD,BetaD,PiD,PhiB,BetaB,PiB,PhiC,BetaC,PiC,PhiH,PiH);
-	
-	
-	if(i==1)
-	{
-	write.table(res,resu,sep="	",append=TRUE,row.names=FALSE);
-	}
-	else
-	{
-	write.table(res,resu,sep="	",append=TRUE,row.names=FALSE,col.names=FALSE);
-	}
-	
-	}
+return(res)
 	
 	}
 
@@ -1323,79 +1024,12 @@ for (i in 1:n)
 		
 		
 		
-	if (ini=='s')
-	{
-	cat("Salinity:\t\t",S,"\n");
-	cat("Temperature:\t\t",T,"oC\n");
-	cat("Pressure:\t\t",P,"bar\n");
-	cat("pH:\t\t\t",PH,"\n");
-	cat("CO2:\t\t\t",CO2,"(mol/kg)\n");
-	cat("pCO2:\t\t\t",pCO2,"(uatm)\n");
-	cat("fCO2:\t\t\t",fCO2,"(uatm)\n");
-	cat("HCO3:\t\t\t",HCO3,"(mol/kg)\n");
-	cat("CO3:\t\t\t",CO3,"(mol/kg)\n");
-	cat("DIC:\t\t\t",DIC,"(mol/kg)\n");
-	cat("ALK:\t\t\t",ALK,"(mol/kg)\n");
-	cat("Omega aragonite:\t",Oa,"\n");
-	cat("Omega calcite:\t\t",Oc,"\n");
-	cat("PhiD:\t\t\t",PhiD,"\n");
-	cat("BetaD:\t\t\t",BetaD,"\n");
-	cat("PiD:\t\t\t",PiD,"\n");
-	cat("PhiB:\t\t\t",PhiB,"\n");
-	cat("BetaB:\t\t\t",BetaB,"\n");
-	cat("PiB:\t\t\t",PiB,"\n");
-	cat("PhiC:\t\t\t",PhiC,"\n");
-	cat("BetaC:\t\t\t",BetaC,"\n");
-	cat("PiC:\t\t\t",PiC,"\n");
-	cat("PhiH:\t\t\t",PhiH,"\n");
-	cat("PiH:\t\t\t",PiH,"\n");
 
 
 	date=date();
 		col <- c("date", "flag", "Salinity", "Temperature", "Pressure", "pH", "CO2", "pCO2", "fCO2", "HCO3", "CO3", "DIC", "ALK", "OmegaAragonite", "OmegaCalcite", "PhiD", "BetaD", "PiD", "PhiB", "BetaB", "PiB", "PhiC", "BetaC", "PiC", "PhiH", "PiH")
 	res<-data.frame(date,flag,S,T,P,PH,CO2,pCO2,fCO2,HCO3,CO3,DIC,ALK,Oa,Oc,PhiD,BetaD,PiD,PhiB,BetaB,PiB,PhiC,BetaC,PiC,PhiH,PiH);
-	if (file.exists("carb.out")==TRUE)
-		{
-		write.table(res,resultat,sep="	",append=TRUE,col.name=FALSE,row.names=FALSE);
-		}
-		else
-		{
-		colnames(res) <- col;
-		write.table(res,resultat,sep="	",append=TRUE,row.names=FALSE);
-		}
-	}
-
-	
-	if (ini=='f')
-	
-	{
-	Salinity=S;
-	Temperature=paste(T,"oC");
-	Pressure=paste(P,"bar");
-	pH=PH;
-	CO2=paste(CO2,"(mol/kg)");
-	pCO2=paste(pCO2,"(uatm)");
-	fCO2=paste(fCO2,"(uatm)");
-	HCO3=paste(HCO3,"(mol/kg)");
-	CO3=paste(CO3,"(mol/kg)");
-	DIC=paste(DIC,"(mol/kg)");
-	ALK=paste(ALK,"(mol/kg)");
-	OmegaAragonite=Oa;
-	OmegaCalcite=Oc;
-	
-	res<-data.frame(Salinity,Temperature,Pressure,pH,CO2,pCO2,fCO2,HCO3,CO3,DIC,ALK,OmegaAragonite,OmegaCalcite,PhiD,BetaD,PiD,PhiB,BetaB,PiB,PhiC,BetaC,PiC,PhiH,PiH);
-	
-	
-	if(i==1)
-	{
-	write.table(res,resu,sep="	",append=TRUE,row.names=FALSE);
-	}
-	else
-	{
-	write.table(res,resu,sep="	",append=TRUE,row.names=FALSE,col.names=FALSE);
-	}
-	
-	}
+return(res)
 	
 	}
 
@@ -1467,79 +1101,12 @@ for (i in 1:n)
 		
 		
 		
-	if (ini=='s')
-	{
-	cat("Salinity:\t\t",S,"\n");
-	cat("Temperature:\t\t",T,"oC\n");
-	cat("Pressure:\t\t",P,"bar\n");
-	cat("pH:\t\t\t",PH,"\n");
-	cat("CO2:\t\t\t",CO2,"(mol/kg)\n");
-	cat("pCO2:\t\t\t",pCO2,"(uatm)\n");
-	cat("fCO2:\t\t\t",fCO2,"(uatm)\n");
-	cat("HCO3:\t\t\t",HCO3,"(mol/kg)\n");
-	cat("CO3:\t\t\t",CO3,"(mol/kg)\n");
-	cat("DIC:\t\t\t",DIC,"(mol/kg)\n");
-	cat("ALK:\t\t\t",ALK,"(mol/kg)\n");
-	cat("Omega aragonite:\t",Oa,"\n");
-	cat("Omega calcite:\t\t",Oc,"\n");
-	cat("PhiD:\t\t\t",PhiD,"\n");
-	cat("BetaD:\t\t\t",BetaD,"\n");
-	cat("PiD:\t\t\t",PiD,"\n");
-	cat("PhiB:\t\t\t",PhiB,"\n");
-	cat("BetaB:\t\t\t",BetaB,"\n");
-	cat("PiB:\t\t\t",PiB,"\n");
-	cat("PhiC:\t\t\t",PhiC,"\n");
-	cat("BetaC:\t\t\t",BetaC,"\n");
-	cat("PiC:\t\t\t",PiC,"\n");
-	cat("PhiH:\t\t\t",PhiH,"\n");
-	cat("PiH:\t\t\t",PiH,"\n");
 
 
 	date=date();
 		col <- c("date", "flag", "Salinity", "Temperature", "Pressure", "pH", "CO2", "pCO2", "fCO2", "HCO3", "CO3", "DIC", "ALK", "OmegaAragonite", "OmegaCalcite", "PhiD", "BetaD", "PiD", "PhiB", "BetaB", "PiB", "PhiC", "BetaC", "PiC", "PhiH", "PiH")
 	res<-data.frame(date,flag,S,T,P,PH,CO2,pCO2,fCO2,HCO3,CO3,DIC,ALK,Oa,Oc,PhiD,BetaD,PiD,PhiB,BetaB,PiB,PhiC,BetaC,PiC,PhiH,PiH);
-	if (file.exists("carb.out")==TRUE)
-		{
-		write.table(res,resultat,sep="	",append=TRUE,col.name=FALSE,row.names=FALSE);
-		}
-		else
-		{
-		colnames(res) <- col;
-		write.table(res,resultat,sep="	",append=TRUE,row.names=FALSE);
-		}
-	}
-
-	
-	if (ini=='f')
-	
-	{
-	Salinity=S;
-	Temperature=paste(T,"oC");
-	Pressure=paste(P,"bar");
-	pH=PH;
-	CO2=paste(CO2,"(mol/kg)");
-	pCO2=paste(pCO2,"(uatm)");
-	fCO2=paste(fCO2,"(uatm)");
-	HCO3=paste(HCO3,"(mol/kg)");
-	CO3=paste(CO3,"(mol/kg)");
-	DIC=paste(DIC,"(mol/kg)");
-	ALK=paste(ALK,"(mol/kg)");
-	OmegaAragonite=Oa;
-	OmegaCalcite=Oc;
-	
-	res<-data.frame(Salinity,Temperature,Pressure,pH,CO2,pCO2,fCO2,HCO3,CO3,DIC,ALK,OmegaAragonite,OmegaCalcite,PhiD,BetaD,PiD,PhiB,BetaB,PiB,PhiC,BetaC,PiC,PhiH,PiH);
-	
-	
-	if(i==1)
-	{
-	write.table(res,resu,sep="	",append=TRUE,row.names=FALSE);
-	}
-	else
-	{
-	write.table(res,resu,sep="	",append=TRUE,row.names=FALSE,col.names=FALSE);
-	}
-	
-	}
+return(res)
 	
 	}
 
@@ -1613,79 +1180,12 @@ for (i in 1:n)
 		
 		
 		
-	if (ini=='s')
-	{
-	cat("Salinity:\t\t",S,"\n");
-	cat("Temperature:\t\t",T,"oC\n");
-	cat("Pressure:\t\t",P,"bar\n");
-	cat("pH:\t\t\t",PH,"\n");
-	cat("CO2:\t\t\t",CO2,"(mol/kg)\n");
-	cat("pCO2:\t\t\t",pCO2,"(uatm)\n");
-	cat("fCO2:\t\t\t",fCO2,"(uatm)\n");
-	cat("HCO3:\t\t\t",HCO3,"(mol/kg)\n");
-	cat("CO3:\t\t\t",CO3,"(mol/kg)\n");
-	cat("DIC:\t\t\t",DIC,"(mol/kg)\n");
-	cat("ALK:\t\t\t",ALK,"(mol/kg)\n");
-	cat("Omega aragonite:\t",Oa,"\n");
-	cat("Omega calcite:\t\t",Oc,"\n");
-	cat("PhiD:\t\t\t",PhiD,"\n");
-	cat("BetaD:\t\t\t",BetaD,"\n");
-	cat("PiD:\t\t\t",PiD,"\n");
-	cat("PhiB:\t\t\t",PhiB,"\n");
-	cat("BetaB:\t\t\t",BetaB,"\n");
-	cat("PiB:\t\t\t",PiB,"\n");
-	cat("PhiC:\t\t\t",PhiC,"\n");
-	cat("BetaC:\t\t\t",BetaC,"\n");
-	cat("PiC:\t\t\t",PiC,"\n");
-	cat("PhiH:\t\t\t",PhiH,"\n");
-	cat("PiH:\t\t\t",PiH,"\n");
 
 
 	date=date();
 		col <- c("date", "flag", "Salinity", "Temperature", "Pressure", "pH", "CO2", "pCO2", "fCO2", "HCO3", "CO3", "DIC", "ALK", "OmegaAragonite", "OmegaCalcite", "PhiD", "BetaD", "PiD", "PhiB", "BetaB", "PiB", "PhiC", "BetaC", "PiC", "PhiH", "PiH")
 	res<-data.frame(date,flag,S,T,P,PH,CO2,pCO2,fCO2,HCO3,CO3,DIC,ALK,Oa,Oc,PhiD,BetaD,PiD,PhiB,BetaB,PiB,PhiC,BetaC,PiC,PhiH,PiH);
-	if (file.exists("carb.out")==TRUE)
-		{
-		write.table(res,resultat,sep="	",append=TRUE,col.name=FALSE,row.names=FALSE);
-		}
-		else
-		{
-		colnames(res) <- col;
-		write.table(res,resultat,sep="	",append=TRUE,row.names=FALSE);
-		}
-	}
-
-	
-	if (ini=='f')
-	
-	{
-	Salinity=S;
-	Temperature=paste(T,"oC");
-	Pressure=paste(P,"bar");
-	pH=PH;
-	CO2=paste(CO2,"(mol/kg)");
-	pCO2=paste(pCO2,"(uatm)");
-	fCO2=paste(fCO2,"(uatm)");
-	HCO3=paste(HCO3,"(mol/kg)");
-	CO3=paste(CO3,"(mol/kg)");
-	DIC=paste(DIC,"(mol/kg)");
-	ALK=paste(ALK,"(mol/kg)");
-	OmegaAragonite=Oa;
-	OmegaCalcite=Oc;
-	
-	res<-data.frame(Salinity,Temperature,Pressure,pH,CO2,pCO2,fCO2,HCO3,CO3,DIC,ALK,OmegaAragonite,OmegaCalcite,PhiD,BetaD,PiD,PhiB,BetaB,PiB,PhiC,BetaC,PiC,PhiH,PiH);
-	
-	
-	if(i==1)
-	{
-	write.table(res,resu,sep="	",append=TRUE,row.names=FALSE);
-	}
-	else
-	{
-	write.table(res,resu,sep="	",append=TRUE,row.names=FALSE,col.names=FALSE);
-	}
-	
-	}
+return(res)
 	
 	}
 
@@ -1760,93 +1260,12 @@ for (i in 1:n)
 		
 		
 		
-	if (ini=='s')
-	{
-	cat("Salinity:\t\t",S,"\n");
-	cat("Temperature:\t\t",T,"oC\n");
-	cat("Pressure:\t\t",P,"bar\n");
-	cat("pH:\t\t\t",PH,"\n");
-	cat("CO2:\t\t\t",CO2,"(mol/kg)\n");
-	cat("pCO2:\t\t\t",pCO2,"(uatm)\n");
-	cat("fCO2:\t\t\t",fCO2,"(uatm)\n");
-	cat("HCO3:\t\t\t",HCO3,"(mol/kg)\n");
-	cat("CO3:\t\t\t",CO3,"(mol/kg)\n");
-	cat("DIC:\t\t\t",DIC,"(mol/kg)\n");
-	cat("ALK:\t\t\t",ALK,"(mol/kg)\n");
-	cat("Omega aragonite:\t",Oa,"\n");
-	cat("Omega calcite:\t\t",Oc,"\n");
-	cat("PhiD:\t\t\t",PhiD,"\n");
-	cat("BetaD:\t\t\t",BetaD,"\n");
-	cat("PiD:\t\t\t",PiD,"\n");
-	cat("PhiB:\t\t\t",PhiB,"\n");
-	cat("BetaB:\t\t\t",BetaB,"\n");
-	cat("PiB:\t\t\t",PiB,"\n");
-	cat("PhiC:\t\t\t",PhiC,"\n");
-	cat("BetaC:\t\t\t",BetaC,"\n");
-	cat("PiC:\t\t\t",PiC,"\n");
-	cat("PhiH:\t\t\t",PhiH,"\n");
-	cat("PiH:\t\t\t",PiH,"\n");
 
 
 	date=date();
 		col <- c("date", "flag", "Salinity", "Temperature", "Pressure", "pH", "CO2", "pCO2", "fCO2", "HCO3", "CO3", "DIC", "ALK", "OmegaAragonite", "OmegaCalcite", "PhiD", "BetaD", "PiD", "PhiB", "BetaB", "PiB", "PhiC", "BetaC", "PiC", "PhiH", "PiH")
 	res<-data.frame(date,flag,S,T,P,PH,CO2,pCO2,fCO2,HCO3,CO3,DIC,ALK,Oa,Oc,PhiD,BetaD,PiD,PhiB,BetaB,PiB,PhiC,BetaC,PiC,PhiH,PiH);
-	if (file.exists("carb.out")==TRUE)
-		{
-		write.table(res,resultat,sep="	",append=TRUE,col.name=FALSE,row.names=FALSE);
-		}
-		else
-		{
-		colnames(res) <- col;
-		write.table(res,resultat,sep="	",append=TRUE,row.names=FALSE);
-		}
-	}
-
-	
-	if (ini=='f')
-	
-	{
-    # Salinity=S;
-    # Temperature=paste(T,"oC");
-    # Pressure=paste(P,"bar");
-    # pH=PH;
-    # CO2=paste(CO2,"(mol/kg)");
-    # pCO2=paste(pCO2,"(uatm)");
-    # fCO2=paste(fCO2,"(uatm)");
-    # HCO3=paste(HCO3,"(mol/kg)");
-    # CO3=paste(CO3,"(mol/kg)");
-    # DIC=paste(DIC,"(mol/kg)");
-    # ALK=paste(ALK,"(mol/kg)");
-    # OmegaAragonite=Oa;
-    # OmegaCalcite=Oc;
-
-	Salinity=S;
-	Temperature=T
-	Pressure=P
-	pH=PH;
-	CO2=CO2
-	pCO2=pCO2
-	fCO2=fCO2
-	HCO3=HCO3
-	CO3=CO3
-	DIC=DIC
-	ALK=ALK
-	OmegaAragonite=Oa;
-	OmegaCalcite=Oc;
-
-	res<-data.frame(Salinity,Temperature,Pressure,pH,CO2,pCO2,fCO2,HCO3,CO3,DIC,ALK,OmegaAragonite,OmegaCalcite,PhiD,BetaD,PiD,PhiB,BetaB,PiB,PhiC,BetaC,PiC,PhiH,PiH);
-
-
-	if(i==1)
-	{
-	write.table(res,resu,sep="	",append=TRUE,row.names=FALSE);
-	}
-	else
-	{
-	write.table(res,resu,sep="	",append=TRUE,row.names=FALSE,col.names=FALSE);
-	}
-	
-	}
+return(res)
 	
 	}
 
@@ -1922,79 +1341,12 @@ for (i in 1:n)
 		
 		
 		
-	if (ini=='s')
-	{
-	cat("Salinity:\t\t",S,"\n");
-	cat("Temperature:\t\t",T,"oC\n");
-	cat("Pressure:\t\t",P,"bar\n");
-	cat("pH:\t\t\t",PH,"\n");
-	cat("CO2:\t\t\t",CO2,"(mol/kg)\n");
-	cat("pCO2:\t\t\t",pCO2,"(uatm)\n");
-	cat("fCO2:\t\t\t",fCO2,"(uatm)\n");
-	cat("HCO3:\t\t\t",HCO3,"(mol/kg)\n");
-	cat("CO3:\t\t\t",CO3,"(mol/kg)\n");
-	cat("DIC:\t\t\t",DIC,"(mol/kg)\n");
-	cat("ALK:\t\t\t",ALK,"(mol/kg)\n");
-	cat("Omega aragonite:\t",Oa,"\n");
-	cat("Omega calcite:\t\t",Oc,"\n");
-	cat("PhiD:\t\t\t",PhiD,"\n");
-	cat("BetaD:\t\t\t",BetaD,"\n");
-	cat("PiD:\t\t\t",PiD,"\n");
-	cat("PhiB:\t\t\t",PhiB,"\n");
-	cat("BetaB:\t\t\t",BetaB,"\n");
-	cat("PiB:\t\t\t",PiB,"\n");
-	cat("PhiC:\t\t\t",PhiC,"\n");
-	cat("BetaC:\t\t\t",BetaC,"\n");
-	cat("PiC:\t\t\t",PiC,"\n");
-	cat("PhiH:\t\t\t",PhiH,"\n");
-	cat("PiH:\t\t\t",PiH,"\n");
 
 
 	date=date();
 		col <- c("date", "flag", "Salinity", "Temperature", "Pressure", "pH", "CO2", "pCO2", "fCO2", "HCO3", "CO3", "DIC", "ALK", "OmegaAragonite", "OmegaCalcite", "PhiD", "BetaD", "PiD", "PhiB", "BetaB", "PiB", "PhiC", "BetaC", "PiC", "PhiH", "PiH")
 	res<-data.frame(date,flag,S,T,P,PH,CO2,pCO2,fCO2,HCO3,CO3,DIC,ALK,Oa,Oc,PhiD,BetaD,PiD,PhiB,BetaB,PiB,PhiC,BetaC,PiC,PhiH,PiH);
-	if (file.exists("carb.out")==TRUE)
-		{
-		write.table(res,resultat,sep="	",append=TRUE,col.name=FALSE,row.names=FALSE);
-		}
-		else
-		{
-		colnames(res) <- col;
-		write.table(res,resultat,sep="	",append=TRUE,row.names=FALSE);
-		}
-	}
-
-	
-	if (ini=='f')
-	
-	{
-	Salinity=S;
-	Temperature=paste(T,"oC");
-	Pressure=paste(P,"bar");
-	pH=PH;
-	CO2=paste(CO2,"(mol/kg)");
-	pCO2=paste(pCO2,"(uatm)");
-	fCO2=paste(fCO2,"(uatm)");
-	HCO3=paste(HCO3,"(mol/kg)");
-	CO3=paste(CO3,"(mol/kg)");
-	DIC=paste(DIC,"(mol/kg)");
-	ALK=paste(ALK,"(mol/kg)");
-	OmegaAragonite=Oa;
-	OmegaCalcite=Oc;
-	
-	res<-data.frame(Salinity,Temperature,Pressure,pH,CO2,pCO2,fCO2,HCO3,CO3,DIC,ALK,OmegaAragonite,OmegaCalcite,PhiD,BetaD,PiD,PhiB,BetaB,PiB,PhiC,BetaC,PiC,PhiH,PiH);
-	
-	
-	if(i==1)
-	{
-	write.table(res,resu,sep="	",append=TRUE,row.names=FALSE);
-	}
-	else
-	{
-	write.table(res,resu,sep="	",append=TRUE,row.names=FALSE,col.names=FALSE);
-	}
-	
-	}
+return(res)
 	
 	}
 
@@ -2077,79 +1429,12 @@ for (i in 1:n)
 		
 		
 		
-	if (ini=='s')
-	{
-	cat("Salinity:\t\t",S,"\n");
-	cat("Temperature:\t\t",T,"oC\n");
-	cat("Pressure:\t\t",P,"bar\n");
-	cat("pH:\t\t\t",PH,"\n");
-	cat("CO2:\t\t\t",CO2,"(mol/kg)\n");
-	cat("pCO2:\t\t\t",pCO2,"(uatm)\n");
-	cat("fCO2:\t\t\t",fCO2,"(uatm)\n");
-	cat("HCO3:\t\t\t",HCO3,"(mol/kg)\n");
-	cat("CO3:\t\t\t",CO3,"(mol/kg)\n");
-	cat("DIC:\t\t\t",DIC,"(mol/kg)\n");
-	cat("ALK:\t\t\t",ALK,"(mol/kg)\n");
-	cat("Omega aragonite:\t",Oa,"\n");
-	cat("Omega calcite:\t\t",Oc,"\n");
-	cat("PhiD:\t\t\t",PhiD,"\n");
-	cat("BetaD:\t\t\t",BetaD,"\n");
-	cat("PiD:\t\t\t",PiD,"\n");
-	cat("PhiB:\t\t\t",PhiB,"\n");
-	cat("BetaB:\t\t\t",BetaB,"\n");
-	cat("PiB:\t\t\t",PiB,"\n");
-	cat("PhiC:\t\t\t",PhiC,"\n");
-	cat("BetaC:\t\t\t",BetaC,"\n");
-	cat("PiC:\t\t\t",PiC,"\n");
-	cat("PhiH:\t\t\t",PhiH,"\n");
-	cat("PiH:\t\t\t",PiH,"\n");
 
 
 	date=date();
 		col <- c("date", "flag", "Salinity", "Temperature", "Pressure", "pH", "CO2", "pCO2", "fCO2", "HCO3", "CO3", "DIC", "ALK", "OmegaAragonite", "OmegaCalcite", "PhiD", "BetaD", "PiD", "PhiB", "BetaB", "PiB", "PhiC", "BetaC", "PiC", "PhiH", "PiH")
 	res<-data.frame(date,flag,S,T,P,PH,CO2,pCO2,fCO2,HCO3,CO3,DIC,ALK,Oa,Oc,PhiD,BetaD,PiD,PhiB,BetaB,PiB,PhiC,BetaC,PiC,PhiH,PiH);
-	if (file.exists("carb.out")==TRUE)
-		{
-		write.table(res,resultat,sep="	",append=TRUE,col.name=FALSE,row.names=FALSE);
-		}
-		else
-		{
-		colnames(res) <- col;
-		write.table(res,resultat,sep="	",append=TRUE,row.names=FALSE);
-		}
-	}
-
-	
-	if (ini=='f')
-	
-	{
-	Salinity=S;
-	Temperature=paste(T,"oC");
-	Pressure=paste(P,"bar");
-	pH=PH;
-	CO2=paste(CO2,"(mol/kg)");
-	pCO2=paste(pCO2,"(uatm)");
-	fCO2=paste(fCO2,"(uatm)");
-	HCO3=paste(HCO3,"(mol/kg)");
-	CO3=paste(CO3,"(mol/kg)");
-	DIC=paste(DIC,"(mol/kg)");
-	ALK=paste(ALK,"(mol/kg)");
-	OmegaAragonite=Oa;
-	OmegaCalcite=Oc;
-	
-	res<-data.frame(Salinity,Temperature,Pressure,pH,CO2,pCO2,fCO2,HCO3,CO3,DIC,ALK,OmegaAragonite,OmegaCalcite,PhiD,BetaD,PiD,PhiB,BetaB,PiB,PhiC,BetaC,PiC,PhiH,PiH);
-	
-	
-	if(i==1)
-	{
-	write.table(res,resu,sep="	",append=TRUE,row.names=FALSE);
-	}
-	else
-	{
-	write.table(res,resu,sep="	",append=TRUE,row.names=FALSE,col.names=FALSE);
-	}
-	
-	}
+return(res)
 	
 	}
 
@@ -2236,79 +1521,12 @@ for (i in 1:n)
 		
 		
 		
-	if (ini=='s')
-	{
-	cat("Salinity:\t\t",S,"\n");
-	cat("Temperature:\t\t",T,"oC\n");
-	cat("Pressure:\t\t",P,"bar\n");
-	cat("pH:\t\t\t",PH,"\n");
-	cat("CO2:\t\t\t",CO2,"(mol/kg)\n");
-	cat("pCO2:\t\t\t",pCO2,"(uatm)\n");
-	cat("fCO2:\t\t\t",fCO2,"(uatm)\n");
-	cat("HCO3:\t\t\t",HCO3,"(mol/kg)\n");
-	cat("CO3:\t\t\t",CO3,"(mol/kg)\n");
-	cat("DIC:\t\t\t",DIC,"(mol/kg)\n");
-	cat("ALK:\t\t\t",ALK,"(mol/kg)\n");
-	cat("Omega aragonite:\t",Oa,"\n");
-	cat("Omega calcite:\t\t",Oc,"\n");
-	cat("PhiD:\t\t\t",PhiD,"\n");
-	cat("BetaD:\t\t\t",BetaD,"\n");
-	cat("PiD:\t\t\t",PiD,"\n");
-	cat("PhiB:\t\t\t",PhiB,"\n");
-	cat("BetaB:\t\t\t",BetaB,"\n");
-	cat("PiB:\t\t\t",PiB,"\n");
-	cat("PhiC:\t\t\t",PhiC,"\n");
-	cat("BetaC:\t\t\t",BetaC,"\n");
-	cat("PiC:\t\t\t",PiC,"\n");
-	cat("PhiH:\t\t\t",PhiH,"\n");
-	cat("PiH:\t\t\t",PiH,"\n");
 
 
 	date=date();
 		col <- c("date", "flag", "Salinity", "Temperature", "Pressure", "pH", "CO2", "pCO2", "fCO2", "HCO3", "CO3", "DIC", "ALK", "OmegaAragonite", "OmegaCalcite", "PhiD", "BetaD", "PiD", "PhiB", "BetaB", "PiB", "PhiC", "BetaC", "PiC", "PhiH", "PiH")
 	res<-data.frame(date,flag,S,T,P,PH,CO2,pCO2,fCO2,HCO3,CO3,DIC,ALK,Oa,Oc,PhiD,BetaD,PiD,PhiB,BetaB,PiB,PhiC,BetaC,PiC,PhiH,PiH);
-	if (file.exists("carb.out")==TRUE)
-		{
-		write.table(res,resultat,sep="	",append=TRUE,col.name=FALSE,row.names=FALSE);
-		}
-		else
-		{
-		colnames(res) <- col;
-		write.table(res,resultat,sep="	",append=TRUE,row.names=FALSE);
-		}
-	}
-
-	
-	if (ini=='f')
-	
-	{
-	Salinity=S;
-	Temperature=paste(T,"oC");
-	Pressure=paste(P,"bar");
-	pH=PH;
-	CO2=paste(CO2,"(mol/kg)");
-	pCO2=paste(pCO2,"(uatm)");
-	fCO2=paste(fCO2,"(uatm)");
-	HCO3=paste(HCO3,"(mol/kg)");
-	CO3=paste(CO3,"(mol/kg)");
-	DIC=paste(DIC,"(mol/kg)");
-	ALK=paste(ALK,"(mol/kg)");
-	OmegaAragonite=Oa;
-	OmegaCalcite=Oc;
-	
-	res<-data.frame(Salinity,Temperature,Pressure,pH,CO2,pCO2,fCO2,HCO3,CO3,DIC,ALK,OmegaAragonite,OmegaCalcite,PhiD,BetaD,PiD,PhiB,BetaB,PiB,PhiC,BetaC,PiC,PhiH,PiH);
-	
-	
-	if(i==1)
-	{
-	write.table(res,resu,sep="	",append=TRUE,row.names=FALSE);
-	}
-	else
-	{
-	write.table(res,resu,sep="	",append=TRUE,row.names=FALSE,col.names=FALSE);
-	}
-	
-	}
+return(res)
 	
 	}
 
@@ -2389,79 +1607,12 @@ for (i in 1:n)
 		
 		
 		
-	if (ini=='s')
-	{
-	cat("Salinity:\t\t",S,"\n");
-	cat("Temperature:\t\t",T,"oC\n");
-	cat("Pressure:\t\t",P,"bar\n");
-	cat("pH:\t\t\t",PH,"\n");
-	cat("CO2:\t\t\t",CO2,"(mol/kg)\n");
-	cat("pCO2:\t\t\t",pCO2,"(uatm)\n");
-	cat("fCO2:\t\t\t",fCO2,"(uatm)\n");
-	cat("HCO3:\t\t\t",HCO3,"(mol/kg)\n");
-	cat("CO3:\t\t\t",CO3,"(mol/kg)\n");
-	cat("DIC:\t\t\t",DIC,"(mol/kg)\n");
-	cat("ALK:\t\t\t",ALK,"(mol/kg)\n");
-	cat("Omega aragonite:\t",Oa,"\n");
-	cat("Omega calcite:\t\t",Oc,"\n");
-	cat("PhiD:\t\t\t",PhiD,"\n");
-	cat("BetaD:\t\t\t",BetaD,"\n");
-	cat("PiD:\t\t\t",PiD,"\n");
-	cat("PhiB:\t\t\t",PhiB,"\n");
-	cat("BetaB:\t\t\t",BetaB,"\n");
-	cat("PiB:\t\t\t",PiB,"\n");
-	cat("PhiC:\t\t\t",PhiC,"\n");
-	cat("BetaC:\t\t\t",BetaC,"\n");
-	cat("PiC:\t\t\t",PiC,"\n");
-	cat("PhiH:\t\t\t",PhiH,"\n");
-	cat("PiH:\t\t\t",PiH,"\n");
 
 
 	date=date();
 		col <- c("date", "flag", "Salinity", "Temperature", "Pressure", "pH", "CO2", "pCO2", "fCO2", "HCO3", "CO3", "DIC", "ALK", "OmegaAragonite", "OmegaCalcite", "PhiD", "BetaD", "PiD", "PhiB", "BetaB", "PiB", "PhiC", "BetaC", "PiC", "PhiH", "PiH")
 	res<-data.frame(date,flag,S,T,P,PH,CO2,pCO2,fCO2,HCO3,CO3,DIC,ALK,Oa,Oc,PhiD,BetaD,PiD,PhiB,BetaB,PiB,PhiC,BetaC,PiC,PhiH,PiH);
-	if (file.exists("carb.out")==TRUE)
-		{
-		write.table(res,resultat,sep="	",append=TRUE,col.name=FALSE,row.names=FALSE);
-		}
-		else
-		{
-		colnames(res) <- col;
-		write.table(res,resultat,sep="	",append=TRUE,row.names=FALSE);
-		}
-	}
-
-	
-	if (ini=='f')
-	
-	{
-	Salinity=S;
-	Temperature=paste(T,"oC");
-	Pressure=paste(P,"bar");
-	pH=PH;
-	CO2=paste(CO2,"(mol/kg)");
-	pCO2=paste(pCO2,"(uatm)");
-	fCO2=paste(fCO2,"(uatm)");
-	HCO3=paste(HCO3,"(mol/kg)");
-	CO3=paste(CO3,"(mol/kg)");
-	DIC=paste(DIC,"(mol/kg)");
-	ALK=paste(ALK,"(mol/kg)");
-	OmegaAragonite=Oa;
-	OmegaCalcite=Oc;
-	
-	res<-data.frame(Salinity,Temperature,Pressure,pH,CO2,pCO2,fCO2,HCO3,CO3,DIC,ALK,OmegaAragonite,OmegaCalcite,PhiD,BetaD,PiD,PhiB,BetaB,PiB,PhiC,BetaC,PiC,PhiH,PiH);
-	
-	
-	if(i==1)
-	{
-	write.table(res,resu,sep="	",append=TRUE,row.names=FALSE);
-	}
-	else
-	{
-	write.table(res,resu,sep="	",append=TRUE,row.names=FALSE,col.names=FALSE);
-	}
-	
-	}
+return(res)
 	
 	}
 
@@ -2547,79 +1698,12 @@ for (i in 1:n)
 		
 		
 		
-	if (ini=='s')
-	{
-	cat("Salinity:\t\t",S,"\n");
-	cat("Temperature:\t\t",T,"oC\n");
-	cat("Pressure:\t\t",P,"bar\n");
-	cat("pH:\t\t\t",PH,"\n");
-	cat("CO2:\t\t\t",CO2,"(mol/kg)\n");
-	cat("pCO2:\t\t\t",pCO2,"(uatm)\n");
-	cat("fCO2:\t\t\t",fCO2,"(uatm)\n");
-	cat("HCO3:\t\t\t",HCO3,"(mol/kg)\n");
-	cat("CO3:\t\t\t",CO3,"(mol/kg)\n");
-	cat("DIC:\t\t\t",DIC,"(mol/kg)\n");
-	cat("ALK:\t\t\t",ALK,"(mol/kg)\n");
-	cat("Omega aragonite:\t",Oa,"\n");
-	cat("Omega calcite:\t\t",Oc,"\n");
-	cat("PhiD:\t\t\t",PhiD,"\n");
-	cat("BetaD:\t\t\t",BetaD,"\n");
-	cat("PiD:\t\t\t",PiD,"\n");
-	cat("PhiB:\t\t\t",PhiB,"\n");
-	cat("BetaB:\t\t\t",BetaB,"\n");
-	cat("PiB:\t\t\t",PiB,"\n");
-	cat("PhiC:\t\t\t",PhiC,"\n");
-	cat("BetaC:\t\t\t",BetaC,"\n");
-	cat("PiC:\t\t\t",PiC,"\n");
-	cat("PhiH:\t\t\t",PhiH,"\n");
-	cat("PiH:\t\t\t",PiH,"\n");
 
 
 	date=date();
 		col <- c("date", "flag", "Salinity", "Temperature", "Pressure", "pH", "CO2", "pCO2", "fCO2", "HCO3", "CO3", "DIC", "ALK", "OmegaAragonite", "OmegaCalcite", "PhiD", "BetaD", "PiD", "PhiB", "BetaB", "PiB", "PhiC", "BetaC", "PiC", "PhiH", "PiH")
 	res<-data.frame(date,flag,S,T,P,PH,CO2,pCO2,fCO2,HCO3,CO3,DIC,ALK,Oa,Oc,PhiD,BetaD,PiD,PhiB,BetaB,PiB,PhiC,BetaC,PiC,PhiH,PiH);
-	if (file.exists("carb.out")==TRUE)
-		{
-		write.table(res,resultat,sep="	",append=TRUE,col.name=FALSE,row.names=FALSE);
-		}
-		else
-		{
-		colnames(res) <- col;
-		write.table(res,resultat,sep="	",append=TRUE,row.names=FALSE);
-		}
-	}
-
-	
-	if (ini=='f')
-	
-	{
-	Salinity=S;
-	Temperature=paste(T,"oC");
-	Pressure=paste(P,"bar");
-	pH=PH;
-	CO2=paste(CO2,"(mol/kg)");
-	pCO2=paste(pCO2,"(uatm)");
-	fCO2=paste(fCO2,"(uatm)");
-	HCO3=paste(HCO3,"(mol/kg)");
-	CO3=paste(CO3,"(mol/kg)");
-	DIC=paste(DIC,"(mol/kg)");
-	ALK=paste(ALK,"(mol/kg)");
-	OmegaAragonite=Oa;
-	OmegaCalcite=Oc;
-	
-	res<-data.frame(Salinity,Temperature,Pressure,pH,CO2,pCO2,fCO2,HCO3,CO3,DIC,ALK,OmegaAragonite,OmegaCalcite,PhiD,BetaD,PiD,PhiB,BetaB,PiB,PhiC,BetaC,PiC,PhiH,PiH);
-	
-	
-	if(i==1)
-	{
-	write.table(res,resu,sep="	",append=TRUE,row.names=FALSE);
-	}
-	else
-	{
-	write.table(res,resu,sep="	",append=TRUE,row.names=FALSE,col.names=FALSE);
-	}
-	
-	}
+return(res)
 	
 	}
 
@@ -2700,79 +1784,12 @@ for (i in 1:n)
 		
 		
 		
-	if (ini=='s')
-	{
-	cat("Salinity:\t\t",S,"\n");
-	cat("Temperature:\t\t",T,"oC\n");
-	cat("Pressure:\t\t",P,"bar\n");
-	cat("pH:\t\t\t",PH,"\n");
-	cat("CO2:\t\t\t",CO2,"(mol/kg)\n");
-	cat("pCO2:\t\t\t",pCO2,"(uatm)\n");
-	cat("fCO2:\t\t\t",fCO2,"(uatm)\n");
-	cat("HCO3:\t\t\t",HCO3,"(mol/kg)\n");
-	cat("CO3:\t\t\t",CO3,"(mol/kg)\n");
-	cat("DIC:\t\t\t",DIC,"(mol/kg)\n");
-	cat("ALK:\t\t\t",ALK,"(mol/kg)\n");
-	cat("Omega aragonite:\t",Oa,"\n");
-	cat("Omega calcite:\t\t",Oc,"\n");
-	cat("PhiD:\t\t\t",PhiD,"\n");
-	cat("BetaD:\t\t\t",BetaD,"\n");
-	cat("PiD:\t\t\t",PiD,"\n");
-	cat("PhiB:\t\t\t",PhiB,"\n");
-	cat("BetaB:\t\t\t",BetaB,"\n");
-	cat("PiB:\t\t\t",PiB,"\n");
-	cat("PhiC:\t\t\t",PhiC,"\n");
-	cat("BetaC:\t\t\t",BetaC,"\n");
-	cat("PiC:\t\t\t",PiC,"\n");
-	cat("PhiH:\t\t\t",PhiH,"\n");
-	cat("PiH:\t\t\t",PiH,"\n");
 
 
 	date=date();
 		col <- c("date", "flag", "Salinity", "Temperature", "Pressure", "pH", "CO2", "pCO2", "fCO2", "HCO3", "CO3", "DIC", "ALK", "OmegaAragonite", "OmegaCalcite", "PhiD", "BetaD", "PiD", "PhiB", "BetaB", "PiB", "PhiC", "BetaC", "PiC", "PhiH", "PiH")
 	res<-data.frame(date,flag,S,T,P,PH,CO2,pCO2,fCO2,HCO3,CO3,DIC,ALK,Oa,Oc,PhiD,BetaD,PiD,PhiB,BetaB,PiB,PhiC,BetaC,PiC,PhiH,PiH);
-	if (file.exists("carb.out")==TRUE)
-		{
-		write.table(res,resultat,sep="	",append=TRUE,col.name=FALSE,row.names=FALSE);
-		}
-		else
-		{
-		colnames(res) <- col;
-		write.table(res,resultat,sep="	",append=TRUE,row.names=FALSE);
-		}
-	}
-
-	
-	if (ini=='f')
-	
-	{
-	Salinity=S;
-	Temperature=paste(T,"oC");
-	Pressure=paste(P,"bar");
-	pH=PH;
-	CO2=paste(CO2,"(mol/kg)");
-	pCO2=paste(pCO2,"(uatm)");
-	fCO2=paste(fCO2,"(uatm)");
-	HCO3=paste(HCO3,"(mol/kg)");
-	CO3=paste(CO3,"(mol/kg)");
-	DIC=paste(DIC,"(mol/kg)");
-	ALK=paste(ALK,"(mol/kg)");
-	OmegaAragonite=Oa;
-	OmegaCalcite=Oc;
-	
-	res<-data.frame(Salinity,Temperature,Pressure,pH,CO2,pCO2,fCO2,HCO3,CO3,DIC,ALK,OmegaAragonite,OmegaCalcite,PhiD,BetaD,PiD,PhiB,BetaB,PiB,PhiC,BetaC,PiC,PhiH,PiH);
-	
-	
-	if(i==1)
-	{
-	write.table(res,resu,sep="	",append=TRUE,row.names=FALSE);
-	}
-	else
-	{
-	write.table(res,resu,sep="	",append=TRUE,row.names=FALSE,col.names=FALSE);
-	}
-
-	}
+return(res)
 
 	}
 
@@ -2857,93 +1874,12 @@ for (i in 1:n)
 
 
 
-	if (ini=='s')
-	{
-	cat("Salinity:\t\t",S,"\n");
-	cat("Temperature:\t\t",T,"oC\n");
-	cat("Pressure:\t\t",P,"bar\n");
-	cat("pH:\t\t\t",PH,"\n");
-	cat("CO2:\t\t\t",CO2,"(mol/kg)\n");
-	cat("pCO2:\t\t\t",pCO2,"(uatm)\n");
-	cat("fCO2:\t\t\t",fCO2,"(uatm)\n");
-	cat("HCO3:\t\t\t",HCO3,"(mol/kg)\n");
-	cat("CO3:\t\t\t",CO3,"(mol/kg)\n");
-	cat("DIC:\t\t\t",DIC,"(mol/kg)\n");
-	cat("ALK:\t\t\t",ALK,"(mol/kg)\n");
-	cat("Omega aragonite:\t",Oa,"\n");
-	cat("Omega calcite:\t\t",Oc,"\n");
-	cat("PhiD:\t\t\t",PhiD,"\n");
-	cat("BetaD:\t\t\t",BetaD,"\n");
-	cat("PiD:\t\t\t",PiD,"\n");
-	cat("PhiB:\t\t\t",PhiB,"\n");
-	cat("BetaB:\t\t\t",BetaB,"\n");
-	cat("PiB:\t\t\t",PiB,"\n");
-	cat("PhiC:\t\t\t",PhiC,"\n");
-	cat("BetaC:\t\t\t",BetaC,"\n");
-	cat("PiC:\t\t\t",PiC,"\n");
-	cat("PhiH:\t\t\t",PhiH,"\n");
-	cat("PiH:\t\t\t",PiH,"\n");
 
 
 	date=date();
 		col <- c("date", "flag", "Salinity", "Temperature", "Pressure", "pH", "CO2", "pCO2", "fCO2", "HCO3", "CO3", "DIC", "ALK", "OmegaAragonite", "OmegaCalcite", "PhiD", "BetaD", "PiD", "PhiB", "BetaB", "PiB", "PhiC", "BetaC", "PiC", "PhiH", "PiH")
 	res<-data.frame(date,flag,S,T,P,PH,CO2,pCO2,fCO2,HCO3,CO3,DIC,ALK,Oa,Oc,PhiD,BetaD,PiD,PhiB,BetaB,PiB,PhiC,BetaC,PiC,PhiH,PiH);
-	if (file.exists("carb.out")==TRUE)
-		{
-		write.table(res,resultat,sep="	",append=TRUE,col.name=FALSE,row.names=FALSE);
-		}
-		else
-		{
-		colnames(res) <- col;
-		write.table(res,resultat,sep="	",append=TRUE,row.names=FALSE);
-		}
-	}
-
-
-	if (ini=='f')
-
-	{
-    # Salinity=S;
-    # Temperature=paste(T,"oC");
-    # Pressure=paste(P,"bar");
-    # pH=PH;
-    # CO2=paste(CO2,"(mol/kg)");
-    # pCO2=paste(pCO2,"(uatm)");
-    # fCO2=paste(fCO2,"(uatm)");
-    # HCO3=paste(HCO3,"(mol/kg)");
-    # CO3=paste(CO3,"(mol/kg)");
-    # DIC=paste(DIC,"(mol/kg)");
-    # ALK=paste(ALK,"(mol/kg)");
-    # OmegaAragonite=Oa;
-    # OmegaCalcite=Oc;
-
-	Salinity=S;
-	Temperature=T
-	Pressure=P
-	pH=PH;
-	CO2=CO2
-	pCO2=pCO2
-	fCO2=fCO2
-	HCO3=HCO3
-	CO3=CO3
-	DIC=DIC
-	ALK=ALK
-	OmegaAragonite=Oa;
-	OmegaCalcite=Oc;
-
-	res<-data.frame(Salinity,Temperature,Pressure,pH,CO2,pCO2,fCO2,HCO3,CO3,DIC,ALK,OmegaAragonite,OmegaCalcite,PhiD,BetaD,PiD,PhiB,BetaB,PiB,PhiC,BetaC,PiC,PhiH,PiH);
-
-
-	if(i==1)
-	{
-	write.table(res,resu,sep="	",append=TRUE,row.names=FALSE);
-	}
-	else
-	{
-	write.table(res,resu,sep="	",append=TRUE,row.names=FALSE,col.names=FALSE);
-	}
-
-	}
+return(res)
 
 	}
 
@@ -2951,86 +1887,89 @@ for (i in 1:n)
 
 	if (flag==1)
 	{
-	PHCO2(PH, CO2, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P);
+	res <- rbind(res, PHCO2(PH, CO2, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P))
 	}
 
 	if (flag==2)
 	{
-	CO2HCO3(CO2, HCO3, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P);
+	res <- rbind(res, CO2HCO3(CO2, HCO3, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P))
 	}
 
 	if (flag==3)
 	{
-	CO2CO3(CO2, CO3, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P);
+	res <- rbind(res, CO2CO3(CO2, CO3, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P))
 	}
 	
 	if (flag==4)
 	{
-	CO2ALK(CO2, ALK, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P);
+	res <- rbind(res, CO2ALK(CO2, ALK, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P))
 	}
 	
 	if (flag==5)
 	{
-	CO2DIC(CO2, DIC, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P);
+	res <- rbind(res, CO2DIC(CO2, DIC, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P))
 	}
 	
 	if (flag==6)
 	{
-	PHHCO3(PH, HCO3, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P);
+	res <- rbind(res, PHHCO3(PH, HCO3, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P))
 	}
 	
 	if (flag==7)
 	{
-	PHCO3(PH, CO3, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P);
+	res <- rbind(res, PHCO3(PH, CO3, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P))
 	}
 
 	if (flag==8)
 	{
-	PHALK(PH, ALK, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P);
+	res <- rbind(res, PHALK(PH, ALK, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P))
 	}
 	
 	if (flag==9)
 	{
-	PHDIC(PH, DIC, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P);
+	res <- rbind(res, PHDIC(PH, DIC, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P))
 	}
 	
 	if (flag==10)
 	{
-	HCO3CO3(HCO3, CO3, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P);
+	res <- rbind(res, HCO3CO3(HCO3, CO3, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P))
 	}
 	
 	if (flag==11)
 	{
-	HCO3ALK(HCO3, ALK, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P);
+	res <- rbind(res, HCO3ALK(HCO3, ALK, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P))
 	}
 	
 	if (flag==12)
 	{
-	HCO3DIC(HCO3, DIC, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P);
+	res <- rbind(res, HCO3DIC(HCO3, DIC, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P))
 	}
 	
 	if (flag==13)
 	{
-	CO3ALK(CO3, ALK, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P);
+	res <- rbind(res, CO3ALK(CO3, ALK, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P))
 	}
 
 	if (flag==14)
 	{
-	CO3DIC(CO3, DIC, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P);
+	res <- rbind(res, CO3DIC(CO3, DIC, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P))
 	}
 	
 	if (flag==15)
 	{
-	ALKDIC(ALK, DIC, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P);
+	res <- rbind(res, ALKDIC(ALK, DIC, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P))
 	}
 	
 	
 	# ======================================================
 	
 	
-
 	
 	
 	}
-
+	
+names(res) <- c("date", "flag", "Salinity", "Temperature", "Pressure", "pH", "CO2", "pCO2", "fCO2", "HCO3", "CO3", "DIC", "ALK", "OmegaAragonite", "OmegaCalcite", "PhiD", "BetaD", "PiD", "PhiB", "BetaB", "PiB", "PhiC", "BetaC", "PiC", "PhiH", "PiH")
+rownames(res) <- 1:nrow(res)
+        return(res[-1])
+        
 }
