@@ -1,0 +1,13 @@
+--------------------------
+version 1.0, 2007-08-01
+
+- a test data file is now provided
+- various cosmetic changes
+
+
+
+--------------------------
+version 0.98, 2006-07-05
+
+- data entry via a file is NO LONGER possible
+- results of the carb command are no longer automatically saved in a file

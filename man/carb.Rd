@@ -93,34 +93,15 @@ Zeebe, R. E. and Wolf-Gladrow D. A., 2001 \emph{CO2 in seawater: equilibrium, ki
 }
 \author{Aurelien Proye and Jean-Pierre Gattuso}
 
-\examples{\dontrun{
+\examples{
+## Using a data set provided with the package:
+data(seacarb_test)
+carb(seacarb_test)
+
+## Using another data set
 x1 <- data.frame(flag=8,var1=8.2,var2=2400,S=35,T=25,P=0,k1k2='r',phflag=0)
 x2 <- data.frame(flag=8,var1=8.2,var2=2400,S=30,T=30,P=0,k1k2='r',phflag=0)
 x <- rbind(x1,x2)
-
-
 carb(x)
-
-\dontrun{The input parameters are pH and total alkalinity
-
-The output is:
-flag Salinity Temperature Pressure  pH          CO2     pCO2     fCO2
-1     8       35          25        0 8.2 7.477544e-06 263.3691 262.5400
-11    8       30          30        0 8.2 6.914443e-06 267.9528 267.1586
-          HCO3          CO3         DIC    ALK OmegaAragonite OmegaCalcite
-1  0.001649802 0.0003108231 0.001968102 0.0024       4.929621     7.478931
-11 0.001622366 0.0003289170 0.001958198 0.0024       5.522402     8.351172
-        PhiD    BetaD      PiD      PhiB    BetaB       PiB      PhiC     BetaC
-1  -1369.120 8.160777 1.092065 -182.8422 1.956302 0.2617900 1003.4359 -4.248173
-11 -1363.176 8.157162 1.116197 -192.5034 2.010711 0.2751386  978.1697 -4.135739
-          PiC      PhiH       PiH
-1  -0.5684854 -1186.278 0.8302753
-11 -0.5659197 -1170.673 0.8410583
-
-
-## Data entry via a file is NO LONGER possible
-
-}
-}
 }
 \keyword{utilities}
