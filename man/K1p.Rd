@@ -1,4 +1,3 @@
-\encoding{latin1}
 \name{K1p}
 \alias{K1p}
 \title{First dissociation constant of phosphoric acid (mol/kg)}
@@ -23,9 +22,7 @@ K1p(S = 35, T = 25, P = 0)
 
 \author{Aurelien Proye and Jean-Pierre Gattuso}
 
-\seealso{
-	\code{\link{K2p}}, \code{\link{K3p}}.
-}
+\seealso{K2p, K3p.rd}
 
 \examples{
   K1p(35,25,0)

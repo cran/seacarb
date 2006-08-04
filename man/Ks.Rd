@@ -1,4 +1,3 @@
-\encoding{latin1}
 \name{Ks}
 \alias{Ks}
 \title{Stability constant of hydrogen sulfate (mol/kg)}

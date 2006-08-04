@@ -1,4 +1,3 @@
-\encoding{latin1}
 \name{K3p}
 \alias{K3p}
 \title{Third dissociation constant of phosphoric acid (mol/kg)}
@@ -23,9 +22,7 @@ K3p(S = 35, T = 25, P = 0)
 
 \author{Aurelien Proye and Jean-Pierre Gattuso}
 
-\seealso{
-	\code{\link{K1p}}, \code{\link{K2p}}.
-}
+\seealso{K1p, K2p}
 
 \examples{
   K3p(35,25,0)

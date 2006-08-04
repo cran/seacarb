@@ -1,4 +1,3 @@
-\encoding{latin1}
 \name{Kf}
 \alias{Kf}
 

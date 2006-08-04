@@ -147,6 +147,6 @@ if (phflag == 1)
 		K2 = K2*exp(lnkpok0[2]);
 			
 		}
-#attr(K2,"unit") <- "mol/kg"
+attr(K2,"unit") <- "mol/kg"
 print(K2);	
 }

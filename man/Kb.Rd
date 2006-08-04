@@ -1,4 +1,3 @@
-\encoding{latin1}
 \name{Kb}
 \alias{Kb}
 \title{Dissociation constant of boric acid (mol/kg)}

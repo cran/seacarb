@@ -1,4 +1,3 @@
-\encoding{latin1}
 \name{Kspc}
 \alias{Kspc}
 
@@ -23,9 +22,7 @@ Kspc(S = 35, T = 25, P = 0)
 
 \author{Aurelien Proye and Jean-Pierre Gattuso}
 
-\seealso{
-	\code{\link{Kspa}}.
-}
+\seealso{Kspa}
 
 \examples{
 	Kspc(35,25,0)
