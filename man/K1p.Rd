@@ -22,7 +22,9 @@ K1p(S = 35, T = 25, P = 0)
 
 \author{Aurelien Proye and Jean-Pierre Gattuso}
 
-\seealso{K2p, K3p.rd}
+\seealso{
+	\code{\link{K2p}}, \code{\link{K3p}}.
+}
 
 \examples{
   K1p(35,25,0)

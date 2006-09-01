@@ -22,7 +22,9 @@ Kspc(S = 35, T = 25, P = 0)
 
 \author{Aurelien Proye and Jean-Pierre Gattuso}
 
-\seealso{Kspa}
+\seealso{
+	\code{\link{Kspa}}.
+}
 
 \examples{
 	Kspc(35,25,0)

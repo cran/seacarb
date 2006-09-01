@@ -31,7 +31,9 @@ Roy, R. N. Roy, L. N. Vogel, K. M. Porter-Moore, C. Pearson, T. Good C. E., Mill
              
 \author{Aurelien Proye and Jean-Pierre Gattuso}
 
-\seealso{K2.rd}
+\seealso{
+	\code{\link{K2}}.
+}
 
 \examples{
   K1(35,25,0)

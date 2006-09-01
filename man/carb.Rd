@@ -94,11 +94,11 @@ Zeebe, R. E. and Wolf-Gladrow D. A., 2001 \emph{CO2 in seawater: equilibrium, ki
 \author{Aurelien Proye and Jean-Pierre Gattuso}
 
 \examples{
-## Using a data set provided with the package:
+% Using a data set provided with the package:
 data(seacarb_test)
 carb(seacarb_test)
 
-## Using another data set
+% Using another data set
 x1 <- data.frame(flag=8,var1=8.2,var2=2400,S=35,T=25,P=0,k1k2='r',phflag=0)
 x2 <- data.frame(flag=8,var1=8.2,var2=2400,S=30,T=30,P=0,k1k2='r',phflag=0)
 x <- rbind(x1,x2)

@@ -1,10 +1,13 @@
 --------------------------
 version 1.0, 2007-08-01
 
+- added function phinsi which calculates the pH at in situ temperature from pH values measured in the laboratory and other ancillay data
+
+--------------------------
+version 1.0, 2007-08-01
+
 - a test data file is now provided
 - various cosmetic changes
-
-
 
 --------------------------
 version 0.98, 2006-07-05
