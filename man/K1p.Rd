@@ -1,3 +1,4 @@
+\encoding{latin1}
 \name{K1p}
 \alias{K1p}
 \title{First dissociation constant of phosphoric acid (mol/kg)}

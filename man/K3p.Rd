@@ -1,3 +1,4 @@
+\encoding{latin1}
 \name{K3p}
 \alias{K3p}
 \title{Third dissociation constant of phosphoric acid (mol/kg)}

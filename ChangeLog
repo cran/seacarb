@@ -1,16 +1,21 @@
 --------------------------
-version 1.0, 2007-08-01
+version 1.0.5, 2007-07-23
+
+- minor changes to the documentation (tried to have the superscripts right)
+
+--------------------------
+version 1.0, 2007-01-08
 
 - added function phinsi which calculates the pH at in situ temperature from pH values measured in the laboratory and other ancillay data
 
 --------------------------
-version 1.0, 2007-08-01
+version 1.0, 2007-01-08
 
 - a test data file is now provided
 - various cosmetic changes
 
 --------------------------
-version 0.98, 2006-07-05
+version 0.98, 2006-05-07
 
 - data entry via a file is NO LONGER possible
 - results of the carb command are no longer automatically saved in a file

@@ -1,3 +1,4 @@
+\encoding{latin1}
 \name{phinsi}
 \alias{phinsi}
 \title{pH at in situ temperature}

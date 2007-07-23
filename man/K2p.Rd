@@ -1,3 +1,4 @@
+\encoding{latin1}
 \name{K2p}
 \alias{K2p}
 \title{Second dissociation constant of phosphoric acid (mol/kg)}
