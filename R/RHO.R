@@ -47,5 +47,6 @@ function(S=35,T=25,P=0){
 	#------------- Density of seawater at S,T,P
 	rho = rho0/(1-P/Ksbm);
 	attr(rho,"unit") = "(kg/m3)"
-	print(rho);
+    return(rho)
+#	print(rho);
 	}

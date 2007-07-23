@@ -13,6 +13,6 @@
 function(S=35,T=25,P=0){
 
 bor = (416.*(S/35.))* 1e-6;   # (mol/kg), DOE94
-attr(bor,"unit") <- "mol/kg"
-print(bor);
+#attr(bor,"unit") <- "mol/kg"
+#print(bor);
 }
