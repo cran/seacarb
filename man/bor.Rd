@@ -1,8 +1,9 @@
+\encoding{latin1}
 \name{bor}
 \alias{bor}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Total boron concentration (mol/kg)}
-\description{total boron concentration (mol/kg)}
+\description{total boron concentration (\eqn{mol\ kg^{-1}})}
 \usage{
 bor(S, T, P)
 }
@@ -15,7 +16,7 @@ bor(S, T, P)
 
 
 \value{
-  \item{bor}{total boron concentration (mol/kg)}
+  \item{bor}{total boron concentration (\eqn{mol\ kg^{-1}}))}
 
 }
 \references{DOE 1994 \emph{Handbook of methods for the analysis of the various parameters of the carbon dioxide system in sea water}. ORNL/CDIAC-74. Oak Ridge,Tenn.: Carbon Dioxide Information Analysis Center, Oak Ridge National Laboratory.}

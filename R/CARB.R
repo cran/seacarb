@@ -55,6 +55,11 @@ resultat="carb.out";
 # flag = 13     CO3 and ALK given
 # flag = 14     CO3 and DIC given
 # flag = 15     ALK and DIC given
+# flag = 21     pH-pCO2 given
+# flag = 22     pCO2-HCO3 given
+# flag = 23     pCO2-CO3 given
+# flag = 24     pCO2-ALK given
+# flag = 25     pCO2-DIC given
 
 	if (flag==1)
 	{
@@ -143,6 +148,36 @@ resultat="carb.out";
 	if (flag==15)
 	{
 	ALK=var1;
+	DIC=var2;
+	}
+
+	if (flag==21)
+	{
+	pH=var1;
+	pCO2=var2;
+	}
+
+	if (flag==22)
+	{
+	pCO2=var1;
+	HOC3=var2;
+	}
+
+	if (flag==23)
+	{
+	pCO2=var1;
+	CO3=var2;
+	}
+
+	if (flag==24)
+	{
+	pCO2=var1;
+	ALK=var2;
+	}
+
+	if (flag==25)
+	{
+	pCO2=var1;
 	DIC=var2;
 	}
 
@@ -1824,13 +1859,11 @@ return(res)
 	Oa = ((0.01028*(S/35))*CO3)/Kspa;
 	Oc = ((0.01028*(S/35))*CO3)/Kspc;
 
-
 	# JME: corrected fugacity calculation
 	# B=(-1636.75+12.0408*TC-0.0327957*(TC*TC)+0.0000316528*(TC*TC*TC))^-6;
 	# fCO2= pCO2*exp(((P+1)*100000)*(B+2*((57.7-0.118*TC)^-6))/(8.314*TC))
 	B=(-1636.75+12.0408*TC-0.0327957*(TC*TC)+0.0000316528*(TC*TC*TC))*1e-6;
 	fCO2= pCO2*exp(((P+1)*100000)*(B+2*(57.7-0.118*TC)*1e-6)/(8.314*TC))
-
 
 	DD=-((-Kb*bor)/((h+Kb)*(h+Kb)))-(-Kw/((h)*(h)))+1;
 	A= (2*K2*(2*CO3+HCO3)+h*(h+2*K2)*DD)/((h+2*K2)*(h+2*K2));
@@ -1839,10 +1872,8 @@ return(res)
 	PhiD=-1/(h*log(10) * ( B+A+C ) );
 	BetaD=-h*log(10)*DIC/CO2*B*PhiD;
 
-
 	Q=(h+2*K2);
 	V=(Kb*bor)/((h+Kb)*(h+Kb)) + Kw/(h*h)+1;
-
 
 	DB=(( K2*(2*CO3+HCO3)+ Q*V *(h+K2)+(h/K1)*( (2*CO3+HCO3)*Q+2*K2*(2*CO3+HCO3)+h*Q*V))/Q)*(1/(Q-(h+K2+h*h/K1)))-((-Kb*bor)/((h+Kb)*(h+Kb)))-(-Kw/((h)*(h)))+1;
 	A= (2*K2*(2*CO3+HCO3)+h*(h+2*K2)*DB)/((h+2*K2)*(h+2*K2));
@@ -1851,7 +1882,6 @@ return(res)
 	PhiB=-1/(h*log(10) * ( B+A+C ) );
 	BetaB=-h*log(10)*DIC/CO2*B*PhiB;
 
-
 	DC=2*(( K2*(2*CO3+HCO3)+ Q*V *(h+K2)+(h/K1)*( (2*CO3+HCO3)*Q+2*K2*(2*CO3+HCO3)+h*Q*V))/Q)*(1/(Q-2*(h+K2+h*h/K1)))-((-Kb*bor)/((h+Kb)*(h+Kb)))-(-Kw/((h)*(h)))+1;
 	A= (2*K2*(2*CO3+HCO3)+h*(h+2*K2)*DC)/((h+2*K2)*(h+2*K2));
 	B=( ( (2*CO3+HCO3) * h)/((h+2*K2)*K1) + (h/K1)* A );
@@ -1859,22 +1889,16 @@ return(res)
 	PhiC=-1/(h*log(10) * ( B+A+C ) );
 	BetaC=-h*log(10)*DIC/CO2*B*PhiC;
 
-
 	D1=(K1*(K1*K2-h*h)*DIC)   /  ((h*h+h*K1+K1*K2)*(h*h+h*K1+K1*K2));
 	D2=(-K1*K2*(2*h+K1)*DIC)  /  ((h*h+h*K1+K1*K2)*(h*h+h*K1+K1*K2));
 	D=D1+2*D2;
 	PhiH=1/ (h*log(10)* (D +(-Kb*bor/((h+Kb)*(h+Kb)))  + (-Kw/(h*h))-1))  ;
-
 
 	Pi=(h*K1*(h+2*K2)*DIC)  /  ((h*h+h*K1+K1*K2)*(h*h+h*K1+K1*K2));
 	PiH=((-h/Kh)*log(10)*Pi)*PhiH;
 	PiB=CO2/(Kh*DIC)*BetaB;
 	PiD=CO2/(Kh*DIC)*BetaD;
 	PiC=CO2/(Kh*DIC)*BetaC;
-
-
-
-
 
 	date=date();
 		col <- c("date", "flag", "Salinity", "Temperature", "Pressure", "pH", "CO2", "pCO2", "fCO2", "HCO3", "CO3", "DIC", "ALK", "OmegaAragonite", "OmegaCalcite", "PhiD", "BetaD", "PiD", "PhiB", "BetaB", "PiB", "PhiC", "BetaC", "PiC", "PhiH", "PiH")
@@ -1883,8 +1907,359 @@ return(res)
 
 	}
 
+	# ------------ case 21 pH and PCO2 given, first implemented by Jim Orr ------------------
 
+	PHpCO2 <- function(PH, pCO2, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P)
+	{
+	#disp('flag = 21, pH and PCO2 given');
+	h=10^(-PH);
+	s = pCO2 * Kh/1.e6;
+	CO2=s;
+	DIC = s*(1+K1/h+K1*K2/h/h);
+	HCO3 = DIC/(1+h/K1+K2/h);
+	CO3 = DIC/(1+h/K2+h*h/K1/K2);
+	ALK = s*(K1/h+2.*K1*K2/h/h)+Kb*bor/(Kb+h)+Kw/h-h;                        
 
+	Oa = ((0.01028*(S/35))*CO3)/Kspa;
+	Oc = ((0.01028*(S/35))*CO3)/Kspc;
+
+	# JME: corrected fugacity calculation
+	# B=(-1636.75+12.0408*TC-0.0327957*(TC*TC)+0.0000316528*(TC*TC*TC))^-6;
+	# fCO2= pCO2*exp(((P+1)*100000)*(B+2*((57.7-0.118*TC)^-6))/(8.314*TC))
+	B=(-1636.75+12.0408*TC-0.0327957*(TC*TC)+0.0000316528*(TC*TC*TC))*1e-6;
+	fCO2= pCO2*exp(((P+1)*100000)*(B+2*(57.7-0.118*TC)*1e-6)/(8.314*TC))
+
+	DD=-((-Kb*bor)/((h+Kb)*(h+Kb)))-(-Kw/((h)*(h)))+1;
+	A= (2*K2*(2*CO3+HCO3)+h*(h+2*K2)*DD)/((h+2*K2)*(h+2*K2));
+	B=( ( (2*CO3+HCO3) * h)/((h+2*K2)*K1) + (h/K1)* A );
+	C= (-K2*(2*CO3+HCO3)+K2*(2*K2+h)*DD)/((h+2*K2)*(h+2*K2));
+	PhiD=-1/(h*log(10) * ( B+A+C ) );
+	BetaD=-h*log(10)*DIC/CO2*B*PhiD;
+
+	Q=(h+2*K2);
+	V=(Kb*bor)/((h+Kb)*(h+Kb)) + Kw/(h*h)+1;
+
+	DB=(( K2*(2*CO3+HCO3)+ Q*V *(h+K2)+(h/K1)*( (2*CO3+HCO3)*Q+2*K2*(2*CO3+HCO3)+h*Q*V))/Q)*(1/(Q-(h+K2+h*h/K1)))-((-Kb*bor)/((h+Kb)*(h+Kb)))-(-Kw/((h)*(h)))+1;
+	A= (2*K2*(2*CO3+HCO3)+h*(h+2*K2)*DB)/((h+2*K2)*(h+2*K2));
+	B=( ( (2*CO3+HCO3) * h)/((h+2*K2)*K1) + (h/K1)* A );
+	C= (-K2*(2*CO3+HCO3)+K2*(2*K2+h)*DB)/((h+2*K2)*(h+2*K2));
+	PhiB=-1/(h*log(10) * ( B+A+C ) );
+	BetaB=-h*log(10)*DIC/CO2*B*PhiB;
+
+	DC=2*(( K2*(2*CO3+HCO3)+ Q*V *(h+K2)+(h/K1)*( (2*CO3+HCO3)*Q+2*K2*(2*CO3+HCO3)+h*Q*V))/Q)*(1/(Q-2*(h+K2+h*h/K1)))-((-Kb*bor)/((h+Kb)*(h+Kb)))-(-Kw/((h)*(h)))+1;
+	A= (2*K2*(2*CO3+HCO3)+h*(h+2*K2)*DC)/((h+2*K2)*(h+2*K2));
+	B=( ( (2*CO3+HCO3) * h)/((h+2*K2)*K1) + (h/K1)* A );
+	C= (-K2*(2*CO3+HCO3)+K2*(2*K2+h)*DC)/((h+2*K2)*(h+2*K2));
+	PhiC=-1/(h*log(10) * ( B+A+C ) );
+	BetaC=-h*log(10)*DIC/CO2*B*PhiC;
+
+	D1=(K1*(K1*K2-h*h)*DIC)   /  ((h*h+h*K1+K1*K2)*(h*h+h*K1+K1*K2));
+	D2=(-K1*K2*(2*h+K1)*DIC)  /  ((h*h+h*K1+K1*K2)*(h*h+h*K1+K1*K2));
+	D=D1+2*D2;
+	PhiH=1/ (h*log(10)* (D +(-Kb*bor/((h+Kb)*(h+Kb)))  + (-Kw/(h*h))-1))  ;
+
+	Pi=(h*K1*(h+2*K2)*DIC)  /  ((h*h+h*K1+K1*K2)*(h*h+h*K1+K1*K2));
+	PiH=((-h/Kh)*log(10)*Pi)*PhiH;
+	PiB=CO2/(Kh*DIC)*BetaB;
+	PiD=CO2/(Kh*DIC)*BetaD;
+	PiC=CO2/(Kh*DIC)*BetaC;
+
+	date=date();
+		col <- c("date", "flag", "Salinity", "Temperature", "Pressure", "pH", "CO2", "pCO2", "fCO2", "HCO3", "CO3", "DIC", "ALK", "OmegaAragonite", "OmegaCalcite", "PhiD", "BetaD", "PiD", "PhiB", "BetaB", "PiB", "PhiC", "BetaC", "PiC", "PhiH", "PiH")
+	res<-data.frame(date,flag,S,T,P,PH,CO2,pCO2,fCO2,HCO3,CO3,DIC,ALK,Oa,Oc,PhiD,BetaD,PiD,PhiB,BetaB,PiB,PhiC,BetaC,PiC,PhiH,PiH);
+return(res)
+
+	}
+	
+	# ------------ case 22 pCO2 and HCO3 given, first implemented by Jim Orr ------------------
+
+	pCO2HCO3 <- function(pCO2, HOC3, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P)
+	{
+	#disp('flag = 22, pCO2 and HCO3 given');
+	s = pCO2 * Kh/1.e6;
+	CO2=s;
+	HCO3 = HCO3;
+	p3 = -HCO3/K1;
+	p2 = s - HCO3;
+	p1 = s*K1 - HCO3*K2;
+	p0 = s*K1*K2;
+	p = c(p0, p1, p2, p3);
+	r = polyroot(p);
+	h = max(Re(r));
+	DIC = s*(1.+K1/h+K1*K2/h/h);
+	CO3 = DIC/(1+h/K2+h*h/K1/K2);
+	ALK = s*(K1/h+2*K1*K2/h/h)+Kb*bor/(Kb+h)+Kw/h-h;
+	CO2=s;
+	PH = -log10(h);
+
+	Oa = ((0.01028*(S/35))*CO3)/Kspa;
+	Oc = ((0.01028*(S/35))*CO3)/Kspc;
+
+	# JME: corrected fugacity calculation
+	# B=(-1636.75+12.0408*TC-0.0327957*(TC*TC)+0.0000316528*(TC*TC*TC))^-6;
+	# fCO2= pCO2*exp(((P+1)*100000)*(B+2*((57.7-0.118*TC)^-6))/(8.314*TC))
+	B=(-1636.75+12.0408*TC-0.0327957*(TC*TC)+0.0000316528*(TC*TC*TC))*1e-6;
+	fCO2= pCO2*exp(((P+1)*100000)*(B+2*(57.7-0.118*TC)*1e-6)/(8.314*TC))
+
+	DD=-((-Kb*bor)/((h+Kb)*(h+Kb)))-(-Kw/((h)*(h)))+1;
+	A= (2*K2*(2*CO3+HCO3)+h*(h+2*K2)*DD)/((h+2*K2)*(h+2*K2));
+	B=( ( (2*CO3+HCO3) * h)/((h+2*K2)*K1) + (h/K1)* A );
+	C= (-K2*(2*CO3+HCO3)+K2*(2*K2+h)*DD)/((h+2*K2)*(h+2*K2));
+	PhiD=-1/(h*log(10) * ( B+A+C ) );
+	BetaD=-h*log(10)*DIC/CO2*B*PhiD;
+
+	Q=(h+2*K2);
+	V=(Kb*bor)/((h+Kb)*(h+Kb)) + Kw/(h*h)+1;
+
+	DB=(( K2*(2*CO3+HCO3)+ Q*V *(h+K2)+(h/K1)*( (2*CO3+HCO3)*Q+2*K2*(2*CO3+HCO3)+h*Q*V))/Q)*(1/(Q-(h+K2+h*h/K1)))-((-Kb*bor)/((h+Kb)*(h+Kb)))-(-Kw/((h)*(h)))+1;
+	A= (2*K2*(2*CO3+HCO3)+h*(h+2*K2)*DB)/((h+2*K2)*(h+2*K2));
+	B=( ( (2*CO3+HCO3) * h)/((h+2*K2)*K1) + (h/K1)* A );
+	C= (-K2*(2*CO3+HCO3)+K2*(2*K2+h)*DB)/((h+2*K2)*(h+2*K2));
+	PhiB=-1/(h*log(10) * ( B+A+C ) );
+	BetaB=-h*log(10)*DIC/CO2*B*PhiB;
+
+	DC=2*(( K2*(2*CO3+HCO3)+ Q*V *(h+K2)+(h/K1)*( (2*CO3+HCO3)*Q+2*K2*(2*CO3+HCO3)+h*Q*V))/Q)*(1/(Q-2*(h+K2+h*h/K1)))-((-Kb*bor)/((h+Kb)*(h+Kb)))-(-Kw/((h)*(h)))+1;
+	A= (2*K2*(2*CO3+HCO3)+h*(h+2*K2)*DC)/((h+2*K2)*(h+2*K2));
+	B=( ( (2*CO3+HCO3) * h)/((h+2*K2)*K1) + (h/K1)* A );
+	C= (-K2*(2*CO3+HCO3)+K2*(2*K2+h)*DC)/((h+2*K2)*(h+2*K2));
+	PhiC=-1/(h*log(10) * ( B+A+C ) );
+	BetaC=-h*log(10)*DIC/CO2*B*PhiC;
+
+	D1=(K1*(K1*K2-h*h)*DIC)   /  ((h*h+h*K1+K1*K2)*(h*h+h*K1+K1*K2));
+	D2=(-K1*K2*(2*h+K1)*DIC)  /  ((h*h+h*K1+K1*K2)*(h*h+h*K1+K1*K2));
+	D=D1+2*D2;
+	PhiH=1/ (h*log(10)* (D +(-Kb*bor/((h+Kb)*(h+Kb)))  + (-Kw/(h*h))-1))  ;
+
+	Pi=(h*K1*(h+2*K2)*DIC)  /  ((h*h+h*K1+K1*K2)*(h*h+h*K1+K1*K2));
+	PiH=((-h/Kh)*log(10)*Pi)*PhiH;
+	PiB=CO2/(Kh*DIC)*BetaB;
+	PiD=CO2/(Kh*DIC)*BetaD;
+	PiC=CO2/(Kh*DIC)*BetaC;
+
+	date=date();
+		col <- c("date", "flag", "Salinity", "Temperature", "Pressure", "pH", "CO2", "pCO2", "fCO2", "HCO3", "CO3", "DIC", "ALK", "OmegaAragonite", "OmegaCalcite", "PhiD", "BetaD", "PiD", "PhiB", "BetaB", "PiB", "PhiC", "BetaC", "PiC", "PhiH", "PiH")
+	res<-data.frame(date,flag,S,T,P,PH,CO2,pCO2,fCO2,HCO3,CO3,DIC,ALK,Oa,Oc,PhiD,BetaD,PiD,PhiB,BetaB,PiB,PhiC,BetaC,PiC,PhiH,PiH);
+return(res)
+
+	}
+	
+	# ------------ case 23 pCO2 and CO3 given given, first implemented by Jim Orr ------------------
+
+	pCO2CO3 <- function(pCO2, CO3, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P)
+	{
+	#disp('flag = 23, pCO2 and CO3 given');
+	s = pCO2 * Kh/1.e6;
+	CO2=s;
+	CO3 = CO3;
+	p4 = -CO3/K1/K2;
+	p3 = -CO3/K2;
+	p2 = s-CO3;
+	p1 = s*K1;
+	p0 = s*K1*K2;
+	p = c(p0, p1, p2, p3, p4);    
+	r = polyroot(p);
+	h = max(Re(r));
+	DIC = s*(1.+K1/h+K1*K2/h/h);
+	HCO3 = DIC/(1+h/K1+K2/h);
+	ALK = s*(K1/h+2.*K1*K2/h/h)+Kb*bor/(Kb+h)+Kw/h-h;
+	CO2=s;
+	PH = -log10(h);
+
+	Oa = ((0.01028*(S/35))*CO3)/Kspa;
+	Oc = ((0.01028*(S/35))*CO3)/Kspc;
+
+	# JME: corrected fugacity calculation
+	# B=(-1636.75+12.0408*TC-0.0327957*(TC*TC)+0.0000316528*(TC*TC*TC))^-6;
+	# fCO2= pCO2*exp(((P+1)*100000)*(B+2*((57.7-0.118*TC)^-6))/(8.314*TC))
+	B=(-1636.75+12.0408*TC-0.0327957*(TC*TC)+0.0000316528*(TC*TC*TC))*1e-6;
+	fCO2= pCO2*exp(((P+1)*100000)*(B+2*(57.7-0.118*TC)*1e-6)/(8.314*TC))
+
+	DD=-((-Kb*bor)/((h+Kb)*(h+Kb)))-(-Kw/((h)*(h)))+1;
+	A= (2*K2*(2*CO3+HCO3)+h*(h+2*K2)*DD)/((h+2*K2)*(h+2*K2));
+	B=( ( (2*CO3+HCO3) * h)/((h+2*K2)*K1) + (h/K1)* A );
+	C= (-K2*(2*CO3+HCO3)+K2*(2*K2+h)*DD)/((h+2*K2)*(h+2*K2));
+	PhiD=-1/(h*log(10) * ( B+A+C ) );
+	BetaD=-h*log(10)*DIC/CO2*B*PhiD;
+
+	Q=(h+2*K2);
+	V=(Kb*bor)/((h+Kb)*(h+Kb)) + Kw/(h*h)+1;
+
+	DB=(( K2*(2*CO3+HCO3)+ Q*V *(h+K2)+(h/K1)*( (2*CO3+HCO3)*Q+2*K2*(2*CO3+HCO3)+h*Q*V))/Q)*(1/(Q-(h+K2+h*h/K1)))-((-Kb*bor)/((h+Kb)*(h+Kb)))-(-Kw/((h)*(h)))+1;
+	A= (2*K2*(2*CO3+HCO3)+h*(h+2*K2)*DB)/((h+2*K2)*(h+2*K2));
+	B=( ( (2*CO3+HCO3) * h)/((h+2*K2)*K1) + (h/K1)* A );
+	C= (-K2*(2*CO3+HCO3)+K2*(2*K2+h)*DB)/((h+2*K2)*(h+2*K2));
+	PhiB=-1/(h*log(10) * ( B+A+C ) );
+	BetaB=-h*log(10)*DIC/CO2*B*PhiB;
+
+	DC=2*(( K2*(2*CO3+HCO3)+ Q*V *(h+K2)+(h/K1)*( (2*CO3+HCO3)*Q+2*K2*(2*CO3+HCO3)+h*Q*V))/Q)*(1/(Q-2*(h+K2+h*h/K1)))-((-Kb*bor)/((h+Kb)*(h+Kb)))-(-Kw/((h)*(h)))+1;
+	A= (2*K2*(2*CO3+HCO3)+h*(h+2*K2)*DC)/((h+2*K2)*(h+2*K2));
+	B=( ( (2*CO3+HCO3) * h)/((h+2*K2)*K1) + (h/K1)* A );
+	C= (-K2*(2*CO3+HCO3)+K2*(2*K2+h)*DC)/((h+2*K2)*(h+2*K2));
+	PhiC=-1/(h*log(10) * ( B+A+C ) );
+	BetaC=-h*log(10)*DIC/CO2*B*PhiC;
+
+	D1=(K1*(K1*K2-h*h)*DIC)   /  ((h*h+h*K1+K1*K2)*(h*h+h*K1+K1*K2));
+	D2=(-K1*K2*(2*h+K1)*DIC)  /  ((h*h+h*K1+K1*K2)*(h*h+h*K1+K1*K2));
+	D=D1+2*D2;
+	PhiH=1/ (h*log(10)* (D +(-Kb*bor/((h+Kb)*(h+Kb)))  + (-Kw/(h*h))-1))  ;
+
+	Pi=(h*K1*(h+2*K2)*DIC)  /  ((h*h+h*K1+K1*K2)*(h*h+h*K1+K1*K2));
+	PiH=((-h/Kh)*log(10)*Pi)*PhiH;
+	PiB=CO2/(Kh*DIC)*BetaB;
+	PiD=CO2/(Kh*DIC)*BetaD;
+	PiC=CO2/(Kh*DIC)*BetaC;
+
+	date=date();
+		col <- c("date", "flag", "Salinity", "Temperature", "Pressure", "pH", "CO2", "pCO2", "fCO2", "HCO3", "CO3", "DIC", "ALK", "OmegaAragonite", "OmegaCalcite", "PhiD", "BetaD", "PiD", "PhiB", "BetaB", "PiB", "PhiC", "BetaC", "PiC", "PhiH", "PiH")
+	res<-data.frame(date,flag,S,T,P,PH,CO2,pCO2,fCO2,HCO3,CO3,DIC,ALK,Oa,Oc,PhiD,BetaD,PiD,PhiB,BetaB,PiB,PhiC,BetaC,PiC,PhiH,PiH);
+return(res)
+
+	}
+	
+	# ------------ case 24 pCO2 and ALK given, first implemented by Jim Orr ------------------
+
+	pCO2ALK <- function(pCO2, ALK, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P)
+	{
+	#disp('flag = 24, pCO2 and ALK given');
+	s = pCO2 * Kh/1.e6;
+	CO2=s;
+	ALK = ALK;
+	p4 = 1.;              
+	p3 = Kb+ALK;
+	p2 = ALK*Kb-s*K1-Kb*bor-Kw;
+	p1 = -s*Kb*K1-s*2.*K1*K2-Kw*Kb;
+	p0 = -2.*s*Kb*K1*K2;
+	p = c(p0, p1, p2, p3, p4);
+	r = polyroot(p);
+	h = max(Re(r));
+	DIC = s*(1.+K1/h+K1*K2/h/h);
+	HCO3 = DIC/(1+h/K1+K2/h);
+	CO3 = DIC/(1+h/K2+h*h/K1/K2);
+	PH=-log10(h);
+
+	Oa = ((0.01028*(S/35))*CO3)/Kspa;
+	Oc = ((0.01028*(S/35))*CO3)/Kspc;
+
+	# JME: corrected fugacity calculation
+	# B=(-1636.75+12.0408*TC-0.0327957*(TC*TC)+0.0000316528*(TC*TC*TC))^-6;
+	# fCO2= pCO2*exp(((P+1)*100000)*(B+2*((57.7-0.118*TC)^-6))/(8.314*TC))
+	B=(-1636.75+12.0408*TC-0.0327957*(TC*TC)+0.0000316528*(TC*TC*TC))*1e-6;
+	fCO2= pCO2*exp(((P+1)*100000)*(B+2*(57.7-0.118*TC)*1e-6)/(8.314*TC))
+
+	DD=-((-Kb*bor)/((h+Kb)*(h+Kb)))-(-Kw/((h)*(h)))+1;
+	A= (2*K2*(2*CO3+HCO3)+h*(h+2*K2)*DD)/((h+2*K2)*(h+2*K2));
+	B=( ( (2*CO3+HCO3) * h)/((h+2*K2)*K1) + (h/K1)* A );
+	C= (-K2*(2*CO3+HCO3)+K2*(2*K2+h)*DD)/((h+2*K2)*(h+2*K2));
+	PhiD=-1/(h*log(10) * ( B+A+C ) );
+	BetaD=-h*log(10)*DIC/CO2*B*PhiD;
+
+	Q=(h+2*K2);
+	V=(Kb*bor)/((h+Kb)*(h+Kb)) + Kw/(h*h)+1;
+
+	DB=(( K2*(2*CO3+HCO3)+ Q*V *(h+K2)+(h/K1)*( (2*CO3+HCO3)*Q+2*K2*(2*CO3+HCO3)+h*Q*V))/Q)*(1/(Q-(h+K2+h*h/K1)))-((-Kb*bor)/((h+Kb)*(h+Kb)))-(-Kw/((h)*(h)))+1;
+	A= (2*K2*(2*CO3+HCO3)+h*(h+2*K2)*DB)/((h+2*K2)*(h+2*K2));
+	B=( ( (2*CO3+HCO3) * h)/((h+2*K2)*K1) + (h/K1)* A );
+	C= (-K2*(2*CO3+HCO3)+K2*(2*K2+h)*DB)/((h+2*K2)*(h+2*K2));
+	PhiB=-1/(h*log(10) * ( B+A+C ) );
+	BetaB=-h*log(10)*DIC/CO2*B*PhiB;
+
+	DC=2*(( K2*(2*CO3+HCO3)+ Q*V *(h+K2)+(h/K1)*( (2*CO3+HCO3)*Q+2*K2*(2*CO3+HCO3)+h*Q*V))/Q)*(1/(Q-2*(h+K2+h*h/K1)))-((-Kb*bor)/((h+Kb)*(h+Kb)))-(-Kw/((h)*(h)))+1;
+	A= (2*K2*(2*CO3+HCO3)+h*(h+2*K2)*DC)/((h+2*K2)*(h+2*K2));
+	B=( ( (2*CO3+HCO3) * h)/((h+2*K2)*K1) + (h/K1)* A );
+	C= (-K2*(2*CO3+HCO3)+K2*(2*K2+h)*DC)/((h+2*K2)*(h+2*K2));
+	PhiC=-1/(h*log(10) * ( B+A+C ) );
+	BetaC=-h*log(10)*DIC/CO2*B*PhiC;
+
+	D1=(K1*(K1*K2-h*h)*DIC)   /  ((h*h+h*K1+K1*K2)*(h*h+h*K1+K1*K2));
+	D2=(-K1*K2*(2*h+K1)*DIC)  /  ((h*h+h*K1+K1*K2)*(h*h+h*K1+K1*K2));
+	D=D1+2*D2;
+	PhiH=1/ (h*log(10)* (D +(-Kb*bor/((h+Kb)*(h+Kb)))  + (-Kw/(h*h))-1))  ;
+
+	Pi=(h*K1*(h+2*K2)*DIC)  /  ((h*h+h*K1+K1*K2)*(h*h+h*K1+K1*K2));
+	PiH=((-h/Kh)*log(10)*Pi)*PhiH;
+	PiB=CO2/(Kh*DIC)*BetaB;
+	PiD=CO2/(Kh*DIC)*BetaD;
+	PiC=CO2/(Kh*DIC)*BetaC;
+
+	date=date();
+		col <- c("date", "flag", "Salinity", "Temperature", "Pressure", "pH", "CO2", "pCO2", "fCO2", "HCO3", "CO3", "DIC", "ALK", "OmegaAragonite", "OmegaCalcite", "PhiD", "BetaD", "PiD", "PhiB", "BetaB", "PiB", "PhiC", "BetaC", "PiC", "PhiH", "PiH")
+	res<-data.frame(date,flag,S,T,P,PH,CO2,pCO2,fCO2,HCO3,CO3,DIC,ALK,Oa,Oc,PhiD,BetaD,PiD,PhiB,BetaB,PiB,PhiC,BetaC,PiC,PhiH,PiH);
+return(res)
+
+	}
+	
+
+	# ------------ case 25 pCO2 and DIC given, first implemented by Jim Orr ------------------
+
+	pCO2DIC <- function(pCO2, DIC, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P)
+	{
+	#disp('flag = 5, pCO2 and DIC given');
+	s = pCO2 * Kh/1.e6;
+	CO2=s;
+	DIC = DIC;
+	p2 = DIC - s;
+	p1 = -s*K1;
+	p0 = -s*K1*K2;
+	p = c(p0, p1, p2);
+	r = polyroot(p);
+	h = max(Re(r));
+	PH=-log10(h);
+	HCO3 = DIC/(1+h/K1+K2/h);
+	CO3 = DIC/(1+h/K2+h*h/K1/K2);
+	ALK = s*(K1/h+2.*K1*K2/h/h)+Kb*bor/(Kb+h)+Kw/h-h;
+	CO2=s;
+
+	Oa = ((0.01028*(S/35))*CO3)/Kspa;
+	Oc = ((0.01028*(S/35))*CO3)/Kspc;
+
+	# JME: corrected fugacity calculation
+	# B=(-1636.75+12.0408*TC-0.0327957*(TC*TC)+0.0000316528*(TC*TC*TC))^-6;
+	# fCO2= pCO2*exp(((P+1)*100000)*(B+2*((57.7-0.118*TC)^-6))/(8.314*TC))
+	B=(-1636.75+12.0408*TC-0.0327957*(TC*TC)+0.0000316528*(TC*TC*TC))*1e-6;
+	fCO2= pCO2*exp(((P+1)*100000)*(B+2*(57.7-0.118*TC)*1e-6)/(8.314*TC))
+
+	DD=-((-Kb*bor)/((h+Kb)*(h+Kb)))-(-Kw/((h)*(h)))+1;
+	A= (2*K2*(2*CO3+HCO3)+h*(h+2*K2)*DD)/((h+2*K2)*(h+2*K2));
+	B=( ( (2*CO3+HCO3) * h)/((h+2*K2)*K1) + (h/K1)* A );
+	C= (-K2*(2*CO3+HCO3)+K2*(2*K2+h)*DD)/((h+2*K2)*(h+2*K2));
+	PhiD=-1/(h*log(10) * ( B+A+C ) );
+	BetaD=-h*log(10)*DIC/CO2*B*PhiD;
+
+	Q=(h+2*K2);
+	V=(Kb*bor)/((h+Kb)*(h+Kb)) + Kw/(h*h)+1;
+
+	DB=(( K2*(2*CO3+HCO3)+ Q*V *(h+K2)+(h/K1)*( (2*CO3+HCO3)*Q+2*K2*(2*CO3+HCO3)+h*Q*V))/Q)*(1/(Q-(h+K2+h*h/K1)))-((-Kb*bor)/((h+Kb)*(h+Kb)))-(-Kw/((h)*(h)))+1;
+	A= (2*K2*(2*CO3+HCO3)+h*(h+2*K2)*DB)/((h+2*K2)*(h+2*K2));
+	B=( ( (2*CO3+HCO3) * h)/((h+2*K2)*K1) + (h/K1)* A );
+	C= (-K2*(2*CO3+HCO3)+K2*(2*K2+h)*DB)/((h+2*K2)*(h+2*K2));
+	PhiB=-1/(h*log(10) * ( B+A+C ) );
+	BetaB=-h*log(10)*DIC/CO2*B*PhiB;
+
+	DC=2*(( K2*(2*CO3+HCO3)+ Q*V *(h+K2)+(h/K1)*( (2*CO3+HCO3)*Q+2*K2*(2*CO3+HCO3)+h*Q*V))/Q)*(1/(Q-2*(h+K2+h*h/K1)))-((-Kb*bor)/((h+Kb)*(h+Kb)))-(-Kw/((h)*(h)))+1;
+	A= (2*K2*(2*CO3+HCO3)+h*(h+2*K2)*DC)/((h+2*K2)*(h+2*K2));
+	B=( ( (2*CO3+HCO3) * h)/((h+2*K2)*K1) + (h/K1)* A );
+	C= (-K2*(2*CO3+HCO3)+K2*(2*K2+h)*DC)/((h+2*K2)*(h+2*K2));
+	PhiC=-1/(h*log(10) * ( B+A+C ) );
+	BetaC=-h*log(10)*DIC/CO2*B*PhiC;
+
+	D1=(K1*(K1*K2-h*h)*DIC)   /  ((h*h+h*K1+K1*K2)*(h*h+h*K1+K1*K2));
+	D2=(-K1*K2*(2*h+K1)*DIC)  /  ((h*h+h*K1+K1*K2)*(h*h+h*K1+K1*K2));
+	D=D1+2*D2;
+	PhiH=1/ (h*log(10)* (D +(-Kb*bor/((h+Kb)*(h+Kb)))  + (-Kw/(h*h))-1))  ;
+
+	Pi=(h*K1*(h+2*K2)*DIC)  /  ((h*h+h*K1+K1*K2)*(h*h+h*K1+K1*K2));
+	PiH=((-h/Kh)*log(10)*Pi)*PhiH;
+	PiB=CO2/(Kh*DIC)*BetaB;
+	PiD=CO2/(Kh*DIC)*BetaD;
+	PiC=CO2/(Kh*DIC)*BetaC;
+
+	date=date();
+		col <- c("date", "flag", "Salinity", "Temperature", "Pressure", "pH", "CO2", "pCO2", "fCO2", "HCO3", "CO3", "DIC", "ALK", "OmegaAragonite", "OmegaCalcite", "PhiD", "BetaD", "PiD", "PhiB", "BetaB", "PiB", "PhiC", "BetaC", "PiC", "PhiH", "PiH")
+	res<-data.frame(date,flag,S,T,P,PH,CO2,pCO2,fCO2,HCO3,CO3,DIC,ALK,Oa,Oc,PhiD,BetaD,PiD,PhiB,BetaB,PiB,PhiC,BetaC,PiC,PhiH,PiH);
+return(res)
+
+	}
+	
 	if (flag==1)
 	{
 	res <- rbind(res, PHCO2(PH, CO2, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P))
@@ -1958,6 +2333,31 @@ return(res)
 	if (flag==15)
 	{
 	res <- rbind(res, ALKDIC(ALK, DIC, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P))
+	}
+	
+	if (flag==21)
+	{
+	res <- rbind(res, PHpCO2(PH, pCO2, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P))
+	}
+	
+	if (flag==22)
+	{
+	res <- rbind(res, pCO2HCO3(pCO2, HCO3, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P))
+	}
+	
+	if (flag==23)
+	{
+	res <- rbind(res, pCO2CO3(pCO2, CO3, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P))
+	}
+	
+	if (flag==24)
+	{
+	res <- rbind(res, pCO2ALK(pCO2, ALK, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P))
+	}
+	
+	if (flag==25)
+	{
+	res <- rbind(res, pCO2DIC(pCO2, DIC, K1, K2, bor, Kb, Kw, Kh, Kspa, Kspc, S, TC, P))
 	}
 	
 	

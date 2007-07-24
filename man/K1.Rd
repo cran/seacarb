@@ -1,3 +1,4 @@
+\encoding{latin1}
 \name{K1}
 \alias{K1}
 \title{First dissociation constant of carbonic acid (mol/kg)}
@@ -26,12 +27,14 @@ Lueker, T. J. Dickson, A. G. and Keeling, C. D. 2000 Ocean pCO2 calculated from 
 
 Mehrbach, C. Culberson, C. H. Hawley, J. E. and Pytkowicz, R. M. 1973 Measurement of the apparent dissociation constants of carbonic acid in seawater at atmospheric pressure. \emph{Limnology and Oceanography} \bold{18}, 897-907.
 
-Roy, R. N. Roy, L. N. Vogel, K. M. Porter-Moore, C. Pearson, T. Good C. E., Millero F. J. and Campbell D. M., 1993. The dissociation constants of carbonic acid in seawater at salinities 5 to 45 and temperatures 0 to 45¡C. \emph{Marine Chemistry} \bold{44}, 249-267.
+Roy, R. N. Roy, L. N. Vogel, K. M. Porter-Moore, C. Pearson, T. Good C. E., Millero F. J. and Campbell D. M., 1993. The dissociation constants of carbonic acid in seawater at salinities 5 to 45 and temperatures 0 to 45°C. \emph{Marine Chemistry} \bold{44}, 249-267.
 }
              
 \author{Aurelien Proye and Jean-Pierre Gattuso}
 
-\seealso{K2.rd}
+\seealso{
+	\code{\link{K2}}.
+}
 
 \examples{
   K1(35,25,0)

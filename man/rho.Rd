@@ -1,8 +1,9 @@
+\encoding{latin1}
 \name{rho}
 \alias{rho}
 
 \title{Density of seawater  (kg/m3)}
-\description{Density of seawater  (kg/m3)}
+\description{Calculates the density of seawater (\eqn{kg\ m^{-3}})}
 \usage{
 rho(S = 35, T = 25, P = 0)
 }

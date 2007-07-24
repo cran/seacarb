@@ -1,3 +1,4 @@
+\encoding{latin1}
 \name{Kw}
 \alias{Kw}
 \title{Ion product of water (mol2/kg2)}

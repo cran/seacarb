@@ -17,5 +17,6 @@ Kspc                    Solubility product of calcite (mol/kg)
 Kw                      Ion product of water (mol2/kg2)
 bor                     Total boron concentration (mol/kg)
 carb                    Parameters of the seawater carbonate system
+phinsi                  pH at in situ temperature
 rho                     Density of seawater (kg/m3)
 seacarb_test            Test data file to practice the use of seacarb

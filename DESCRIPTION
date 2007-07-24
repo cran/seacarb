@@ -1,11 +1,10 @@
 Package: seacarb
 Title: Calculates parameters of the seawater carbonate system
-Version: 1.01
-Date: 2006-08-04
-Author: Aurelien Proye and Jean-Pierre Gattuso, with
-	contributions from Bernard Gentili
+Version: 1.1
+Date: 2007-07-24
+Author: Aurelien Proye and Jean-Pierre Gattuso. Portions of code and/or corrections were contributed by Jean-Marie Epitalon (2004), Bernard Gentili (2006) and Jim Orr (2007).
 Description: Calculates parameters of the seawater carbonate system
 Maintainer: Jean-Pierre Gattuso <gattuso@obs-vlfr.fr>
 URL: http://www.obs-vlfr.fr/~gattuso/seacarb.php
 License: GPL version 2 or newer
-Packaged: Fri Aug  4 10:26:20 2006; gattuso
+Packaged: Tue Jul 24 16:22:36 2007; gattuso

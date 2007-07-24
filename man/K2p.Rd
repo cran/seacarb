@@ -1,3 +1,4 @@
+\encoding{latin1}
 \name{K2p}
 \alias{K2p}
 \title{Second dissociation constant of phosphoric acid (mol/kg)}
@@ -21,7 +22,10 @@ K2p(S = 35, T = 25, P = 0)
 
 \author{Aurelien Proye and Jean-Pierre Gattuso}
 
-\seealso{K1p.rd, K3p.rd}
+\seealso{
+	\code{\link{K1p}}, \code{\link{K3p}}.
+}
+
 
 \examples{
   K2p(35,25,0)

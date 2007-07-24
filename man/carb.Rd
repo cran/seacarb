@@ -45,9 +45,19 @@ flag = 13     CO3 and ALK given
 flag = 14     CO3 and DIC given
 
 flag = 15     ALK and DIC given
+
+flag = 21     pH and pCO2 given
+
+flag = 22     pCO2 and HCO3 given
+
+flag = 23     pCO2 and CO3 given
+
+flag = 24     pCO2 and ALK given
+
+flag = 25     pCO2 and DIC given
 }
-  \item{var1}{enter value of the first variable in mol/kg except for pH}
-  \item{var2}{enter value of the second variable in mol/kg except for pH}
+  \item{var1}{enter value of the first variable in \eqn{mol\ kg^{-1}}) except for pH}
+  \item{var2}{enter value of the second variable in \eqn{mol\ kg^{-1}}) except for pH}
   \item{S}{Salinity}
   \item{T}{Temperature in degrees Celsius}
   \item{P}{Hydrostatic pressure in bar (surface = 0)}
@@ -62,26 +72,26 @@ Note that the results output is NO LONGER stored in a file.}
   \item{T}{Temperature in degrees Celsius}
   \item{P}{Pressure in bar}
   \item{PH}{pH}
-  \item{CO2}{CO2 concentration (mol/kg)}
-  \item{pCO2}{pCO2, CO2 partial pressure (uatm)}
-  \item{fCO2}{fCO2, CO2 fugacity (uatm)}
-  \item{HCO3}{HCO3 concentration (mol/kg)}
-  \item{CO3}{CO3 concentration (mol/kg)}
-  \item{DIC}{DIC concentration (mol/kg)}
-  \item{ALK}{ALK, total alkalinity (mol/kg)}
+  \item{CO2}{CO2 concentration (\eqn{mol\ kg^{-1}})}
+  \item{pCO2}{pCO2, CO2 partial pressure (\eqn{\mu}atm)}
+  \item{fCO2}{fCO2, CO2 fugacity (\eqn{\mu atm})}
+  \item{HCO3}{HCO3 concentration (\eqn{mol\ kg^{-1}})}
+  \item{CO3}{CO3 concentration (\eqn{mol\ kg^{-1}})}
+  \item{DIC}{DIC concentration (\eqn{mol\ kg^{-1}})}
+  \item{ALK}{ALK, total alkalinity (\eqn{mol\ kg^{-1}})}
   \item{Oa}{Omega aragonite, aragonite saturation state}
   \item{Oc}{Omega calcite, calcite saturation state}
   \item{PhiD}{PhiD, chemical buffer factor (dpH/d[DIC]); input/output of dissolved CO2 (unit pH per mol/kg)}
   \item{BetaD}{BetaD, homogeneous buffer factor (dln(pCO2)/dln[DIC]); input/output of dissolved CO2}
-  \item{PiD}{PiD, chemical buffer factor (dpCO2/d[DIC]); input/output of dissolved CO2 (uatm per mol/kg)}
-  \item{PhiB}{PhiB, chemical buffer factor (dpH/d[DIC]); from input/output of bicarbonate (unit pH per mol/kg)}
+  \item{PiD}{PiD, chemical buffer factor (dpCO2/d[DIC]); input/output of dissolved CO2 (\eqn{\mu atm} per \eqn{mol\ kg^{-1}})}
+  \item{PhiB}{PhiB, chemical buffer factor (dpH/d[DIC]); from input/output of bicarbonate (unit pH per \eqn{mol\ kg^{-1}})}
   \item{BetaB}{BetaB, homogeneous buffer factor (dln(pCO2)/dln[DIC]); input/output of bicarbonate}
-  \item{PiB}{PiB, chemical buffer factor (dpCO2/d[DIC]); input/output of dissolved CO2 (uatm per mol/kg)}
-  \item{PhiC}{PhiC, chemical buffer factor (dpH/d[DIC]); input/output of carbonate (unit pH per mol/kg)}
+  \item{PiB}{PiB, chemical buffer factor (dpCO2/d[DIC]); input/output of dissolved CO2 (\eqn{\mu atm} per \eqn{mol\ kg^{-1}})}
+  \item{PhiC}{PhiC, chemical buffer factor (dpH/d[DIC]); input/output of carbonate (unit pH per \eqn{mol\ kg^{-1}})}
   \item{BetaC}{BetaC, homogeneous buffer factor (dln(pCO2)/dln[DIC]); input/output of carbonate}
-  \item{PiC}{PiC, chemical buffer factor (dpCO2/d[DIC]); input/output of carbonate (uatm per mol/kg)}
-  \item{PhiH}{PhiH, chemical buffer factor (dpH/d[DIC]); input/output of strong acid (unit pH per mol/kg)}
-  \item{PiH}{PiH, chemical buffer factor (dpCO2/d[DIC]); input/output of strong acid (uatm per mol/kg)}
+  \item{PiC}{PiC, chemical buffer factor (dpCO2/d[DIC]); input/output of carbonate (\eqn{\mu atm} per \eqn{mol\ kg^{-1}})}
+  \item{PhiH}{PhiH, chemical buffer factor (dpH/d[DIC]); input/output of strong acid (unit pH per \eqn{mol\ kg^{-1}})}
+  \item{PiH}{PiH, chemical buffer factor (dpCO2/d[DIC]); input/output of strong acid (\eqn{\mu atm} per \eqn{mol\ kg^{-1}})}
 }
 
 
@@ -94,11 +104,11 @@ Zeebe, R. E. and Wolf-Gladrow D. A., 2001 \emph{CO2 in seawater: equilibrium, ki
 \author{Aurelien Proye and Jean-Pierre Gattuso}
 
 \examples{
-## Using a data set provided with the package:
+% Using a data set provided with the package:
 data(seacarb_test)
 carb(seacarb_test)
 
-## Using another data set
+% Using another data set
 x1 <- data.frame(flag=8,var1=8.2,var2=2400,S=35,T=25,P=0,k1k2='r',phflag=0)
 x2 <- data.frame(flag=8,var1=8.2,var2=2400,S=30,T=30,P=0,k1k2='r',phflag=0)
 x <- rbind(x1,x2)

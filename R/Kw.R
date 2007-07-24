@@ -164,7 +164,7 @@ bor = (416.*(S/35.))* 1e-6;   # (mol/kg), DOE94
 		
 		
 	}
-	attr(Kw,"unit") = "mol2/kg2"
+	#attr(Kw,"unit") = "mol2/kg2"
 	print(Kw);
 
 }

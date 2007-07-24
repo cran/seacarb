@@ -15,7 +15,7 @@ Variables:
 \item pH scale (total scale)
 }
 \usage{seacarb_test}
-\format{A data frame with 15 rows and 8 variables}
+\format{A data frame with 20 rows and 8 variables}
 \source{None, these data were invented for this purpose}
 \references{}
 \keyword{datasets}
