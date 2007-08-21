@@ -1,4 +1,36 @@
 --------------------------
+version 1.2.1, 2007-08-21
+
+- cosmetic changes to some documentation files
+
+--------------------------
+version 1.2, 2007-08-21
+
+- added function speciation which estimates the concentration of the various ionic forms of a molecule as a function of pH (contributed by Karline Soetaert)
+- added function kconv which provides conversion factors to change the pH scale of dissociation constants (contributed by Karline Soetaert)
+- added function pHconv which provides conversion factors for changing the pH scale (contributed by Karline Soetaert)
+- added function Kn which provides the ammonium dissociation constant (contributed by Karline Soetaert)
+- added function Khs which provides the dissociation constant of hydrogen sulfide (contributed by Karline Soetaert)
+- added function Ksi which provides the Si(OH)4 dissociation constant (contributed by Karline Soetaert)
+- added function bjerrum which makes a bjerrum plot (contributed by Karline Soetaert)
+
+--------------------------
+version 1.1.1, 2007-08-14
+
+- bor(), K1(), K1p() and K2() now return the values
+- return values are now set for all variables
+ 
+--------------------------
+version 1.1, 2007-07-24
+
+- carb() has now 5 more flags (code contributed by Jim Orr):
+	# flag = 21     pH-pCO2 given
+	# flag = 22     pCO2-HCO3 given
+	# flag = 23     pCO2-CO3 given
+	# flag = 24     pCO2-ALK given
+	# flag = 25     pCO2-DIC given 
+
+--------------------------
 version 1.0.5, 2007-07-23
 
 - minor changes to the documentation (tried to have the superscripts right)

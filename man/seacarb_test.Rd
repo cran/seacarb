@@ -3,7 +3,7 @@
 \alias{seacarb_test}
 \title{Test data file to practice the use of seacarb}
 \description{
-Variables:
+Variables are:
 
 \item flag indicating which couple of variables is used
 \item pH

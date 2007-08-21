@@ -25,7 +25,9 @@ phinsi(PH=8.2, ALK=2.4e-3, Tinsi=20, Tlab=25, S=35, k1k2='r', phflag=0)
 Hunter K. A., 1998. The temperature dependence of pH in surface seawater. \emph{Deep-Sea Research (Part I, Oceanographic Research Papers)} \bold{45}(11):1919-1930.
 }
              
-\author{Jean-Pierre Gattuso}
+\author{
+Jean-Pierre Gattuso, \email{gattuso@obs-vlfr.fr}
+}
 
 %\seealso{	\code{\link{carb}}}
 

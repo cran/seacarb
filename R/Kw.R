@@ -164,7 +164,7 @@ bor = (416.*(S/35.))* 1e-6;   # (mol/kg), DOE94
 		
 		
 	}
-	#attr(Kw,"unit") = "mol2/kg2"
-	print(Kw);
-
+	attr(Kw,"unit")     = "mol/kg-soln"
+	attr(Kw,"pH scale") = "total hydrogen ion concentration"
+	return(Kw)
 }

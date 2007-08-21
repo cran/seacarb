@@ -21,7 +21,9 @@ K3p(S = 35, T = 25, P = 0)
 
 \references{DOE 1994 \emph{Handbook of methods for the analysis of the various parameters of the carbon dioxide system in sea water}. ORNL/CDIAC-74. Oak Ridge,Tenn.: Carbon Dioxide Information Analysis Center, Oak Ridge National Laboratory.}
 
-\author{Aurelien Proye and Jean-Pierre Gattuso}
+\author{
+Aur\'elien Proye and Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
+}
 
 \seealso{
 	\code{\link{K1p}}, \code{\link{K2p}}.

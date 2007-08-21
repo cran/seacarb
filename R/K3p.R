@@ -79,6 +79,7 @@ bor = (416.*(S/35.))* 1e-6;   # (mol/kg), DOE94
 		K3P = K3P*exp(lnkpok0[11]);
 		
 	}
-	#attr(K3P,"unit") <- "mol/kg"
-	print(K3P);
+	attr(K3p,"unit")     = "mol/kg-soln"
+	attr(K3p,"pH scale") = "total hydrogen ion concentration"
+	return(K3P)
 }

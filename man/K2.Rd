@@ -32,7 +32,9 @@ Mehrbach, C. Culberson, C. H. Hawley, J. E. and Pytkowicz, R. M. 1973 Measuremen
 Roy, R. N. Roy, L. N. Vogel, K. M. Porter-Moore, C. Pearson, T. Good C. E., Millero F. J. and Campbell D. M., 1993. The dissociation constants of carbonic acid in seawater at salinities 5 to 45 and temperatures 0 to 45°C. \emph{Marine Chemistry} \bold{44}, 249-267.
 }
 
-\author{Aurelien Proye and Jean-Pierre Gattuso}
+\author{
+Aur\'elien Proye and Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
+}
 
 \seealso{
 	\code{\link{K1}}.

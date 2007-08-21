@@ -42,8 +42,6 @@ bor = (416.*(S/35.))* 1e-6;   # (mol/kg), DOE94
 	
 
 	Kh= exp(nKhwe74);
-	
-	
-	#attr(Kh,"unit") = "mol/kg"	
-	print(Kh);
+	attr(Kh,"unit") = "mol/kg"	
+	return(Kh)
 }

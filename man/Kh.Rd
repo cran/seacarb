@@ -19,7 +19,9 @@ Kh(S = 35, T = 25, P = 0)
 
 \references{Weiss, R. F. 1974 Carbon dioxide in water and seawater: the solubility of a non-ideal gas. \emph{Marine Chemistry} \bold{2}, 203-215.}
 
-\author{Aurelien Proye and Jean-Pierre Gattuso}
+\author{
+Aur\'elien Proye and Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
+}
 
 
 \examples{

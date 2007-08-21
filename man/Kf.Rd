@@ -25,7 +25,9 @@ Dickson, A. G. and Riley, J. P. 1979 The estimation of acid dissociation constan
 
 DOE 1994 \emph{Handbook of methods for the analysis of the various parameters of the carbon dioxide system in sea water}. ORNL/CDIAC-74. Oak Ridge,Tenn.: Carbon Dioxide Information Analysis Center, Oak Ridge National Laboratory.}
 
-\author{Aurelien Proye and Jean-Pierre Gattuso}
+\author{
+Aur\'elien Proye and Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
+}
 
 
 \examples{

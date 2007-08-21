@@ -95,22 +95,27 @@ Note that the results output is NO LONGER stored in a file.}
 }
 
 
-\references{DOE 1994 \emph{Handbook of methods for the analysis of the various parameters of the carbon dioxide system in sea water}. ORNL/CDIAC-74. Oak Ridge,Tenn.: Carbon Dioxide Information Analysis Center, Oak Ridge National Laboratory.
+\references{
+
+DOE 1994 \emph{Handbook of methods for the analysis of the various parameters of the carbon dioxide system in sea water}. ORNL/CDIAC-74. Oak Ridge,Tenn.: Carbon Dioxide Information Analysis Center, Oak Ridge National Laboratory.
 
 Frankignoulle, M. 1994 A complete set of buffer factors for acid/base CO2 system in seawater. \emph{Journal of Marine Systems} \bold{5}, 111-118.
 
 Zeebe, R. E. and Wolf-Gladrow D. A., 2001 \emph{CO2 in seawater: equilibrium, kinetics, isotopes}. Amsterdam: Elsevier, 346 pp.
 }
-\author{Aurelien Proye and Jean-Pierre Gattuso}
+
+\author{
+Aur\'elien Proye and Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
+}
 
 \examples{
-% Using a data set provided with the package:
+## Using a data set provided with the package:
 data(seacarb_test)
 carb(seacarb_test)
 
-% Using another data set
-x1 <- data.frame(flag=8,var1=8.2,var2=2400,S=35,T=25,P=0,k1k2='r',phflag=0)
-x2 <- data.frame(flag=8,var1=8.2,var2=2400,S=30,T=30,P=0,k1k2='r',phflag=0)
+## Using another data set
+x1 <- data.frame(flag=8,var1=8.2,var2=2400e-6,S=35,T=25,P=0,k1k2='r',phflag=0)
+x2 <- data.frame(flag=8,var1=8.2,var2=2400e-6,S=30,T=30,P=0,k1k2='r',phflag=0)
 x <- rbind(x1,x2)
 carb(x)
 }

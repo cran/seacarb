@@ -24,7 +24,7 @@ k1k2flag=0;
 #---- issues de equic----
 tk = 273.15;           # [K] (for conversion [deg C] <-> [K])
 TC = T + tk;           # TC [C]; T[K]
-Cl = S / 1.80655;      # Cl = chlorinity; S = salinity (per mille)
+Cl = S / 1.80655;      # Cl = chlorinity; S = salinity (per mil)
 cl3 = Cl^(1/3);   
 ION = 0.00147 + 0.03592 * Cl + 0.000068 * Cl * Cl;   # ionic strength
 iom0 = 19.924*S/(1000-1.005*S);
@@ -140,6 +140,7 @@ if (P > 0.0)
 	K1 = K1*exp(lnkpok0[1]);
 		
 	}
-#attr(K1,"unit") = "mol/kg"
-#print(K1);
+attr(K1,"unit")     = "mol/kg-soln"
+attr(K1,"pH scale") = "total hydrogen ion concentration"
+return(K1)
 }

@@ -147,6 +147,7 @@ if (phflag == 1)
 		K2 = K2*exp(lnkpok0[2]);
 			
 		}
-#attr(K2,"unit") <- "mol/kg"
-print(K2);	
+attr(K2,"unit")     = "mol/kg-soln"
+attr(K2,"pH scale") = "total hydrogen ion concentration"
+return(K2)
 }

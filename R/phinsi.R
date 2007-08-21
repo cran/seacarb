@@ -18,5 +18,5 @@
 	ph_insi <- dat2$pH
 	#utiliser DIC et TA pour calculer pH in situ (flag=15)
 	#attr(bor,"unit") <- "mol/kg"
-	print(ph_insi);
+	return(ph_insi)
 }

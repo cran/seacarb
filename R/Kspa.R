@@ -84,6 +84,6 @@ bor = (416.*(S/35.))* 1e-6;   # (mol/kg), DOE94
 		Kspa = Kspa*exp(lnkpok0[8]);
 		
 		}
-	#attr(Kspa,"unit") = "mol/kg"
-	print(Kspa);
+	attr(Kspa,"unit") = "mol/kg"
+	return(Kspa)
 	}

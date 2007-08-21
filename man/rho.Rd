@@ -21,7 +21,9 @@ rho(S = 35, T = 25, P = 0)
 }
 \references{Millero, F. J. and Poisson, A. 1981 International one-atmosphere equation of state of seawater. \emph{Deep-Sea Research} \bold{28A}, 625-629.}
 
-\author{Aurelien Proye and Jean-Pierre Gattuso}
+\author{
+Aur\'elien Proye and Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
+}
 
 
 \examples{
