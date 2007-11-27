@@ -28,7 +28,6 @@ k1k2 <- df[i,7]
 phflag <- df[i,8]
 
 
-
 if (k1k2=='m')
 {
 k1k2flag=1;
@@ -738,7 +737,8 @@ return(res)
 	p1 = s*K1 - HCO3*K2;
 	p0 = s*K1*K2;
 	p = c(p0, p1, p2, p3);
-	r = polyroot(p);
+	r = NA; try({r = polyroot(p)}, silent=T);if(is.na(r[1])) cat("Warning: NA value detected in the input data
+")
 	h = max(Re(r));
 	pCO2=s*1.e6/Kh;
 	DIC = s*(1.+K1/h+K1*K2/h/h);
@@ -826,7 +826,8 @@ return(res)
 	p1 = s*K1;
 	p0 = s*K1*K2;
 	p = c(p0, p1, p2, p3, p4);    
-	r = polyroot(p);
+	r = NA; try({r = polyroot(p)}, silent=T);if(is.na(r[1])) cat("Warning: NA value detected in the input data
+")
 	h = max(Re(r));
 	pCO2=s*1.e6/Kh;
 	DIC = s*(1.+K1/h+K1*K2/h/h);
@@ -913,7 +914,8 @@ return(res)
 	p1 = -s*Kb*K1-s*2.*K1*K2-Kw*Kb;
 	p0 = -2.*s*Kb*K1*K2;
 	p = c(p0, p1, p2, p3, p4);
-	r = polyroot(p);
+	r = NA; try({r = polyroot(p)}, silent=T);if(is.na(r[1])) cat("Warning: NA value detected in the input data
+")
 	h = max(Re(r));
 	pCO2=s*1.e6/Kh;
 	DIC = s*(1.+K1/h+K1*K2/h/h);
@@ -997,7 +999,8 @@ return(res)
 	p1 = -s*K1;
 	p0 = -s*K1*K2;
 	p = c(p0, p1, p2);
-	r = polyroot(p);
+	r = NA; try({r = polyroot(p)}, silent=T);if(is.na(r[1])) cat("Warning: NA value detected in the input data
+")
 	h = max(Re(r));
 	PH=-log10(h);
 	pCO2=s*1.e6/Kh;
@@ -1401,7 +1404,8 @@ return(res)
 	p1 = -CO3 + HCO3;
 	p0 = HCO3*K2;
 	p = c(p0, p1, p2, p3);
-	r = polyroot(p);
+	r = NA; try({r = polyroot(p)}, silent=T);if(is.na(r[1])) cat("Warning: NA value detected in the input data
+")
 	h = max(Re(r));
 	PH=-log10(h);
 	DIC = HCO3 * (1+h/K1+K2/h);
@@ -1493,7 +1497,8 @@ return(res)
 	p1  = tmp +(-K1*K2*Kb*bor-K1*Kw*Kb-K1*K2*Kw);
 	p0  = -HCO3*2.*K2*Kb*K1*K2-K1*K2*Kw*Kb;
 	p   = c(p0, p1, p2, p3, p4, p5);
-	r = polyroot(p);
+	r = NA; try({r = polyroot(p)}, silent=T);if(is.na(r[1])) cat("Warning: NA value detected in the input data
+")
 	h = max(Re(r));
 	PH=-log10(h);
 	DIC = HCO3 * (1+h/K1+K2/h);
@@ -1579,7 +1584,8 @@ return(res)
 	p1 = HCO3-DIC;    
 	p0 = HCO3*K2;
 	p = c(p0, p1, p2);
-	r = polyroot(p);
+	r = NA; try({r = polyroot(p)}, silent=T);if(is.na(r[1])) cat("Warning: NA value detected in the input data
+")
 	h = min(Re(r));       # min instead of max !!!!!
 	PH=-log10(h);
 	s = DIC / (1.+K1/h+K1*K2/h/h);
@@ -1671,7 +1677,8 @@ return(res)
 	p1  = tmp+(-K1*K2*Kb*bor-K1*K2*Kw);
 	p0  = -K1*K2*Kw*Kb;
 	p   = c(p0, p1, p2, p3, p4, p5);
-	r = polyroot(p);
+	r = NA; try({r = polyroot(p)}, silent=T);if(is.na(r[1])) cat("Warning: NA value detected in the input data
+")
 	h = max(Re(r));
 	PH=-log10(h);
 	DIC = CO3 * (1+h/K2+h^2/K1/K2);
@@ -1756,7 +1763,8 @@ return(res)
 	p1 = CO3/K2;
 	p0 = CO3-DIC;
 	p = c(p0, p1, p2);
-	r = polyroot(p);
+	r = NA; try({r = polyroot(p)}, silent=T);if(is.na(r[1])) cat("Warning: NA value detected in the input data
+")
 	h = max(Re(r));
 	PH=-log10(h);
 	s = DIC / (1.+K1/h+K1*K2/h/h);
@@ -1847,7 +1855,8 @@ return(res)
 	p1  = tmp+(+Kw*Kb*K1+Kw*K1*K2);
 	p0  = Kw*Kb*K1*K2;
 	p   = c(p0, p1, p2, p3, p4, p5);
-	r = polyroot(p);
+	r = NA; try({r = polyroot(p)}, silent=T);if(is.na(r[1])) cat("Warning: NA value detected in the input data
+")
 	h = max(Re(r));
 	PH=-log10(h);
 	s = DIC / (1.+K1/h+K1*K2/h/h);
@@ -1984,7 +1993,8 @@ return(res)
 	p1 = s*K1 - HCO3*K2;
 	p0 = s*K1*K2;
 	p = c(p0, p1, p2, p3);
-	r = polyroot(p);
+	r = NA; try({r = polyroot(p)}, silent=T);if(is.na(r[1])) cat("Warning: NA value detected in the input data
+")
 	h = max(Re(r));
 	DIC = s*(1.+K1/h+K1*K2/h/h);
 	CO3 = DIC/(1+h/K2+h*h/K1/K2);
@@ -2057,7 +2067,8 @@ return(res)
 	p1 = s*K1;
 	p0 = s*K1*K2;
 	p = c(p0, p1, p2, p3, p4);    
-	r = polyroot(p);
+	r = NA; try({r = polyroot(p)}, silent=T);if(is.na(r[1])) cat("Warning: NA value detected in the input data
+")
 	h = max(Re(r));
 	DIC = s*(1.+K1/h+K1*K2/h/h);
 	HCO3 = DIC/(1+h/K1+K2/h);
@@ -2130,7 +2141,8 @@ return(res)
 	p1 = -s*Kb*K1-s*2.*K1*K2-Kw*Kb;
 	p0 = -2.*s*Kb*K1*K2;
 	p = c(p0, p1, p2, p3, p4);
-	r = polyroot(p);
+	r = NA; try({r = polyroot(p)}, silent=T);if(is.na(r[1])) cat("Warning: NA value detected in the input data
+")
 	h = max(Re(r));
 	DIC = s*(1.+K1/h+K1*K2/h/h);
 	HCO3 = DIC/(1+h/K1+K2/h);
@@ -2201,7 +2213,8 @@ return(res)
 	p1 = -s*K1;
 	p0 = -s*K1*K2;
 	p = c(p0, p1, p2);
-	r = polyroot(p);
+	r = NA; try({r = polyroot(p)}, silent=T);if(is.na(r[1])) cat("Warning: NA value detected in the input data
+")
 	h = max(Re(r));
 	PH=-log10(h);
 	HCO3 = DIC/(1+h/K1+K2/h);

@@ -56,8 +56,8 @@ flag = 24     pCO2 and ALK given
 
 flag = 25     pCO2 and DIC given
 }
-  \item{var1}{enter value of the first variable in \eqn{mol\ kg^{-1}}) except for pH}
-  \item{var2}{enter value of the second variable in \eqn{mol\ kg^{-1}}) except for pH}
+  \item{var1}{enter value of the first variable in mol/kg) except for pH}
+  \item{var2}{enter value of the second variable in mol/kg) except for pH}
   \item{S}{Salinity}
   \item{T}{Temperature in degrees Celsius}
   \item{P}{Hydrostatic pressure in bar (surface = 0)}
@@ -71,37 +71,37 @@ Note that the results output is NO LONGER stored in a file.}
   \item{S}{Salinity}
   \item{T}{Temperature in degrees Celsius}
   \item{P}{Pressure in bar}
-  \item{PH}{pH}
-  \item{CO2}{CO2 concentration (\eqn{mol\ kg^{-1}})}
+  \item{pH}{pH}
+  \item{CO2}{CO2 concentration (mol/kg)}
   \item{pCO2}{pCO2, CO2 partial pressure (\eqn{\mu}atm)}
   \item{fCO2}{fCO2, CO2 fugacity (\eqn{\mu atm})}
-  \item{HCO3}{HCO3 concentration (\eqn{mol\ kg^{-1}})}
-  \item{CO3}{CO3 concentration (\eqn{mol\ kg^{-1}})}
-  \item{DIC}{DIC concentration (\eqn{mol\ kg^{-1}})}
-  \item{ALK}{ALK, total alkalinity (\eqn{mol\ kg^{-1}})}
+  \item{HCO3}{HCO3 concentration (mol/kg)}
+  \item{CO3}{CO3 concentration (mol/kg)}
+  \item{DIC}{DIC concentration (mol/kg)}
+  \item{ALK}{ALK, total alkalinity (mol/kg)}
   \item{Oa}{Omega aragonite, aragonite saturation state}
   \item{Oc}{Omega calcite, calcite saturation state}
   \item{PhiD}{PhiD, chemical buffer factor (dpH/d[DIC]); input/output of dissolved CO2 (unit pH per mol/kg)}
-  \item{BetaD}{BetaD, homogeneous buffer factor (dln(pCO2)/dln[DIC]); input/output of dissolved CO2}
-  \item{PiD}{PiD, chemical buffer factor (dpCO2/d[DIC]); input/output of dissolved CO2 (\eqn{\mu atm} per \eqn{mol\ kg^{-1}})}
-  \item{PhiB}{PhiB, chemical buffer factor (dpH/d[DIC]); from input/output of bicarbonate (unit pH per \eqn{mol\ kg^{-1}})}
+  \item{BetaD}{BetaD, homogeneous or Revelle buffer factor (dln(pCO2)/dln[DIC]); input/output of dissolved CO2}
+  \item{PiD}{PiD, chemical buffer factor (dpCO2/d[DIC]); input/output of dissolved CO2 (\eqn{\mu atm} per mol/kg)}
+  \item{PhiB}{PhiB, chemical buffer factor (dpH/d[DIC]); from input/output of bicarbonate (unit pH per mol/kg)}
   \item{BetaB}{BetaB, homogeneous buffer factor (dln(pCO2)/dln[DIC]); input/output of bicarbonate}
-  \item{PiB}{PiB, chemical buffer factor (dpCO2/d[DIC]); input/output of dissolved CO2 (\eqn{\mu atm} per \eqn{mol\ kg^{-1}})}
-  \item{PhiC}{PhiC, chemical buffer factor (dpH/d[DIC]); input/output of carbonate (unit pH per \eqn{mol\ kg^{-1}})}
+  \item{PiB}{PiB, chemical buffer factor (dpCO2/d[DIC]); input/output of dissolved CO2 (\eqn{\mu atm} per mol/kg)}
+  \item{PhiC}{PhiC, chemical buffer factor (dpH/d[DIC]); input/output of carbonate (unit pH per mol/kg)}
   \item{BetaC}{BetaC, homogeneous buffer factor (dln(pCO2)/dln[DIC]); input/output of carbonate}
-  \item{PiC}{PiC, chemical buffer factor (dpCO2/d[DIC]); input/output of carbonate (\eqn{\mu atm} per \eqn{mol\ kg^{-1}})}
-  \item{PhiH}{PhiH, chemical buffer factor (dpH/d[DIC]); input/output of strong acid (unit pH per \eqn{mol\ kg^{-1}})}
-  \item{PiH}{PiH, chemical buffer factor (dpCO2/d[DIC]); input/output of strong acid (\eqn{\mu atm} per \eqn{mol\ kg^{-1}})}
+  \item{PiC}{PiC, chemical buffer factor (dpCO2/d[DIC]); input/output of carbonate (\eqn{\mu atm} per mol/kg)}
+  \item{PhiH}{PhiH, chemical buffer factor (dpH/d[ALK]); input/output of strong acid (unit pH per mol/kg)}
+  \item{PiH}{PiH, chemical buffer factor (dpCO2/d[ALK]); input/output of strong acid (\eqn{\mu atm} per mol/kg)}
 }
 
 
 \references{
 
-DOE 1994 \emph{Handbook of methods for the analysis of the various parameters of the carbon dioxide system in sea water}. ORNL/CDIAC-74. Oak Ridge,Tenn.: Carbon Dioxide Information Analysis Center, Oak Ridge National Laboratory.
+DOE, 1994 \emph{Handbook of methods for the analysis of the various parameters of the carbon dioxide system in sea water}. ORNL/CDIAC-74. Oak Ridge,Tenn.: Carbon Dioxide Information Analysis Center, Oak Ridge National Laboratory.
 
 Frankignoulle, M. 1994 A complete set of buffer factors for acid/base CO2 system in seawater. \emph{Journal of Marine Systems} \bold{5}, 111-118.
 
-Zeebe, R. E. and Wolf-Gladrow D. A., 2001 \emph{CO2 in seawater: equilibrium, kinetics, isotopes}. Amsterdam: Elsevier, 346 pp.
+Zeebe, R. E. and Wolf-Gladrow, D. A., 2001 \emph{CO2 in seawater: equilibrium, kinetics, isotopes}. Amsterdam: Elsevier, 346 pp.
 }
 
 \author{

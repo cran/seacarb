@@ -1,4 +1,16 @@
 --------------------------
+version 1.2.3, 2007-11-27
+
+- carb function modified to allow NA values in the input data. A warning is returned if this happens but all other data rows are processed. Change made by Bernard Gentili.
+
+--------------------------
+version 1.2.2, 2007-09-09
+
+- correction of the definition of PiH and PhiH in the "carb" documentation file
+- BetaD is the Revelle factor (the "carb" documentation has been updated
+- cosmetic changes to some documentation files
+
+--------------------------
 version 1.2.1, 2007-08-21
 
 - cosmetic changes to some documentation files
@@ -6,13 +18,13 @@ version 1.2.1, 2007-08-21
 --------------------------
 version 1.2, 2007-08-21
 
-- added function speciation which estimates the concentration of the various ionic forms of a molecule as a function of pH (contributed by Karline Soetaert)
-- added function kconv which provides conversion factors to change the pH scale of dissociation constants (contributed by Karline Soetaert)
-- added function pHconv which provides conversion factors for changing the pH scale (contributed by Karline Soetaert)
-- added function Kn which provides the ammonium dissociation constant (contributed by Karline Soetaert)
-- added function Khs which provides the dissociation constant of hydrogen sulfide (contributed by Karline Soetaert)
-- added function Ksi which provides the Si(OH)4 dissociation constant (contributed by Karline Soetaert)
-- added function bjerrum which makes a bjerrum plot (contributed by Karline Soetaert)
+- added function "speciation" which estimates the concentration of the various ionic forms of a molecule as a function of pH (contributed by Karline Soetaert)
+- added function "kconv" which provides conversion factors to change the pH scale of dissociation constants (contributed by Karline Soetaert)
+- added function "pHconv" which provides conversion factors for changing the pH scale (contributed by Karline Soetaert)
+- added function "Kn" which provides the ammonium dissociation constant (contributed by Karline Soetaert)
+- added function "Khs" which provides the dissociation constant of hydrogen sulfide (contributed by Karline Soetaert)
+- added function "Ksi" which provides the Si(OH)4 dissociation constant (contributed by Karline Soetaert)
+- added function "bjerrum" which makes a bjerrum plot (contributed by Karline Soetaert)
 
 --------------------------
 version 1.1.1, 2007-08-14
