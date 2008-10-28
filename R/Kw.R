@@ -1,4 +1,4 @@
-# Copyright (C) 2003 Jean-Pierre Gattuso and Aurelien Proye
+# Copyright (C) 2008 Jean-Pierre Gattuso and Héloïse Lavigne and Aurelien Proye
 #
 # This file is part of seacarb.
 #
@@ -10,14 +10,14 @@
 #
 #
 "Kw" <-
-function(S=35,T=25,P=0,phflag=0){
+function(S=35,T=25,P=0){
 
 
 #-------Constantes----------------
 
 #---- issues de equic----
 tk = 273.15;           # [K] (for conversion [deg C] <-> [K])
-TC = T + tk;           # TC [C]; T[K]
+TK = T + tk;           # T [C]; TK[K]
 Cl = S / 1.80655;      # Cl = chlorinity; S = salinity (per mille)
 cl3 = Cl^(1/3);   
 ION = 0.00147 + 0.03592 * Cl + 0.000068 * Cl * Cl;   # ionic strength
@@ -28,97 +28,20 @@ ST = 0.14/96.062/1.80655*S;   # (mol/kg soln) total sulfate
 bor = (416.*(S/35.))* 1e-6;   # (mol/kg), DOE94   
 
 	
-	
-	#--------------------------------------------------------------
-	#------------------ Ks ----------------------------------------
-	#       Dickson and Goyet (1994), Chapter 5, p.13
-	#       (required for total2free)
-	#       Equilibrium constant for HSO4- = H+ + SO4--
-	#
-	#       K_S  = [H+]free [SO4--] / [HSO4-]
-	#       pH-scale: free scale !!!
-	#
-	#       the term log(1-0.001005*S) converts from
-	#       mol/kg H2O to mol/kg soln
-	
-	
-	tmp1 = -4276.1 / TC + 141.328 -23.093*log(TC);
-	tmp2 = +(-13856 / TC + 324.57 - 47.986 * log(TC))*sqrt(iom0);
-	tmp3 = +(35474 / TC - 771.54 + 114.723 * log(TC))*iom0;
-	tmp4 = -2698 / TC *sqrt(iom0)*iom0 + 1776 / TC *iom0 *iom0;
-	                                       
-	
-	lnKs = tmp1 + tmp2 + tmp3 + tmp4 + log(1-0.001005*S);
-	
-	Ks = exp(lnKs);
-	#------- total2free -----------------------------------------------
-	#
-	#       convert from pH_total ('total`) to pH ('free`):
-	#       pH_total = pH_free - log(1+ST/KS(s,tk))
-	
-	total2free = 1+ST/Ks;
-	
-	
-	#---------------------------------------------------------------------
-	# --------------------- Kf  ------------------------------------------
-	#  Kf = [H+][F-]/[HF]  
-	#
-	#   (Dickson and Riley, 1979 in Dickson and Goyet, 
-	#   1994, Chapter 5, p. 14)
-	#   pH-scale: 'total'   
-	
-	
-	tmp1 = 1590.2/TC - 12.641 + 1.525*sqrt(ION);
-	tmp2 = log(1-0.001005*S) + log(1+ST/Ks);
-	
-	
-	lnKf = tmp1 + tmp2;
-	if (phflag == 0)
-	{
-	        Kf  = exp(lnKf);
-	}
-	if (phflag == 1)
-	{
-	        lnKf = lnKf-log(total2free);
-	        Kf  = exp(lnKf);
-	}
-
-
-
-	#------- sws2free -----------------------------------------------
-	#
-	#       convert from pH_sws ('seawater scale`) to pH ('free`):
-	#       pH_sws = pH_free - log(1+S_T/K_S(S,T)+F_T/K_F(S,T))
-	
-	
-	FT = 7e-5*(S/35);
-	sws2free  = (1+ST/Ks+FT/Kf);
-	corr = sws2free/total2free;
-	
-	
 	#-------------------------------------------------------------------
 	# --------------------- Kwater -------------------------------------
 	#
-	#       Millero (1995)(in Dickson and Goyet (1994, Chapter 5, p.18))
+	#       Millero (1995)(in Guide to Best Practices in Ocean CO2 Measurements (2007, Chapter 5, p.16))
 	#       $K_w$ in mol/kg-soln.
 	#       pH-scale: pH$_{total}$ ('total` scale).
 	                                                     
 	
-	tmp1 = -13847.26/TC + 148.96502 - 23.6521 * log(TC);
-	tmp2 = + (118.67/TC - 5.977 + 1.0495*log(TC))*sqrt(S) - 0.01615*S;
+	tmp1 = -13847.26/TK + 148.96502 - 23.6521 * log(TK);
+	tmp2 = + (118.67/TK - 5.977 + 1.0495*log(TK))*sqrt(S) - 0.01615*S;
 	
 	lnKw =  tmp1 + tmp2;
-	
-	if (phflag == 0)
-	{
-	        Kw  = exp(lnKw);
-	}
-	if (phflag == 1)
-	{
-	        lnKw = lnKw-log(total2free);
-	        Kw  = exp(lnKw);
-	}
-	
+	Kw  = exp(lnKw);
+		
 		if (P > 0.0)
 		{
 		
@@ -157,7 +80,7 @@ bor = (416.*(S/35.))* 1e-6;   # (mol/kg), DOE94
 		{
 		  deltav[ipc]  =  a0[ipc] + a1[ipc] *T + a2[ipc] *T*T;
 		  deltak[ipc]   = (b0[ipc]  + b1[ipc] *T + b2[ipc] *T*T);  
-		  lnkpok0[ipc]  = -(deltav[ipc] /(R*TC))*P + (0.5*deltak[ipc] /(R*TC))*P*P;
+		  lnkpok0[ipc]  = -(deltav[ipc] /(R*TK))*P + (0.5*deltak[ipc] /(R*TK))*P*P;
 		}
 		
 		Kw = Kw*exp(lnkpok0[4]);

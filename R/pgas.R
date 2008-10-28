@@ -1,4 +1,4 @@
-# Copyright (C) 2003 Jean-Pierre Gattuso and Aurelien Proye
+# Copyright (C) 2008 Jean-Pierre Gattuso
 #
 # This file is part of seacarb.
 #
@@ -8,10 +8,13 @@
 #
 # You should have received a copy of the GNU General Public License along with seacarb; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
-#
-"bor" <-
-function(S=35,T=25,P=0){
-	bor = (416.*(S/35.))* 1e-6;   # (mol/kg), DOE94
-	attr(bor,"unit") <- "mol/kg"
-	return(bor)
+"pgas" <- function(flag, var1, var2, pCO2g, S=35, T=20, P=0){
+		ci <- carb(flag=flag, var1=var1, var2=var2, S=S ,T=T, P=P)
+		alkf <- ci$ALK
+		cf <- carb(flag=24,var1=pCO2g, var2=alkf, S=S, T=T, P=P)		
+		co <- as.data.frame(c("pgas-initial", rep("pgas-final", nrow(cf))))
+		out <- rbind(ci, cf)
+		out <- cbind(co, out)
+		names(out)[1] <- "comment"
+		return(out)
 }

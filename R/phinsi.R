@@ -9,12 +9,12 @@
 # You should have received a copy of the GNU General Public License along with seacarb; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
 #
-"phinsi" <- function(PH=8.2, ALK=2.4e-3, Tinsi=20, Tlab=25, S=35, k1k2='r', phflag=0) {
+"phinsi" <- function(PH=8.2, ALK=2.4e-3, Tinsi=20, Tlab=25, S=35, Pt = 0, Sit = 0) {
 	# according to Hunter (1998)
 	#si TA=0 alors calculer TA: TA=660+47.6 * S
-	dat1 <- carb(data.frame(flag = 8, var1 = PH, var2 = ALK, S = S, T = Tlab, P = 0, k1k2 = k1k2, phflag = phflag))
+	dat1 <- carb(flag = 8, var1 = PH, var2 = ALK, S = S, T = Tlab, P = 0, Pt = Pt, Sit = Sit)
 	DIC <- dat1$DIC
-	dat2 <- carb(data.frame(flag = 15, var1 = ALK, var2 = DIC, S = S, T = Tinsi, P = 0, k1k2 = k1k2, phflag = phflag))
+	dat2 <- carb(flag = 15, var1 = ALK, var2 = DIC, S = S, T = Tinsi, P = 0, Pt = Pt, Sit = Sit)
 	ph_insi <- dat2$pH
 	#utiliser DIC et TA pour calculer pH in situ (flag=15)
 	#attr(bor,"unit") <- "mol/kg"

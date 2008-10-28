@@ -1,4 +1,4 @@
-# Copyright (C) 2003 Jean-Pierre Gattuso and Aurelien Proye
+# Copyright (C) 2008 Jean-Pierre Gattuso and Héloïse Lavigne and Aurelien Proye
 #
 # This file is part of seacarb.
 #
@@ -9,15 +9,16 @@
 # You should have received a copy of the GNU General Public License along with seacarb; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
 #
+
 "Kb" <-
-function(S=35,T=25,P=0,phflag=0){
+function(S=35,T=25,P=0){
 
 	
 #-------Constantes----------------
 
 #---- issues de equic----
 tk = 273.15;           # [K] (for conversion [deg C] <-> [K])
-TC = T + tk;           # TC [C]; T[K]
+TK = T + tk;           # T [C]; TK [K]
 Cl = S / 1.80655;      # Cl = chlorinity; S = salinity (per mille)
 cl3 = Cl^(1/3);   
 ION = 0.00147 + 0.03592 * Cl + 0.000068 * Cl * Cl;   # ionic strength
@@ -27,61 +28,23 @@ ST = 0.14/96.062/1.80655*S;   # (mol/kg soln) total sulfate
 
 bor = (416.*(S/35.))* 1e-6;   # (mol/kg), DOE94   
 
-	
-	#--------------------------------------------------------------
-	#------------------ Ks ----------------------------------------
-	#       Dickson and Goyet (1994), Chapter 5, p.13
-	#       (required for total2free)
-	#       Equilibrium constant for HSO4- = H+ + SO4--
-	#
-	#       K_S  = [H+]free [SO4--] / [HSO4-]
-	#       pH-scale: free scale !!!
-	#
-	#       the term log(1-0.001005*S) converts from
-	#       mol/kg H2O to mol/kg soln
-	
-	
-	tmp1 = -4276.1 / TC + 141.328 -23.093*log(TC);
-	tmp2 = +(-13856 / TC + 324.57 - 47.986 * log(TC))*sqrt(iom0);
-	tmp3 = +(35474 / TC - 771.54 + 114.723 * log(TC))*iom0;
-	tmp4 = -2698 / TC *sqrt(iom0)*iom0 + 1776 / TC *iom0 *iom0;
-	                                      
 		
-	lnKs = tmp1 + tmp2 + tmp3 + tmp4 + log(1-0.001005*S);
-	
-	Ks = exp(lnKs);
-	#------- total2free -----------------------------------------------
-	#
-	#       convert from pH_total ('total`) to pH ('free`):
-	#      pH_total = pH_free - log(1+ST/KS(s,tk))
-		
-	total2free = 1+ST/Ks;
-	
-	
 	#---------------------------------------------------------------------
 	# --------------------- Kb  --------------------------------------------
 	#  Kbor = [H+][B(OH)4-]/[B(OH)3]
 	#
-	#   (Dickson, 1990 in Dickson and Goyet, 1994, Chapter 5, p. 14)
+	#   (Dickson, 1990 in Guide to Best Practices in Ocean CO2 Measurements 2007)
 	#   pH-scale: 'total'. mol/kg-soln
 	
 	
 	tmp1 =  (-8966.90-2890.53*sqrt(S)-77.942*S+1.728*S^(3/2)-0.0996*S*S);
 	tmp2 =   +148.0248+137.1942*sqrt(S)+1.62142*S;
-	tmp3 = +(-24.4344-25.085*sqrt(S)-0.2474*S)*log(TC);
+	tmp3 = +(-24.4344-25.085*sqrt(S)-0.2474*S)*log(TK);
 	
-	lnKb = tmp1 / TC + tmp2 + tmp3 + 0.053105*sqrt(S)*TC;
-	
-	if (phflag == 0)
-	{
-	        Kb  = exp(lnKb);
-	}
-	if (phflag == 1)
-	{
-	        lnKb = lnKb-log(total2free);
-	        Kb  = exp(lnKb);
-	}
-	
+	lnKb = tmp1 / TK + tmp2 + tmp3 + 0.053105*sqrt(S)*TK;
+	Kb <- exp(lnKb)
+
+	# ------------------- Pression effect --------------------------------
 		if (P > 0.0)
 		{
 		
@@ -120,14 +83,13 @@ bor = (416.*(S/35.))* 1e-6;   # (mol/kg), DOE94
 		{
 		  deltav[ipc]  =  a0[ipc] + a1[ipc] *T + a2[ipc] *T*T;
 		  deltak[ipc]   = (b0[ipc]  + b1[ipc] *T + b2[ipc] *T*T);  
-		  lnkpok0[ipc]  = -(deltav[ipc] /(R*TC))*P + (0.5*deltak[ipc] /(R*TC))*P*P;
+		  lnkpok0[ipc]  = -(deltav[ipc] /(R*TK))*P + (0.5*deltak[ipc] /(R*TK))*P*P;
 		}
 		
 
-		Kb = Kb*exp(lnkpok0[3]);
+		Kb = Kb*exp(lnkpok0[3])
 
-	}
-		
+	}	
 	attr(Kb,"unit")     = "mol/kg-soln"
 	attr(Kb,"pH scale") = "total hydrogen ion concentration"
 	return(Kb)

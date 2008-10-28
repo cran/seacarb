@@ -1,3 +1,4 @@
+\encoding{latin1}
 \name{Kh}
 \alias{Kh}
 \title{Henry's constant mol/(kg/atm)}

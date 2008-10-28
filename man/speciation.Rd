@@ -15,7 +15,7 @@ speciation(K1=K1(), K2=NULL, K3=NULL, pH, conc=1)
   \item{conc}{concentration of molecule in mol/kg, default is 1 mol/kg}
 }
 
-\value{The function returns a dataframe containing the following concentrations (in mol/kg if conc is given in mol/kg):
+\value{The function returns a data frame containing the following concentrations (in mol/kg if conc is given in mol/kg):
   \item{C1}{ionic form 1, univalent, bivalent and trivalent molecules}
   \item{C2}{ionic form 2, univalent, bivalent and trivalent molecules}
   \item{C3}{ionic form 3, bivalent and trivalent molecules}
@@ -47,8 +47,7 @@ speciation(K1p(), K2p(), K3p(), conc=0.001)
 
 ## Effect of temperature on pCO2 - Figure 1.4.18 of Zeebe and Wolf-Gladrow (2001)
 Tseq <- seq(0, 30, by=0.5)
-pHseq <- carb(data.frame(flag=15, var1=2300e-6, var2=1900e-6, S=35, T=Tseq, P=0, 
-	k1k2="r", phflag=0))$pH
+pHseq <- carb(flag=15, var1=2300e-6, var2=1900e-6, S=35, T=Tseq, P=0)$pH
 CO2  <- speciation(K1(T=Tseq), K2(T=Tseq), conc=1900, pH=pHseq)$C1
 pCO2 <- CO2/Kh(T=Tseq)
 plot(Tseq, pCO2, xlab="Temperature (oC)", ylab="pCO2 (uatm)", type="l", 

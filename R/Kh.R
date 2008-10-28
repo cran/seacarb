@@ -1,4 +1,4 @@
-# Copyright (C) 2003 Jean-Pierre Gattuso and Aurelien Proye
+# Copyright (C) 2008 Jean-Pierre Gattuso and Héloïse Lavigne and Aurelien Proye
 #
 # This file is part of seacarb.
 #
@@ -23,7 +23,6 @@ cl3 = Cl^(1/3);
 ION = 0.00147 + 0.03592 * Cl + 0.000068 * Cl * Cl;   # ionic strength
 iom0 = 19.924*S/(1000-1.005*S);
 ST = 0.14/96.062/1.80655*S;   # (mol/kg soln) total sulfate
-
 
 bor = (416.*(S/35.))* 1e-6;   # (mol/kg), DOE94   
 

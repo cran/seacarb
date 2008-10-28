@@ -1,20 +1,15 @@
+\encoding{latin1}
 \name{carb}
 \alias{carb}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Parameters of the seawater carbonate system}
 \description{Returns parameters of the seawater carbonate system.}
 \usage{
-carb(df)
+carb(flag, var1, var2, S=35, T=25, P=0, Pt=0, Sit=0)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-\item{df}{a data frame containing the input parameters (see below)}
-}
-
-
-\details{The input data frame should contain the following variables in the right order:
-
-  \item{flag}{select the couple of variables available. The flags which can be used are: 
+	\item{flag}{select the couple of variables available. The flags which can be used are: 
 
 flag = 1      pH and CO2 given
 
@@ -46,7 +41,7 @@ flag = 14     CO3 and DIC given
 
 flag = 15     ALK and DIC given
 
-flag = 21     pH and pCO2 given
+flag = 21     pCO2 and pH given
 
 flag = 22     pCO2 and HCO3 given
 
@@ -56,17 +51,18 @@ flag = 24     pCO2 and ALK given
 
 flag = 25     pCO2 and DIC given
 }
-  \item{var1}{enter value of the first variable in mol/kg) except for pH}
-  \item{var2}{enter value of the second variable in mol/kg) except for pH}
-  \item{S}{Salinity}
-  \item{T}{Temperature in degrees Celsius}
-  \item{P}{Hydrostatic pressure in bar (surface = 0)}
-  \item{k1k2}{"r" for using K1 and K2 from Roy et al. and "m" for using K1 and K2 from Mehrbach,}
-  \item{phflag}{The pH scale is either the total scale (0) or the free scale (1), default is 0}
+	\item{var1}{enter value of the first  variable in mol/kg, except for pH and for pCO2 in \eqn{\mu}atm}
+	\item{var2}{enter value of the second  variable in mol/kg, except for pH}
+	\item{S}{Salinity}
+	\item{T}{Temperature in degrees Celsius}
+  	\item{P}{Hydrostatic pressure in bar (surface = 0)}
+  	\item{Pt}{enter value of the concentration of total phosphate in mol/kg}
+  	\item{Sit}{enter the value of the total silicate in mol/kg}
+}
 
-Note that the results output is NO LONGER stored in a file.}
+\details{Vectors can be given in enter arguments. If the length of vectors entered are different the longer vector is kept and only the first value of other vectors is used. For instance, to compute parameters from one couple of variable for a range of temperatures, a vector with temperatures required can be given in enter and other arguments can be completed be one variable this variable will be used for each temperatures.}
 
-\value{The function returns a dataframe containing the following columns:
+\value{The function returns a data frame containing the following columns:
 
   \item{S}{Salinity}
   \item{T}{Temperature in degrees Celsius}
@@ -74,49 +70,65 @@ Note that the results output is NO LONGER stored in a file.}
   \item{pH}{pH}
   \item{CO2}{CO2 concentration (mol/kg)}
   \item{pCO2}{pCO2, CO2 partial pressure (\eqn{\mu}atm)}
-  \item{fCO2}{fCO2, CO2 fugacity (\eqn{\mu atm})}
+  \item{fCO2}{fCO2, CO2 fugacity (\eqn{\mu}atm)}
   \item{HCO3}{HCO3 concentration (mol/kg)}
   \item{CO3}{CO3 concentration (mol/kg)}
   \item{DIC}{DIC concentration (mol/kg)}
   \item{ALK}{ALK, total alkalinity (mol/kg)}
-  \item{Oa}{Omega aragonite, aragonite saturation state}
-  \item{Oc}{Omega calcite, calcite saturation state}
-  \item{PhiD}{PhiD, chemical buffer factor (dpH/d[DIC]); input/output of dissolved CO2 (unit pH per mol/kg)}
-  \item{BetaD}{BetaD, homogeneous or Revelle buffer factor (dln(pCO2)/dln[DIC]); input/output of dissolved CO2}
-  \item{PiD}{PiD, chemical buffer factor (dpCO2/d[DIC]); input/output of dissolved CO2 (\eqn{\mu atm} per mol/kg)}
-  \item{PhiB}{PhiB, chemical buffer factor (dpH/d[DIC]); from input/output of bicarbonate (unit pH per mol/kg)}
-  \item{BetaB}{BetaB, homogeneous buffer factor (dln(pCO2)/dln[DIC]); input/output of bicarbonate}
-  \item{PiB}{PiB, chemical buffer factor (dpCO2/d[DIC]); input/output of dissolved CO2 (\eqn{\mu atm} per mol/kg)}
-  \item{PhiC}{PhiC, chemical buffer factor (dpH/d[DIC]); input/output of carbonate (unit pH per mol/kg)}
-  \item{BetaC}{BetaC, homogeneous buffer factor (dln(pCO2)/dln[DIC]); input/output of carbonate}
-  \item{PiC}{PiC, chemical buffer factor (dpCO2/d[DIC]); input/output of carbonate (\eqn{\mu atm} per mol/kg)}
-  \item{PhiH}{PhiH, chemical buffer factor (dpH/d[ALK]); input/output of strong acid (unit pH per mol/kg)}
-  \item{PiH}{PiH, chemical buffer factor (dpCO2/d[ALK]); input/output of strong acid (\eqn{\mu atm} per mol/kg)}
+  \item{OmegaAragonite}{Omega aragonite, aragonite saturation state}
+  \item{OmegaCalcite}{Omega calcite, calcite saturation state}
 }
 
 
 \references{
 
-DOE, 1994 \emph{Handbook of methods for the analysis of the various parameters of the carbon dioxide system in sea water}. ORNL/CDIAC-74. Oak Ridge,Tenn.: Carbon Dioxide Information Analysis Center, Oak Ridge National Laboratory.
-
-Frankignoulle, M. 1994 A complete set of buffer factors for acid/base CO2 system in seawater. \emph{Journal of Marine Systems} \bold{5}, 111-118.
+Dickson A. G., Sabine C. L. and Christian J. R., 2007 Guide to best practices for ocean CO2 measurements. \emph{PICES Special Publication} \bold{3}, 1-191.
 
 Zeebe, R. E. and Wolf-Gladrow, D. A., 2001 \emph{CO2 in seawater: equilibrium, kinetics, isotopes}. Amsterdam: Elsevier, 346 pp.
 }
 
 \author{
-Aur\'elien Proye and Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
+Héloïse Lavigne, Aurélien Proye and Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
 }
 
 \examples{
-## Using a data set provided with the package:
-data(seacarb_test)
-carb(seacarb_test)
 
-## Using another data set
-x1 <- data.frame(flag=8,var1=8.2,var2=2400e-6,S=35,T=25,P=0,k1k2='r',phflag=0)
-x2 <- data.frame(flag=8,var1=8.2,var2=2400e-6,S=30,T=30,P=0,k1k2='r',phflag=0)
-x <- rbind(x1,x2)
-carb(x)
+## With a couple of variables
+carb(flag=8, var1=8.2, var2=0.00234, S=35, T=25, P=0, Pt=0, Sit=0)
+
+## Using vectors as arguments
+flag <- c(8, 2, 8)
+var1 <- c(8.2, 7.477544e-06, 8.2)
+var2 <- c(0.002343955, 0.001649802, 2400e-6)
+S <- c(35, 35, 30)
+T <- c(25, 25, 30)
+P <- c(0, 0, 0)
+Pt <- c(0, 0, 0)
+Sit <- c(0, 0, 0)
+carb(flag=flag, var1=var1, var2=var2, S=S, T=T, P=P, Pt=Pt, Sit=Sit)
+
+## Test with all flags 
+flag <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 21, 22, 23, 24, 25)
+var1 <- c(8.200000, 7.477544e-06, 7.477544e-06, 7.477544e-06, 7.477544e-06, 8.2, 
+8.2, 8.2, 8.2, 0.001685024, 0.001685024, 0.001685024,  0.0002888382, 0.0002888382, 
+0.002391252, 264.2008, 264.2008, 264.2008, 264.2008, 264.2008)
+var2 <- c(7.477544e-06, 0.001685024, 0.0002888382, 0.002391252, 0.001981340, 
+0.001685024, 0.0002888382, 0.002391252, 0.001981340, 0.0002888382, 0.002391252, 
+0.001981340,  0.002391252, 0.001981340, 0.001981340, 8.2, 0.001685024, 0.0002888382, 
+0.002391252, 0.001981340)
+carb(flag=flag, var1=var1, var2=var2)
+
+## Test using a data frame 
+data(seacarb_test)
+tab <- seacarb_test
+
+## method 1 using the column numbers
+carb(flag=tab[[1]], var1=tab[[2]], var2=tab[[3]], S=tab[[4]], T=tab[[5]], P=tab[[6]], 
+Sit=tab[[7]], Pt=tab[[8]])
+
+## method 2 using the column names
+carb(flag=tab$flag, var1=tab$var1, var2=tab$var2, S=tab$S, T=tab$T, P=tab$P, Sit=tab$Sit, 
+Pt=tab$Pt)
+
 }
 \keyword{utilities}

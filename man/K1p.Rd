@@ -16,13 +16,14 @@ K1p(S = 35, T = 25, P = 0)
 }
  
 \value{
-  \item{K1p}{First dissociation constant of phosphoric acid (mol/kg)}
+  \item{K1p}{First dissociation constant of phosphoric acid (mol/kg), pHscale = totale scale}
  
 }
-\references{DOE 1994 \emph{Handbook of methods for the analysis of the various parameters of the carbon dioxide system in sea water}. ORNL/CDIAC-74. Oak Ridge,Tenn.: Carbon Dioxide Information Analysis Center, Oak Ridge National Laboratory.}
+\references{
+Dickson A. G., Sabine C. L. and Christian J. R., 2007 Guide to best practices for ocean CO2 measurements. \emph{PICES Special Publication} \bold{3}, 1-191.}
 
 \author{
-Aur\'elien Proye and Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
+Héloïse Lavigne, Aur\'elien Proye and Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
 }
 
 \seealso{
