@@ -13,6 +13,8 @@ Khs(S=35, T=25, P=0)
   \item{P}{Hydrostatic pressure in bar (surface = 0), default is 0}
 }
 
+\details{Note that the arguments can be given as a unique number or as vectors. If the lengths of the vectors are different, the longer vector is retained and only the first value of the other vectors is used. It can therefore be critical to use vectors of the same length.} 
+
 \value{
 	\item{Khs}{Dissociation constant of hydrogen sulfide on the total scale (mol/kg)}
 }

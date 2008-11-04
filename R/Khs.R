@@ -17,6 +17,15 @@
 
 {
 
+nK <- max(length(S), length(T), length(P))
+
+##-------- Creation de vecteur pour toutes les entrees (si vectorielles)
+
+if(length(S)!=nK){S <- rep(S[1], nK)}
+if(length(T)!=nK){T <- rep(T[1], nK)}
+if(length(P)!=nK){P <- rep(P[1], nK)}
+
+
 tk = 273.15           # [K] (for conversion [deg C] <-> [K])
 TC = T + tk           # TC [C]; T[K]
 
@@ -25,20 +34,22 @@ TC = T + tk           # TC [C]; T[K]
  	#--------------------------------------------------------------
 lnK <- 225.838 + 0.3449*sqrt(S) - 0.0274*S -13275.3/TC  -34.6435*log(TC)
 
-lnkpok0 <- 0
+lnkpok0 <- rep(0, nK)
 
 # P : applied pressure (in Bars) = (Total Pressure-1)
 #Pressure Correction from Millero 1995 - Typos corrections from Lewis and Wallace (CO2SYS)
-  if (P> 0.0)
+  
+	for(i in (1:nK)){		
+	if (P[i]> 0.0)
   {
 		R = 83.131             # mol bar deg-1
     a0 <- -14.80; a1<- 0.002; a2 <- --0.4e-3
     b0 <- 2.89e-3 ; b1 <- 0.054e-3; b2 <- 0
-    deltav  <-   a0 + a1 *T + a2 *T*T
-    deltak  <-  (b0  + b1 *T + b2*T*T)
-    lnkpok0 <-  -(deltav/(R*TC))*P + (0.5*deltak /(R*TC))*P*P
+    deltav  <-   a0 + a1 *T[i] + a2 *T[i]*T[i]
+    deltak  <-  (b0  + b1 *T[i] + b2*T[i]*T[i])
+    lnkpok0[i] <-  -(deltav/(R*TC[i]))*P[i] + (0.5*deltak /(R*TC[i]))*P[i]*P[i]
   }
-
+}
   Khs      <- exp(lnK +lnkpok0)  # K_H2S on total scale
   attr(Khs,"unit")     = "mol/kg-soln"
   attr(Khs,"pH scale") = "total hydrogen ion concentration"

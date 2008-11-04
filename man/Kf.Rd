@@ -2,8 +2,8 @@
 \name{Kf}
 \alias{Kf}
 
-\title{Stability constant of hydrogen fluorid (mol/kg)}
-\description{Stability constant of hydrogen fluorid (mol/kg)}
+\title{Stability constant of hydrogen fluoride (mol/kg)}
+\description{Stability constant of hydrogen fluoride (mol/kg)}
 \usage{
 Kf(S = 35, T = 25, P = 0, kf = "pf")
 }
@@ -15,9 +15,10 @@ Kf(S = 35, T = 25, P = 0, kf = "pf")
   \item{kf}{"pf" for using Kf from Perez and Fraga (1987) and "dg" for using Kf from Dickson and Goyet (1979), default is "pf"}
 }
 
+\details{Note that the arguments can be given as a unique number or as vectors. If the lengths of the vectors are different, the longer vector is retained and only the first value of the other vectors is used. It can therefore be critical to use vectors of the same length.} 
 
 \value{
-  \item{Kf}{Stability constant of hydrogen fluorid (mol/kg), pH scale = total scale}
+  \item{Kf}{Stability constant of hydrogen fluoride (mol/kg), pH scale = total scale}
 
 }
 \references{The Perez and Fraga (1987) constant is recommended by Guide to Best Practices for Ocean CO2 Measurements (2007). The Dickson and Goyet (1979) constants is recommended by DOE (1994).
@@ -32,7 +33,7 @@ Dickson, A. G. and Riley, J. P. 1979 The estimation of acid dissociation constan
 }
 
 \author{
-Héloïse Lavigne, Aur\'elien Proye and Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
+Héloïse Lavigne, Aurélien Proye and Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
 }
 
 

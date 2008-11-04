@@ -18,6 +18,16 @@
 
 {
 
+nK <- max(length(S), length(T), length(P))
+
+##-------- Creation de vecteur pour toutes les entrees (si vectorielles)
+
+if(length(S)!=nK){S <- rep(S[1], nK)}
+if(length(T)!=nK){T <- rep(T[1], nK)}
+if(length(P)!=nK){P <- rep(P[1], nK)}
+
+#-------Constantes----------------
+
 tk = 273.15           # [K] (for conversion [deg C] <-> [K])
 TC = T + tk           # TC [C]; T[K]
 
@@ -27,20 +37,22 @@ TC = T + tk           # TC [C]; T[K]
 lnK <- -6285.33/TC+0.0001635*TC-0.25444+(0.46532-123.7184/TC)* sqrt(S)+
       (-0.01992+3.17556/TC)*S
 
-lnkpok0 <- 0
+lnkpok0 <- rep(0, nK)
 
 # P : applied pressure (in Bars) = (Total Pressure-1)
 # Pressure Correction from Millero 1995 - Typos corrections from Lewis and Wallace (CO2SYS)
-  if (P> 0.0)
+  
+	for(i in (1:nK)){		
+	if (P[i]> 0.0)
   {
 		R = 83.131             # mol bar deg-1
     a0 <- -26.43; a1<- 0.0889; a2 <- -0.000905
     b0 <- -5.03e-3 ; b1 <- 0.0814e-3; b2 <- 0
-    deltav  <-   a0 + a1 *T + a2 *T*T
-    deltak  <-  (b0  + b1 *T + b2*T*T)
-    lnkpok0 <-  -(deltav/(R*TC))*P + (0.5*deltak /(R*TC))*P*P
+    deltav  <-   a0 + a1 *T[i] + a2 *T[i]*T[i]
+    deltak  <-  (b0  + b1 *T[i] + b2*T[i]*T[i])
+    lnkpok0[i] <-  -(deltav/(R*TC[i]))*P[i] + (0.5*deltak /(R*TC[i]))*P[i]*P[i]
   }
-
+}
   Kn      <- exp(lnK +lnkpok0)  # K_NH4 on SEAWATER scale
   cc  <- kconv(S,T,P)            # conversion factors from one scale to other
   Kn  <- Kn/cc$ktotal2SWS        # Kn now on total scale

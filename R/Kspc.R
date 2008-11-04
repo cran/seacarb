@@ -12,6 +12,15 @@
 "Kspc" <-
 function(S=35,T=25,P=0){
 
+nK <- max(length(S), length(T), length(P))
+
+##-------- Creation de vecteur pour toutes les entrees (si vectorielles)
+
+if(length(S)!=nK){S <- rep(S[1], nK)}
+if(length(T)!=nK){T <- rep(T[1], nK)}
+if(length(P)!=nK){P <- rep(P[1], nK)}
+
+
 #---- issues de equic----
 tk = 273.15;           # [K] (for conversion [deg C] <-> [K])
 TC = T + tk;           # TC [C]; T[K]
@@ -40,8 +49,9 @@ bor = (416.*(S/35.))* 1e-6;   # (mol/kg), DOE94
 	log10Kspc = tmp1 + tmp2 + tmp3;
 	
 	Kspc = 10^(log10Kspc);
-
-		if (P > 0.0)
+	
+	for(i in (1:nK)){	
+		if (P[i] > 0.0)
 		{
 		
 		RGAS = 8.314510;        # J mol-1 deg-1 (perfect Gas)  
@@ -77,13 +87,13 @@ bor = (416.*(S/35.))* 1e-6;   # (mol/kg), DOE94
 		
 		for (ipc in 1:length(a0))
 		{
-		  deltav[ipc]  =  a0[ipc] + a1[ipc] *T + a2[ipc] *T*T;
-		  deltak[ipc]   = (b0[ipc]  + b1[ipc] *T + b2[ipc] *T*T);  
-		  lnkpok0[ipc]  = -(deltav[ipc] /(R*TC))*P + (0.5*deltak[ipc] /(R*TC))*P*P;
+		  deltav[ipc]  =  a0[ipc] + a1[ipc] *T[i] + a2[ipc] *T[i]*T[i];
+		  deltak[ipc]   = (b0[ipc]  + b1[ipc] *T[i] + b2[ipc] *T[i]*T[i]);  
+		  lnkpok0[ipc]  = -(deltav[ipc] /(R*TC[i]))*P[i] + (0.5*deltak[ipc] /(R*TC[i]))*P[i]*P[i];
 		}
 		
-		Kspc = Kspc*exp(lnkpok0[7]);
-		
+		Kspc[i] = Kspc[i]*exp(lnkpok0[7]);
+	}	
 	}
 	attr(Kspc,"unit") = "mol/kg"
 	return(Kspc)

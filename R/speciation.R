@@ -17,7 +17,7 @@
 {
 univalent <- function(K1,H)
 { # concentration for univalent species (e.g. NH3,NH4+)
- C1<- H/(K1+H) # modificated by Héloïse Lavigne (C1=K1/(K1+H)-> C1=  H/(K1+H)) 2008
+ C1<- H/(K1+H) # modificated by He\'loi\¨se Lavigne (C1=K1/(K1+H)-> C1=  H/(K1+H)) 2008
  C2<-1-C1
  return(list(C1=C1*conc,C2=C2*conc))
 }

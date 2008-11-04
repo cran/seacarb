@@ -14,6 +14,7 @@ K3p(S = 35, T = 25, P = 0)
   \item{P}{Hydrostatic pressure in bar (surface = 0), default is 0}
 }
 
+\details{Note that the arguments can be given as a unique number or as vectors. If the lengths of the vectors are different, the longer vector is retained and only the first value of the other vectors is used. It can therefore be critical to use vectors of the same length.} 
 
 \value{
  \item{K3p}{Third dissociation constant of phosphoric acid (mol/kg),,pHscale = totale scale}
@@ -23,7 +24,7 @@ K3p(S = 35, T = 25, P = 0)
 Dickson A. G., Sabine C. L. and Christian J. R., 2007 Guide to best practices for ocean CO2 measurements. \emph{PICES Special Publication} \bold{3}, 1-191.}
 
 \author{
-Héloïse Lavigne, Aur\'elien Proye and Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
+Héloïse Lavigne, Aurélien Proye and Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
 }
 
 \seealso{

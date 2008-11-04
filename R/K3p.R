@@ -1,4 +1,4 @@
-# Copyright (C) 2008 Jean-Pierre Gattuso and Héloïse Lavigne and Aurelien Proye
+# Copyright (C) 2008 Jean-Pierre Gattuso and Héloïse Lavigne and Aurélien Proye
 #
 # This file is part of seacarb.
 #
@@ -11,6 +11,16 @@
 #
 "K3p" <-
 function(S=35,T=25,P=0){
+
+nK <- max(length(S), length(T), length(P))
+
+##-------- Creation de vecteur pour toutes les entrees (si vectorielles)
+
+if(length(S)!=nK){S <- rep(S[1], nK)}
+if(length(T)!=nK){T <- rep(T[1], nK)}
+if(length(P)!=nK){P <- rep(P[1], nK)}
+
+
 
 #-------Constantes----------------
 
@@ -37,7 +47,8 @@ bor = (416.*(S/35.))* 1e-6;   # (mol/kg), DOE94
 	
 	K3P = exp(lnK3P);
 	
-		if (P > 0.0)
+	for(i in (1:nK)){
+		if (P[i] > 0.0)
 		{
 		
 		RGAS = 8.314510;        # J mol-1 deg-1 (perfect Gas)  
@@ -71,15 +82,16 @@ bor = (416.*(S/35.))* 1e-6;   # (mol/kg), DOE94
 		
 		for (ipc in 1:length(a0))
 		{
-		  deltav[ipc]  =  a0[ipc] + a1[ipc] *T + a2[ipc] *T*T;
-		  deltak[ipc]   = (b0[ipc]  + b1[ipc] *T + b2[ipc] *T*T);  
-		  lnkpok0[ipc]  = -(deltav[ipc] /(R*TK))*P + (0.5*deltak[ipc] /(R*TK))*P*P;
+		  deltav[ipc]  =  a0[ipc] + a1[ipc] *T[i] + a2[ipc] *T[i]*T[i];
+		  deltak[ipc]   = (b0[ipc]  + b1[ipc] *T[i] + b2[ipc] *T[i]*T[i]);  
+		  lnkpok0[ipc]  = -(deltav[ipc] /(R*TK[i]))*P[i] + (0.5*deltak[ipc] /(R*TK[i]))*P[i]*P[i];
 		}
 		
 
-		K3P = K3P*exp(lnkpok0[11]);
+		K3P[i] = K3P[i]*exp(lnkpok0[11]);
 		
 	}
+}
 	attr(K3p,"unit")     = "mol/kg-soln"
 	attr(K3p,"pH scale") = "total hydrogen ion concentration"
 	return(K3P)

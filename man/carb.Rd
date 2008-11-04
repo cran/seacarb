@@ -60,7 +60,7 @@ flag = 25     pCO2 and DIC given
   	\item{Sit}{enter the value of the total silicate in mol/kg}
 }
 
-\details{Vectors can be given in enter arguments. If the length of vectors entered are different the longer vector is kept and only the first value of other vectors is used. For instance, to compute parameters from one couple of variable for a range of temperatures, a vector with temperatures required can be given in enter and other arguments can be completed be one variable this variable will be used for each temperatures.}
+\details{Note that the arguments can be given as a unique number or as vectors. If the lengths of the vectors are different, the longer vector is retained and only the first value of the other vectors is used. It can therefore be critical to use vectors of the same length. For instance, to compute parameters from one couple of variable for a range of temperatures, a vector with temperatures required can be given in enter and other arguments can be completed be one variable this variable will be used for each temperatures.}
 
 \value{The function returns a data frame containing the following columns:
 
