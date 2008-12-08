@@ -86,7 +86,7 @@ if (P[i] > 0.0)
 {
 		
 	RGAS = 8.314510;        # J mol-1 deg-1 (perfect Gas)  
-	R = 83.131;             # mol bar deg-1 
+	R = 83.14472;             # mol bar deg-1 
 	                        # conversion cm3 -> m3          *1.e-6
         	                  #            bar -> Pa = N m-2  *1.e+5
 	                        #                => *1.e-1 or *1/10
@@ -120,7 +120,7 @@ if (P[i] > 0.0)
 	{
 	  deltav[ipc]  =  a0[ipc] + a1[ipc] *T[i] + a2[ipc] *T[i]*T[i];
 	  deltak[ipc]   = (b0[ipc]  + b1[ipc] *T[i] + b2[ipc] *T[i]*T[i]);  
-	  lnkpok0[ipc]  = -(deltav[ipc] /(R*TK))*P[i] + (0.5*deltak[ipc] /(R*TK[i]))*P[i]*P[i];
+	  lnkpok0[ipc]  = -(deltav[ipc] /(R*TK[i]))*P[i] + (0.5*deltak[ipc] /(R*TK[i]))*P[i]*P[i];
 	}
 
 	K2[i] <- K2[i]*exp(lnkpok0[2])

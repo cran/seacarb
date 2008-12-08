@@ -1,4 +1,19 @@
 --------------------------
+version 2.0.5, 2008-12-08
+
+Changes made thanks to comments kindly provided by Andreas Hofman (A.Hofmann@nioo.knaw.nl):
+- K2 modified to fix a bug which provided warnings when several pressures were used.
+- Khs modified to fix a bug (in coefficient a2).
+- The value of the R constant was updated according to Dickson et al. (2007). The new value is 8.314475 J/(K*mol).
+- kconv was modified in order to include pressure correction.
+
+--------------------------
+version 2.0.4, 2008-11-06
+
+- pH, pTA, pmix, pCa, and pgas now accept Sit (concentration of silicate) and Pt (concentration of total phosphate) as input arguments.
+- Various style changes in the help files.
+
+--------------------------
 version 2.0.3, 2008-11-04
 
 - The code of all functions which calculate constants was modified in order to be able to use vectors as input arguments.

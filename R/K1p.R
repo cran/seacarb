@@ -50,7 +50,7 @@ for(i in (1:nK)){
 		{
 		
 		RGAS = 8.314510;        # J mol-1 deg-1 (perfect Gas)  
-		R = 83.131;             # mol bar deg-1 
+		R = 83.14472;             # mol bar deg-1 
 		                        # conversion cm3 -> m3          *1.e-6
 	                        #            bar -> Pa = N m-2  *1.e+5
 		                        #                => *1.e-1 or *1/10

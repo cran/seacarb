@@ -8,8 +8,8 @@
 #
 # You should have received a copy of the GNU General Public License along with seacarb; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
-"pgas" <- function(flag, var1, var2, pCO2g, S=35, T=20, P=0){
-		ci <- carb(flag=flag, var1=var1, var2=var2, S=S ,T=T, P=P)
+"pgas" <- function(flag, var1, var2, pCO2g, S=35, T=20, P=0, Pt=0, Sit=0){
+		ci <- carb(flag=flag, var1=var1, var2=var2, S=S ,T=T, P=P, Pt=Pt, Sit=Sit)
 		alkf <- ci$ALK
 		cf <- carb(flag=24,var1=pCO2g, var2=alkf, S=S, T=T, P=P)		
 		co <- as.data.frame(c("pgas-initial", rep("pgas-final", nrow(cf))))

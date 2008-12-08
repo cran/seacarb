@@ -45,7 +45,7 @@ lnkpok0 <- rep(0, nK)
 	for(i in (1:nK)){		
 	if (P[i]> 0.0)
   {
-		R = 83.131             # mol bar deg-1
+		R = 83.14472             # mol bar deg-1
     a0 <- -26.43; a1<- 0.0889; a2 <- -0.000905
     b0 <- -5.03e-3 ; b1 <- 0.0814e-3; b2 <- 0
     deltav  <-   a0 + a1 *T[i] + a2 *T[i]*T[i]

@@ -5,7 +5,7 @@
 \title{pTA}
 \description{Calculates the carbonate chemistry following addition of \eqn{CO_3^{2-}} or \eqn{HCO_3^-}}
 \usage{
-pTA(flag, sys=0, var1, var2, pCO2a, co3, hco3, S=35, T=20, P=0)
+pTA(flag, sys=0, var1, var2, pCO2a, co3, hco3, S=35, T=20, P=0, Pt=0, Sit=0)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -54,13 +54,15 @@ flag = 25     pCO2 and DIC given
 	\item{sys}{0 if the manipulation is carried out in a system closed to the atmosphere or 1 if its is carried out in a system open to the atmosphere}
 	\item{var1}{Value of the first  variable in mol/kg, except for pH and for pCO2 in \eqn{\mu}atm}
 	\item{var2}{Value of the second  variable in mol/kg, except for pH}
-	\item{pCO2a}{CO2 partial pressure in the atmosphere \eqn{pCO_2} in $\mu$atm. It is only used in systems open to the atmosphere (i.e. when sys=1)}
+	\item{pCO2a}{CO2 partial pressure in the atmosphere pCO2 in \eqn{\mu}atm. It is only used in systems open to the atmosphere (i.e. when sys=1)}
 	\item{co3}{Amount of \eqn{CO_3^{2-}} added in \eqn{mol\,kg^{-1}}}
 	\item{hco3}{Amount of \eqn{HCO_3^{2-}} added in \eqn{mol\,kg^{-1}}}
 	\item{S}{Salinity}
 	\item{T}{Temperature in degrees Celsius}
-  	\item{P}{Hydrostatic pressure in bar (surface = 0)}
- }
+	\item{P}{Hydrostatic pressure in bar (surface = 0)}
+	\item{Pt}{Concentration of total phosphate in mol/kg}
+	\item{Sit}{Concentration of total silicate in mol/kg}
+}
 
 \details{}
 

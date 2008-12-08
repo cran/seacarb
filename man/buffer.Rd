@@ -56,8 +56,8 @@ flag = 25     pCO2 and DIC given
 	\item{S}{Salinity}
 	\item{T}{Temperature in degrees Celsius}
   	\item{P}{Hydrostatic pressure in bar (surface = 0)}
-  	\item{Pt}{enter value of the concentration of total phosphate in mol/kg}
-  	\item{Sit}{enter the value of the total silicate in mol/kg}
+  	\item{Pt}{Concentration of total phosphate in mol/kg}
+  	\item{Sit}{Concentration of total silicate in mol/kg}
 
 }
 

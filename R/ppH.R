@@ -20,16 +20,16 @@
 # NaOH 1N: 0.1 ml therefore adds 0.1 e-3 mol of OH-, increasing TA
 # DIC is constant in a closed system
 "ppH" <-
-function(flag, sys, var1, var2, pCO2a, vol, N, S=35, T=20, P=0){
+function(flag, sys, var1, var2, pCO2a, vol, N, S=35, T=20, P=0, Pt=0, Sit=0){
 	if (sys==0) {
-		ci <- carb(flag=flag, var1=var1, var2=var2, S=S ,T=T, P=P)
+		ci <- carb(flag=flag, var1=var1, var2=var2, S=S ,T=T, P=P, Pt=Pt, Sit=Sit)
 		alkf <- ci$ALK + vol*N  # final alkalinity
 		dicf <- ci$DIC	# final dic
 		cf <- carb(flag=15, var1=alkf, var2=dicf, S=S, T=T, P=P)
 		co <- as.data.frame(c("ppH-closed-initial", rep("ppH-closed-final", nrow(cf)))) 
 	}
 	if (sys==1) {
-		ci <- carb(flag=flag, var1=var1, var2=var2, S=S ,T=T, P=P)
+		ci <- carb(flag=flag, var1=var1, var2=var2, S=S ,T=T, P=P, Pt=Pt, Sit=Sit)
 		alkf <- ci$ALK + vol*N # final total alkalinity
 		dicf <- ci$DIC	# final dic  before requilibration
 		#pHf <- ci$pH + ci$PhiH * (-vol) *N	# final pH using a buffer factor (see Frankignoulle, 1994)
@@ -44,7 +44,7 @@ function(flag, sys, var1, var2, pCO2a, vol, N, S=35, T=20, P=0){
 }
 
 ## Example:
-## ppH(flag=15, sys=0, var1i=2302e-6, var2i=2050e-6, pCO2a=444.8911, vol=-0.13e-3, N=1, S=35, T=20, P=0)
+## ppH(flag=15, sys=0, var1i=2302e-6, var2i=2050e-6, pCO2a=444.8911, vol=-0.13e-3, N=1, S=35, T=20, P=0, Pt=0, Sit=0)
 ## Debugging:
 #flag <- 15
 #sys=0

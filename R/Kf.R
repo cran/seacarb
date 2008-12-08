@@ -40,13 +40,11 @@ bor = (416.*(S/35.))* 1e-6;   # (mol/kg), DOE94
 #  Kf = [H+][F-]/[HF]  
 #
 #   Perez and Fraga, 1987 in Guide to the Best Practices for Ocean CO2 Measurements
-#   Dickson, Sabin and Christian , 2007, Chapter 5, p. 14)
+#   Dickson, Sabine and Christian, 2007, Chapter 5, p. 14)
 #  
 #   pH-scale: 'total'   
 
-
 lnKfpf <- 874/TK - 9.68 + 0.111*S^(1/2)
-
 Kfpf <- exp(lnKfpf)
 
 
@@ -57,7 +55,6 @@ Kfpf <- exp(lnKfpf)
 #   (Dickson and Riley, 1979 in Dickson and Goyet, 
 #   1994, Chapter 5, p. 14)
 #   pH-scale: 'total' 
-
 
 Ks <- Ks(S=S, T=T, P=0)
 
@@ -81,14 +78,12 @@ if(kf[i]=='dg'){Kf[i] <- Kfdg[i]}
 for(i in (1:nK)){
 if (P[i] > 0.0)
 {
-		
+
 	RGAS = 8.314510;        # J mol-1 deg-1 (perfect Gas)  
-	R = 83.131;             # mol bar deg-1 
+	R = 83.14472;             # mol bar deg-1 
 	                        # conversion cm3 -> m3          *1.e-6
         	                  #            bar -> Pa = N m-2  *1.e+5
 	                        #                => *1.e-1 or *1/10
-		
-		
 	# index: K1 1, K2 2, Kb 3, Kw 4, Ks 5, Kf 6, Kspc 7, Kspa 8,
 	#        K1P 9, K2P 10, K3P 11
 	

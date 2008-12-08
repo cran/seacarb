@@ -5,7 +5,7 @@
 \title{pmix}
 \description{Calculates the carbonate chemistry after mixing of two water samples with different pCO2}
 \usage{
-pmix(flag, var1, var2, pCO2s, wf, S=35, T=20, P=0)
+pmix(flag, var1, var2, pCO2s, wf, S=35, T=20, P=0, Pt=0, Sit=0)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -54,11 +54,13 @@ flag = 25     pCO2 and DIC given
 	\item{var1}{Value of the first variable in mol/kg except for pH and for pCO2 in \eqn{\mu}atm}
 	\item{var2}{Value of the second variable in mol/kg except for pH}
 	\item{pCO2s}{Partial pressure of the high CO2 component in \eqn{\mu}atm}
-	\item{wf}{Weight fraction of the high CO2 seawater vs normal seawater in \eqn{kg^{-1}}:\eqn{kg^{-1}}}
+	\item{wf}{Weight fraction of the high CO2 seawater vs normal seawater}
 	\item{S}{Salinity}
 	\item{T}{Temperature in degrees Celsius}
-  	\item{P}{Hydrostatic pressure in bar (surface = 0)}
- }
+	\item{P}{Hydrostatic pressure in bar (surface = 0)}
+	\item{Pt}{Concentration of total phosphate in mol/kg}
+	\item{Sit}{Concentration of total silicate in mol/kg}
+}
 
 \details{}
 
