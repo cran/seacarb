@@ -5,14 +5,16 @@
 \description{
 The variables are:
 
-\item Flag indicating which couple of variables is used
-\item Value of the first variable in mol/kg, except for pH and for pCO2 in \eqn{\mu}atm
-\item Value of the second variable in mol/kg, except for pH
-\item Salinity
-\item Temperature in degrees Celsius
-\item Hydrostatic pressure in bar (surface = 0)
-\item Value of the concentration of total phosphate in mol/kg
-\item Value of the total silicate in mol/kg
+\itemize{
+	\item Flag indicating which couple of variables is used
+	\item Value of the first variable in mol/kg, except for pH and for pCO2 in \eqn{\mu}atm
+	\item Value of the second variable in mol/kg, except for pH
+	\item Salinity
+	\item Temperature in degrees Celsius
+	\item Hydrostatic pressure in bar (surface = 0)
+	\item Value of the concentration of total phosphate in mol/kg
+	\item Value of the total silicate in mol/kg
+}
 }
 \usage{seacarb_test}
 \format{A data frame with 20 rows and 8 variables}

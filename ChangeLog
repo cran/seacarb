@@ -1,7 +1,12 @@
+version 2.0.6, 2009-02-09
+
+Changes made thanks to comments kindly provided by Andreas Hofmann (A.Hofmann@nioo.knaw.nl):
+- Kf was modified in order to convert Kf from free scale to total scale after pressure corrections in the Dickson and Goyet Method.
+
 --------------------------
 version 2.0.5, 2008-12-08
 
-Changes made thanks to comments kindly provided by Andreas Hofman (A.Hofmann@nioo.knaw.nl):
+Changes made thanks to comments kindly provided by Andreas Hofmann (A.Hofmann@nioo.knaw.nl):
 - K2 modified to fix a bug which provided warnings when several pressures were used.
 - Khs modified to fix a bug (in coefficient a2).
 - The value of the R constant was updated according to Dickson et al. (2007). The new value is 8.314475 J/(K*mol).

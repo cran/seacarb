@@ -61,11 +61,12 @@ flag = 25     pCO2 and DIC given
 	\item{Sit}{Concentration of total silicate in mol/kg}
 }
 
-\details{}
+\details{This function assumes that the simplified synthetic sea water recipe described by Dickson et al. (2007) was used. It is the basis of the synthetic seawater that has been used to determine a variety of equilibrium constants for use in sea water.
 
+Note that this function does not account for the effect of the changes in the calcium concentration of the dissociation constants of carbonic acid and on the solubility product of CaCO3 (Ben-Yaakov and Goldhaber, 1973).
+}
 
 \value{The function returns a data frame containing the following columns:
-
   \item{comment}{The initial or final state water}
   \item{S}{Salinity}
   \item{T}{Temperature in degrees Celsius}
@@ -80,12 +81,12 @@ flag = 25     pCO2 and DIC given
   \item{ALK}{ALK, total alkalinity (mol/kg)}
   \item{OmegaAragonite}{Omega aragonite, aragonite saturation state}
   \item{OmegaCalcite}{Omega calcite, calcite saturation state}
-
 }
 
-
-
 \references{
+Ben-Yaakov S. and Goldhaber M. B., 1973 The influence of sea water composition on the apparent constants of the carbonate system. \emph{Deep-Sea Research} \bold{20}, 87-99.
+
+Dickson A. G., Sabine C. L. and Christian J. R., 2007 Guide to best practices for ocean CO2 measurements. \emph{PICES Special Publication} \bold{3}, 1-191.
 }
 
 \author{

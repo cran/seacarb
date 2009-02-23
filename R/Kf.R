@@ -54,13 +54,9 @@ Kfpf <- exp(lnKfpf)
 #
 #   (Dickson and Riley, 1979 in Dickson and Goyet, 
 #   1994, Chapter 5, p. 14)
-#   pH-scale: 'total' 
+#   pH-scale: 'free' (require to convert in total scale after pressure corrections 
 
-Ks <- Ks(S=S, T=T, P=0)
-
-tmp1 = 1590.2/TK - 12.641 + 1.525*sqrt(ION);
-tmp2 = log(1-0.001005*S) + log(1+ST/Ks);
-lnKfdg = tmp1 + tmp2;
+lnKfdg = 1590.2/TK - 12.641 + 1.525*sqrt(ION);
 
 Kfdg <- exp(lnKfdg)
 
@@ -118,6 +114,18 @@ if (P[i] > 0.0)
 	Kf[i] <- Kf[i]*exp(lnkpok0[6])
 }
 }
+
+
+## pH scale correction in case of Dickson and Goyet method
+## Passage from free scale to total scale
+Ks <- Ks(S=S, T=T, P=P)
+for(i in (1:nK)){
+if(kf[i]=='dg'){
+tmp2 = (1-0.001005*S[i])*(1+ST[i]/Ks[i]); #passage from "free scale" to "total scale"
+Kf[i] = Kf[i]*tmp2;
+}
+}
+ 
 
 
 attr(Kf,"unit")     = "mol/kg-soln"
