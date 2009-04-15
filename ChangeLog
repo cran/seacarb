@@ -1,5 +1,12 @@
-version 2.0.6, 2009-02-09
+version 2.0.7, 2009-04-07
+- changed the help file of seacarb_test to remove the use of \item (it prevented compilation on CRAN).
 
+--------------------------
+version 2.0.8, 2009-04-07
+- changed the help file of ppH to correct an error concerning the addition of acid (the normality was wrong).
+
+--------------------------
+version 2.0.6, 2009-02-09
 Changes made thanks to comments kindly provided by Andreas Hofmann (A.Hofmann@nioo.knaw.nl):
 - Kf was modified in order to convert Kf from free scale to total scale after pressure corrections in the Dickson and Goyet Method.
 
