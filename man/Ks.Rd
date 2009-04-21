@@ -32,6 +32,6 @@ Héloïse Lavigne, Aurélien Proye and Jean-Pierre Gattuso \email{gattuso@obs-vlfr.
 }
 
 \examples{
-  Ks(35,25,0)
+  Ks(S=35,T=25,P=0)
 }
 \keyword{utilities}

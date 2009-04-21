@@ -1,4 +1,4 @@
-# Copyright (C) 2007 Karline Soetaert (K.Soetaert@nioo.knaw.nl)
+# Copyright (C) 2008 Karline Soetaert (K.Soetaert@nioo.knaw.nl) and Héloïse Lavigne
 #
 # This file is part of seacarb.
 #
@@ -48,7 +48,7 @@
 	#   (Dickson and Riley, 1979 in Dickson and Goyet,
 	#   1994, Chapter 5, p. 14)
 	#   pH-scale: 'total'
-	Kf = Kf(S=S, T=T, P=P)
+	Kf = Kf(S=S, T=T, P=P, pHscale="T")
 	Kf  = Kf*total2free       # convert Kf from total to free pH scale
 
 

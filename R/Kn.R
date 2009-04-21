@@ -10,7 +10,8 @@
 #
 
 
-"Kn"              <- function (S=35, T=25, P=0)
+"Kn" <- 
+function (S=35, T=25, P=0, pHscale="T")
 
 #--------------------------------------------------------------
 # Dissociation constant of ammonium 
@@ -18,13 +19,14 @@
 
 {
 
-nK <- max(length(S), length(T), length(P))
+nK <- max(length(S), length(T), length(P), length(pHscale))
 
 ##-------- Creation de vecteur pour toutes les entrees (si vectorielles)
 
 if(length(S)!=nK){S <- rep(S[1], nK)}
 if(length(T)!=nK){T <- rep(T[1], nK)}
 if(length(P)!=nK){P <- rep(P[1], nK)}
+if(length(pHscale)!=nK){pHscale <- rep(pHscale[1],nK)}
 
 #-------Constantes----------------
 
@@ -57,7 +59,17 @@ lnkpok0 <- rep(0, nK)
   cc  <- kconv(S,T,P)            # conversion factors from one scale to other
   Kn  <- Kn/cc$ktotal2SWS        # Kn now on total scale
 
-  attr(Kn,"pH scale") = "total hydrogen ion concentration"
+###----------------pH scale corrections
+factor <- rep(NA,nK)
+pHsc <- rep(NA,nK)
+for(i in (1:nK)){   
+ if(pHscale[i]=="T"){factor[i] <- 1 ; pHsc[i] <- "total scale"}
+ if(pHscale[i]=="F"){factor[i] <- kconv(S=S[i], T=T[i], P=P[i])$ktotal2free ; pHsc[i] <- "free scale"}
+ if(pHscale[i]=="SWS"){factor[i] <- kconv(S=S[i], T=T[i], P=P[i])$ktotal2SWS ; pHsc[i] <- "seawater scale"}
+Kn[i] <- Kn[i]*factor[i]
+}
+
+  attr(Kn,"pH scale") = pHsc
   attr(Kn,"unit")     = "mol/kg-soln"
   return(Kn)
 

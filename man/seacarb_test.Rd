@@ -4,14 +4,17 @@
 \title{Test data file to test the use of the carb function}
 \description{
 The variables are:
-	- Flag indicating which couple of variables is used
-	- Value of the first variable in mol/kg, except for pH and for pCO2 in \eqn{\mu}atm
-	- Value of the second variable in mol/kg, except for pH
-	- Salinity
-	- Temperature in degrees Celsius
-	- Hydrostatic pressure in bar (surface = 0)
-	- Value of the concentration of total phosphate in mol/kg
-	- Value of the total silicate in mol/kg
+
+\itemize{
+	\item Flag indicating which couple of variables is used
+	\item Value of the first variable in mol/kg, except for pH and for pCO2 in \eqn{\mu}atm
+	\item Value of the second variable in mol/kg, except for pH
+	\item Salinity
+	\item Temperature in degrees Celsius
+	\item Hydrostatic pressure in bar (surface = 0)
+	\item Value of the concentration of total phosphate in mol/kg
+	\item Value of the total silicate in mol/kg
+}
 }
 \usage{seacarb_test}
 \format{A data frame with 20 rows and 8 variables}

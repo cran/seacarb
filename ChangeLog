@@ -1,8 +1,20 @@
-version 2.0.7, 2009-04-07
+version 2.1.0, 2009-04-21
+
+- the pHscales were added in option to calculate the constants of acidity and in the functions : carb, buffer, pgas, pTA, pCa, ppH, pmix and psi.
+- the choice of the method of calculation for K1, K2 and Kf was added in option in the functions : carb, buffer, pgas, pTA, pCa, ppH, pmix and psi.
+- two bugs were fixed in the function carb: one about effect of pressure (P) and the other one in the computation of pCO2 and fCO2 when (P>0).
+- pHconv was changed in order to fix a bug and facilitate his using.
+
+--------------------------
+version 2.0.9, 2009-04-20
+- added function psi
+
+--------------------------
+version 2.0.8, 2009-04-16
 - changed the help file of seacarb_test to remove the use of \item (it prevented compilation on CRAN).
 
 --------------------------
-version 2.0.8, 2009-04-07
+version 2.0.7, 2009-04-07
 - changed the help file of ppH to correct an error concerning the addition of acid (the normality was wrong).
 
 --------------------------

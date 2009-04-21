@@ -1,7 +1,7 @@
 Package: seacarb
 Title: Calculates parameters of the seawater carbonate system
-Version: 2.0.8
-Date: 2009-04-15
+Version: 2.1
+Date: 2009-04-21
 Author: Heloise Lavigne and Aurelien Proye and Jean-Pierre Gattuso.
         Portions of code and/or corrections were contributed by
         Jean-Marie Epitalon, Andreas Hofmann, Bernard Gentili, Jim Orr
@@ -10,8 +10,6 @@ Description: Calculates parameters of the seawater carbonate system
 Maintainer: Jean-Pierre Gattuso <gattuso@obs-vlfr.fr>
 URL: http://www.obs-vlfr.fr/~gattuso/seacarb.php
 License: GPL (>= 2)
+Packaged: Wed Apr 22 17:23:32 2009; gattuso
 Repository: CRAN
-Repository/R-Forge/Project: seacarb
-Repository/R-Forge/Revision: 10
-Date/Publication: 2009-04-17 17:35:15
-Packaged: Fri Apr 17 05:31:10 2009; rforge
+Date/Publication: 2009-04-22 16:11:36

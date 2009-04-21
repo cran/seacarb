@@ -5,7 +5,7 @@
 \title{pCa}
 \description{Calculates the changes in the saturation states of aragonite and calcite resulting from the manipulation of the calcium concentration}
 \usage{
-pCa(flag, var1, var2, Ca, S=35, T=20, P=0, Pt=0, Sit=0)
+pCa(flag, var1, var2, Ca, S=35, T=20, P=0, Pt=0, Sit=0, k1k2="l", kf="pf", pHscale="T")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -59,13 +59,16 @@ flag = 25     pCO2 and DIC given
 	\item{P}{Hydrostatic pressure in bar (surface = 0)}
 	\item{Pt}{Concentration of total phosphate in mol/kg}
 	\item{Sit}{Concentration of total silicate in mol/kg}
+	\item{k1k2}{"l" for using K1 and K2 from Lueker et al. and "r" for using K1 and K2 from Roy et al. , default is "l"}
+	\item{kf}{"pf" for using Kf from Perez and Fraga (1987) and "dg" for using Kf from Dickson and Goyet (1979), default is "pf"}
+	\item{pHscale}{choice of pH scale: "T" for the total scale, "F" for the free scale and "SWS" for using the seawater scale, default is "T" (total scale)}}
+
+\details{This function assumes that the simplified synthetic sea water recipe described by Dickson et al. (2007) was used. It is the basis of the synthetic seawater that has been used to determine a variety of equilibrium constants for use in sea water.
+
+Note that this function does not account for the effect of the changes in the calcium concentration of the dissociation constants of carbonic acid and on the solubility product of CaCO3 (Ben-Yaakov and Goldhaber, 1973).
 }
 
-\details{}
-
-
 \value{The function returns a data frame containing the following columns:
-
   \item{comment}{The initial or final state water}
   \item{S}{Salinity}
   \item{T}{Temperature in degrees Celsius}
@@ -80,12 +83,12 @@ flag = 25     pCO2 and DIC given
   \item{ALK}{ALK, total alkalinity (mol/kg)}
   \item{OmegaAragonite}{Omega aragonite, aragonite saturation state}
   \item{OmegaCalcite}{Omega calcite, calcite saturation state}
-
 }
 
-
-
 \references{
+Ben-Yaakov S. and Goldhaber M. B., 1973 The influence of sea water composition on the apparent constants of the carbonate system. \emph{Deep-Sea Research} \bold{20}, 87-99.
+
+Dickson A. G., Sabine C. L. and Christian J. R., 2007 Guide to best practices for ocean CO2 measurements. \emph{PICES Special Publication} \bold{3}, 1-191.
 }
 
 \author{
@@ -93,8 +96,8 @@ Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
 }
 
 \examples{
-pCa(flag=15, var1=2302e-6, var2=2050e-6, Ca=0.01028, S=35, T=20, P=0, Pt=0, Sit=0) # with normal Ca concentration
-pCa(flag=15, var1=2302e-6, var2=2050e-6, Ca=0.01028/2, S=35, T=20, P=0, Pt=0, Sit=0) # with 0.5 * Ca concentration
+pCa(flag=15, var1=2302e-6, var2=2050e-6, Ca=0.01028, S=35, T=20, P=0, Pt=0, Sit=0, pHscale="T", kf="pf", k1k2="l") # with normal Ca concentration
+pCa(flag=15, var1=2302e-6, var2=2050e-6, Ca=0.01028/2, S=35, T=20, P=0, Pt=0, Sit=0, pHscale="T", kf="pf", k1k2="l") # with 0.5 * Ca concentration
 }
 
 \keyword{utilities}

@@ -5,7 +5,7 @@
 \title{Parameters of the seawater carbonate system}
 \description{Returns parameters of the seawater carbonate system.}
 \usage{
-carb(flag, var1, var2, S=35, T=25, P=0, Pt=0, Sit=0)
+carb(flag, var1, var2, S=35, T=25, P=0, Pt=0, Sit=0, k1k2="l", kf="pf", pHscale="T")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -58,7 +58,9 @@ flag = 25     pCO2 and DIC given
   	\item{P}{Hydrostatic pressure in bar (surface = 0)}
   	\item{Pt}{Concentration of total phosphate in mol/kg}
   	\item{Sit}{Concentration of total silicate in mol/kg}
-}
+	\item{k1k2}{"l" for using K1 and K2 from Lueker et al. and "r" for using K1 and K2 from Roy et al. , default is "l"}
+	\item{kf}{"pf" for using Kf from Perez and Fraga (1987) and "dg" for using Kf from Dickson and Goyet (1979), default is "pf"}
+	\item{pHscale}{choice of pH scale: "T" for the total scale, "F" for the free scale and "SWS" for using the seawater scale, default is "T" (total scale)}}
 
 \details{Note that the arguments can be given as a unique number or as vectors. If the lengths of the vectors are different, the longer vector is retained and only the first value of the other vectors is used. It can therefore be critical to use vectors of the same length. For instance, to compute parameters from one couple of variable for a range of temperatures, a vector with temperatures required can be given in enter and other arguments can be completed be one variable this variable will be used for each temperatures.}
 
@@ -84,6 +86,12 @@ flag = 25     pCO2 and DIC given
 
 Dickson A. G., Sabine C. L. and Christian J. R., 2007 Guide to best practices for ocean CO2 measurements. \emph{PICES Special Publication} \bold{3}, 1-191.
 
+Lueker, T. J. Dickson, A. G. and Keeling, C. D. 2000 Ocean pCO2 calculated from dissolved inorganic carbon, alkalinity, and equations for K1 and K2: validation based on laboratory measurements of CO2 in gas and seawater at equilibrium. \emph{Marine Chemistry} \bold{70} 105-119.
+
+Roy, R. N. Roy, L. N. Vogel, K. M. Porter-Moore, C. Pearson, T. Good C. E., Millero F. J. and Campbell D. M., 1993. The dissociation constants of carbonic acid in seawater at salinities 5 to 45 and temperatures 0 to 45°C. \emph{Marine Chemistry} \bold{44}, 249-267.
+
+Perez, F. F. and Fraga, F. 1987 Association constant of fluoride and hydrogen ions in seawater. \emph{Marine Chemistry} \bold{21}, 161-168.
+
 Zeebe, R. E. and Wolf-Gladrow, D. A., 2001 \emph{CO2 in seawater: equilibrium, kinetics, isotopes}. Amsterdam: Elsevier, 346 pp.
 }
 
@@ -94,7 +102,7 @@ Héloïse Lavigne, Aurélien Proye and Jean-Pierre Gattuso \email{gattuso@obs-vlfr.
 \examples{
 
 ## With a couple of variables
-carb(flag=8, var1=8.2, var2=0.00234, S=35, T=25, P=0, Pt=0, Sit=0)
+carb(flag=8, var1=8.2, var2=0.00234, S=35, T=25, P=0, Pt=0, Sit=0, pHscale="T", kf="pf", k1k2="l")
 
 ## Using vectors as arguments
 flag <- c(8, 2, 8)
@@ -105,7 +113,10 @@ T <- c(25, 25, 30)
 P <- c(0, 0, 0)
 Pt <- c(0, 0, 0)
 Sit <- c(0, 0, 0)
-carb(flag=flag, var1=var1, var2=var2, S=S, T=T, P=P, Pt=Pt, Sit=Sit)
+kf <- c("pf", "pf", "pf")
+k1k2 <- c("l", "l", "l")
+pHscale <- c("T", "T", "T")
+carb(flag=flag, var1=var1, var2=var2, S=S, T=T, P=P, Pt=Pt, Sit=Sit, kf=kf, k1k2=k1k2, pHscale=pHscale)
 
 ## Test with all flags 
 flag <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 21, 22, 23, 24, 25)

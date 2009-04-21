@@ -13,9 +13,9 @@
 #
 #
 carb<-
-function(flag, var1, var2, S=35, T=25, P=0, Pt=0, Sit=0){
+function(flag, var1, var2, S=35, T=25, P=0, Pt=0, Sit=0, k1k2='l', kf='pf', pHscale="T"){
 RES <- data.frame()
-n <- max(length(var1), length(var2), length(S), length(T), length(P), length(Pt), length(Sit))
+n <- max(length(var1), length(var2), length(S), length(T), length(P), length(Pt), length(Sit), length(k1k2), length(kf), length(pHscale))
 if(length(flag)!=n){ flag <- rep(flag[1],n)}
 if(length(var1)!=n){ var1 <- rep(var1[1],n)}
 if(length(var2)!=n){ var2 <- rep(var2[1],n)}
@@ -24,7 +24,13 @@ if(length(T)!=n){ T <- rep(T[1],n)}
 if(length(P)!=n){ P <- rep(P[1],n)}
 if(length(Pt)!=n){ Pt <- rep(Pt[1],n)}
 if(length(Sit)!=n){ Sit <- rep(Sit[1],n)}
+if(length(k1k2)!=n){ k1k2 <- rep(k1k2[1],n)}
+if(length(kf)!=n){ kf <- rep(kf[1],n)}
+if(length(pHscale)!=n){pHscale <- rep(pHscale[1],n)}
+
 df <- data.frame(flag, var1, var2, S, T, P, Pt, Sit)
+
+##BOUCLE
 for(i in (1:nrow(df))) {
  flag <- as.numeric(df[i,1])
   var1 <- as.numeric(df[i,2])
@@ -57,117 +63,21 @@ fluo = (7*(S/35))*1e-5        # (mol/kg), DOE94 fluoride total
 #--------------------- calcul des K ----------------------------------
 #---------------------------------------------------------------------
 
-K1 <- K1(S=S, T=T, P=P)
-K2 <- K2(S=S, T=T, P=P)
+K1 <- K1(S=S, T=T, P=P, pHscale=pHscale[i], k1k2=k1k2[i])   
+K2 <- K2(S=S, T=T, P=P, pHscale=pHscale[i], k1k2=k1k2[i])
 Ks <- Ks(S=S, T=T, P=P)
-Kf <- Kf(S=S, T=T, P=P)
-Kw <- Kw(S=S, T=T, P=P)
+Kf <- Kf(S=S, T=T, P=P, pHscale=pHscale[i], kf=kf[i])
+Kw <- Kw(S=S, T=T, P=P, pHscale=pHscale[i])
 Kh <- Kh(S=S, T=T, P=P)
-Kb <- Kb(S=S, T=T, P=P)
-K1p <- K1p(S=S, T=T, P=P)
-K2p <- K2p(S=S, T=T, P=P)
-K3p <- K3p(S=S, T=T, P=P)
-Ksi <- Ksi(S=S, T=T, P=P)
+Kb <- Kb(S=S, T=T, P=P, pHscale=pHscale[i])
+K1p <- K1p(S=S, T=T, P=P, pHscale=pHscale[i])
+K2p <- K2p(S=S, T=T, P=P, pHscale=pHscale[i])
+K3p <- K3p(S=S, T=T, P=P, pHscale=pHscale[i])
+Ksi <- Ksi(S=S, T=T, P=P, pHscale=pHscale[i])
 Kspa <- Kspa(S=S, T=T, P=P)
 Kspc <- Kspc(S=S, T=T, P=P)
-
-#---------------------- Pressure effect on K's (Millero, 95) ----------#
-
-	if (P > 0.0)
-	{
-
-	RGAS = 8.314510;        # J mol-1 deg-1 (perfect Gas)  
-	R = 83.14472;             # mol bar deg-1 
-	                        # conversion cm3 -> m3          *1.e-6
-                  	      #            bar -> Pa = N m-2  *1.e+5
-	                        #                => *1.e-1 or *1/10
-
-
-	# index: K1 1, K2 2, Kb 3, Kw 4, Ks 5, Kf 6, Kspc 7, Kspa 8,
-	#        K1P 9, K2P 10, K3P 11
-
-	#----- note: there is an error in Table 9 of Millero, 1995.
-	#----- The coefficients -b0 and b1
-	#----- have to be multiplied by 1.e-3!
-
-	#----- there are some more errors! 
-	#----- the signs (+,-) of coefficients in Millero 95 do not
-	#----- agree with Millero 79
-
-
-
-	a0 = c(-25.5, -15.82, -29.48, -25.60, -18.03, -9.78, -48.76, -46, -14.51, -23.12, -26.57);
-	a1 = c(0.1271, -0.0219, 0.1622, 0.2324, 0.0466, -0.0090, 0.5304, 0.5304, 0.1211, 0.1758, 0.2020);
-	a2 = c(0.0, 0.0, 2.608*1e-3, -3.6246*1e-3, 0.316*1e-3, -0.942*1e-3, 0.0, 0.0, -0.321*1e-3, -2.647*1e-3, -3.042*1e-3);
-	b0 = c(-3.08*1e-3, 1.13*1e-3, -2.84*1e-3, -5.13*1e-3, -4.53*1e-3, -3.91*1e-3, -11.76*1e-3, -11.76*1e-3, -2.67*1e-3, -5.15*1e-3, -4.08*1e-3);
-	b1 = c(0.0877*1e-3, -0.1475*1e-3, 0.0, 0.0794*1e-3, 0.09*1e-3, 0.054*1e-3, 0.3692*1e-3, 0.3692*1e-3, 0.0427*1e-3, 0.09*1e-3, 0.0714*1e-3);
-	b2 = c(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-
-	deltav = c(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-	deltak = c(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-	lnkpok0 = c(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-
-	for (ipc in 1:length(a0))
-	{
-	  deltav[ipc]  =  a0[ipc] + a1[ipc] *T + a2[ipc] *T*T;
-	  deltak[ipc]   = (b0[ipc]  + b1[ipc] *T + b2[ipc] *T*T);  
-	  lnkpok0[ipc]  = -(deltav[ipc] /(R*TK))*P + (0.5*deltak[ipc] /(R*TK))*P*P;
-	}
-
-	K1 = K1*exp(lnkpok0[1]);
-	K2 = K2*exp(lnkpok0[2]);
-	Kb = Kb*exp(lnkpok0[3]);
-	Kw = Kw*exp(lnkpok0[4]);
-	Ks = Ks*exp(lnkpok0[5]);
-	Kf = Kf*exp(lnkpok0[6]);
-	Kspc = Kspc*exp(lnkpok0[7]);
-	Kspa = Kspa*exp(lnkpok0[8]);
-	K1p = K1p*exp(lnkpok0[9]);
-	K2p = K2p*exp(lnkpok0[10]);
-	K3p = K3p*exp(lnkpok0[11]);
-	}
-
-#----------------------------------------------------
-# Density of seawater as function of S,T,P.
-#
-# Millero et al. 1981, Gill, 1982.
-#----------------------------------------------------
-
-
-	#------------ Density of pure water
-
-	rhow = 999.842594 + 6.793952e-2*T -9.095290e-3*T^2 + 1.001685e-4*T^3 -1.120083e-6*T^4 + 6.536332e-9*T^5;
-
-	#------------ Density of seawater at 1 atm, P=0
-
-	A = 8.24493e-1 - 4.0899e-3*T + 7.6438e-5*T^2 - 8.2467e-7*T^3 + 5.3875e-9*T^4; 
-	B = -5.72466e-3 + 1.0227e-4*T - 1.6546e-6*T^2; 
-	C = 4.8314e-4;   
-
-	rho0 = rhow + A*S + B*S^(3/2) + C*S^2;
-
-
-	#-------------- Secant bulk modulus of pure water 
-	#
-	# The secant bulk modulus is the average change in pressure 
-	# divided by the total change in volume per unit of initial volume.
-
-
-	Ksbmw = 19652.21 + 148.4206*T - 2.327105*T^2 + 1.360477e-2*T^3 - 5.155288e-5*T^4;
-
-	#-------------- Secant bulk modulus of seawater at 1 atm
-
-	Ksbm0 = Ksbmw + S*( 54.6746 - 0.603459*T + 1.09987e-2*T^2 - 6.1670e-5*T^3) + S^(3/2)*( 7.944e-2 + 1.6483e-2*T - 5.3009e-4*T^2);
-
-
-	#-------------- Secant bulk modulus of seawater at S,T,P
 	
-	Ksbm = Ksbm0 + P*( 3.239908 + 1.43713e-3*T + 1.16092e-4*T^2 - 5.77905e-7*T^3) + P*S*( 2.2838e-3 - 1.0981e-5*T - 1.6078e-6*T^2) + P*S^(3/2)*1.91075e-4 + P*P*(8.50935e-5 - 6.12293e-6*T + 5.2787e-8*T^2) + P^2*S*(-9.9348e-7 + 2.0816e-8*T + 9.1697e-10*T^2);
-	 
-
-	#------------- Density of seawater at S,T,P
-
-	rho = rho0/(1-P/Ksbm);
+rho <- rho(S=S,T=T,P=P)
 
 #------------------------------------------------------------------#
 #------------------------------------------------------------------#
@@ -483,19 +393,21 @@ Kspc <- Kspc(S=S, T=T, P=P)
 
 	# ------------ calculation of pCO2 for cases 1 to 15 
 	# JME: corrected fugacity calculation
+	# here P = Patm = 1 bar
 	if ((flag>=1)&(flag<=15))
 	{
 	B=(-1636.75+12.0408*TK-0.0327957*(TK*TK)+0.0000316528*(TK*TK*TK))*1e-6;
-	pCO2= fCO2*(1/exp(((P+1)*100000)*(B+2*(57.7-0.118*TK)*1e-6)/(8.314*TK)))
+	pCO2= fCO2*(1/exp((1*100000)*(B+2*(57.7-0.118*TK)*1e-6)/(8.314*TK)))
 	}
 
 	# ------------ calculation of fCO2 for cases 21 to 25
 	# JME: corrected fugacity calculation
+	# here P = Patm = 1 bar
 	if ((flag>=21)&(flag<=25))
 	{
 	pCO2 <- var1*1e-6
 	B=(-1636.75+12.0408*TK-0.0327957*(TK*TK)+0.0000316528*(TK*TK*TK))*1e-6;
-	fCO2= pCO2*(exp(((P+1)*100000)*(B+2*(57.7-0.118*TK)*1e-6)/(8.314*TK)))
+	fCO2= pCO2*(exp((1*100000)*(B+2*(57.7-0.118*TK)*1e-6)/(8.314*TK)))
 	}
 
 	# ------------ case 21.) PH and pCO2 given

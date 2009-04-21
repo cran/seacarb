@@ -4,20 +4,21 @@
 \title{First dissociation constant of carbonic acid (mol/kg)}
 \description{First dissociation constant of carbonic acid (mol/kg)}
 \usage{
-K1(S = 35, T = 25, P = 0, k1k2 = "l")
+K1(S = 35, T = 25, P = 0, k1k2="l", pHscale="T")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{S}{Salinity, default is 35}
   \item{T}{Temperature in degrees Celsius, default is 25°C}
   \item{P}{Hydrostatic pressure in bar (surface = 0), default is 0}
-  \item{k1k2}{"l" for using K1 and K2 from Lueker et al. and "r" for using K1 and K2 from Roy and al. , default is "l"}
+  \item{k1k2}{"l" for using K1 and K2 from Lueker et al. and "r" for using K1 and K2 from Roy et al. , default is "l"}
+  \item{pHscale}{choice of pH scale: "T" for using the total scale, "F" for using the free scale and "SWS" for using the seawater scale, default is total scale}
 }
 
 \details{Note that the arguments can be given as a unique number or as vectors. If the lengths of the vectors are different, the longer vector is retained and only the first value of the other vectors is used. It can therefore be critical to use vectors of the same length.}
 
 \value{
-  \item{K1}{First dissociation constant of carbonic acid (mol/kg), pH scale = total scale}
+  \item{K1}{First dissociation constant of carbonic acid (mol/kg)}
 }
 
 \references{The Lueker et al. (2000) constant is recommended by Guide to Best Practices for Ocean CO2 Measurements (2007). The Roy et al. (1993) constants is recommended by DOE (1994).
@@ -40,7 +41,7 @@ Héloïse Lavigne, Aurélien Proye and Jean-Pierre Gattuso \email{gattuso@obs-vlfr.
 }
 
 \examples{
-  K1(35,25,0)
+  K1(S=35,T=25,P=0,k1k2="l",pHscale="T")
 }
 
 \keyword{utilities}

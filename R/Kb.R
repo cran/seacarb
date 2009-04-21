@@ -11,16 +11,16 @@
 #
 
 "Kb" <-
-function(S=35,T=25,P=0){
+function(S=35,T=25,P=0,pHscale="T"){
 
-nK <- max(length(S), length(T), length(P))
+nK <- max(length(S), length(T), length(P), length(pHscale))
 
 ##-------- Creation de vecteur pour toutes les entrees (si vectorielles)
 
 if(length(S)!=nK){S <- rep(S[1], nK)}
 if(length(T)!=nK){T <- rep(T[1], nK)}
 if(length(P)!=nK){P <- rep(P[1], nK)}
-
+if(length(pHscale)!=nK){pHscale <- rep(pHscale[1], nK)}
 	
 #-------Constantes----------------
 
@@ -100,7 +100,19 @@ bor = (416.*(S/35.))* 1e-6;   # (mol/kg), DOE94
 
 	}	
 }
+
+###----------------pH scale corrections
+factor <- rep(NA,nK)
+pHsc <- rep(NA,nK)
+for(i in (1:nK)){   
+ if(pHscale[i]=="T"){factor[i] <- 1 ; pHsc[i] <- "total scale"}
+ if(pHscale[i]=="F"){factor[i] <- kconv(S=S[i], T=T[i], P=P[i])$ktotal2free ; pHsc[i] <- "free scale"}
+ if(pHscale[i]=="SWS"){factor[i] <- kconv(S=S[i], T=T[i], P=P[i])$ktotal2SWS ; pHsc[i] <- "seawater scale"}
+Kb[i] <- Kb[i]*factor[i]
+}
+
+
 	attr(Kb,"unit")     = "mol/kg-soln"
-	attr(Kb,"pH scale") = "total hydrogen ion concentration"
+	attr(Kb,"pH scale") = pHsc
 	return(Kb)
 }

@@ -1,4 +1,4 @@
-# Copyright (C) 2003 Jean-Pierre Gattuso and Aurelien Proye
+# Copyright (C) 2009 Jean-Pierre Gattuso
 #
 # This file is part of seacarb.
 #
@@ -8,15 +8,11 @@
 #
 # You should have received a copy of the GNU General Public License along with seacarb; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
-#
-"phinsi" <- function(PH=8.2, ALK=2.4e-3, Tinsi=20, Tlab=25, S=35, Pt = 0, Sit = 0, k1k2='l', kf='pf', pHscale="T") {
-	# according to Hunter (1998)
-	#si TA=0 alors calculer TA: TA=660+47.6 * S
-	dat1 <- carb(flag = 8, var1 = PH, var2 = ALK, S = S, T = Tlab, P = 0, Pt = Pt, Sit = Sit, k1k2=k1k2, kf=kf, pHscale=pHscale)
-	DIC <- dat1$DIC
-	dat2 <- carb(flag = 15, var1 = ALK, var2 = DIC, S = S, T = Tinsi, P = 0, Pt = Pt, Sit = Sit, k1k2=k1k2, kf=kf, pHscale=pHscale)
-	ph_insi <- dat2$pH
-	#utiliser DIC et TA pour calculer pH in situ (flag=15)
-	#attr(bor,"unit") <- "mol/kg"
-	return(ph_insi)
+"psi" <-
+function(flag, var1, var2, S=35, T=20, P=0, Pt=0, Sit=0, pHscale="T", kf="pf", k1k2="l"){
+		buf <- buffer(flag=flag, var1=var1, var2=var2, S=S, T=T, P=P, Pt=Pt, Sit=Sit, pHscale=pHscale, kf=kf, k1k2=k1k2)
+		psi <- -buf$PiC/buf$PiD
+out <- psi
+attr(out,"unit") <- "mol CO2/mol CaCO3"
+return(out)
 }

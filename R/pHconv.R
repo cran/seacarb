@@ -1,4 +1,4 @@
-# Copyright (C) 2007 Karline Soetaert (K.Soetaert@nioo.knaw.nl)
+# Copyright (C) 2008 Jean-Pierre Gattuso and Héloïse Lavigne
 #
 # This file is part of seacarb.
 #
@@ -9,25 +9,44 @@
 # You should have received a copy of the GNU General Public License along with seacarb; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
 
-
-#--------------------------------------------------------------
-# Conversion factors for converting pH  
-# from total pH scale to free pH scale (pHtotal2free) 
-# from total pH scale to seawater pH scale (pHtotal2SWS)
-# and from free pH scale to seawater scale (pHfree2SWS)
-# pHfree = pHtotal + pHtotal2free
-# pHSWS  = pHtotal + pHtotal2SWS
-# pHSWS  = pHfree  + pHfree2SWS
-#--------------------------------------------------------------
-
-
-"pHconv" <- function (S=35,T=25,P=0)
+"pHconv" <- function (flag=1, pH=8.100, S=35, T=25, P=0)
 
 {
-  cc <- kconv(S,T,P)     # conversion factors for dissociation constants, k 
-  
-  # conversion factor for pH = log10(1/conversion for k)
-  return (list(pHtotal2SWS=log10(1/cc$ktotal2SWS), pHtotal2free=log10(1/cc$ktotal2free),
-               pHfree2SWS=log10(1/cc$kfree2SWS)))
+
+n <- max(length(pH), length(flag), length(S), length(T), length(S), length(P))
+
+if(length(pH)!=n){pH <- rep(pH[1],n)}
+if(length(flag)!=n){flag <- rep(flag[1],n)}
+if(length(S)!=n){S <- rep(S[1],n)}
+if(length(T)!=n){T <- rep(T[1],n)}
+if(length(P)!=n){P <- rep(P[1],n)}
+
+pHconv <- rep(NA, n)
+conv <- rep(NA, n)
+
+for(i in (1:n)){  
+
+	Ks = Ks(S=S[i], T=T[i], P=P[i])[1]                 # on free pH scale
+	ST  = 0.14/96.062/1.80655*S[i]    # (mol/kg soln) total sulfate
+	Kf = Kf(S=S[i], T=T[i], P=P[i], pHscale="F")[1]  # on the free pH scale
+	FT = 7e-5*(S[i]/35)                  # (mol/kg soln) total fluoride
+
+# flag 1 : seawater to total
+if (flag[i]==1) {pHconv[i] <- pH[i] + log10(1 + ST/Ks + FT/Kf) - log10(1 + ST/Ks); conv[i] <- "seawater to total"} 
+# flag 2 : free to total 
+if (flag[i]==2) {pHconv[i] <- pH[i] - log10(1 + ST/Ks); conv[i] <- "free to total"} 
+# flag 3 :  total to seawater
+if (flag[i]==3) {pHconv[i] <- pH[i] - log10(1 + ST/Ks + FT/Kf) + log10(1 + ST/Ks); conv[i] <- "total to seawater"}
+# flag 4 : total to free 
+if (flag[i]==4) {pHconv[i] <- pH[i] + log10(1 + ST/Ks); conv[i] <- "total to free"} 
+# flag 5 : seawater to free
+if (flag[i]==5) {pHconv[i] <- pH[i] + log10(1 + ST/Ks + FT/Kf); conv[i] <- "seawater to free"}
+# flag 6 : free to seawater
+if (flag[i]==6) {pHconv[i] <- pH[i] - log10(1 + ST/Ks + FT/Kf); conv[i] <- "free to seater"}
+}
+
+attr(pHconv, "conversion") <- conv
+return(pHconv)
+
 }
 

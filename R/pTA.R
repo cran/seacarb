@@ -9,21 +9,21 @@
 # You should have received a copy of the GNU General Public License along with seacarb; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
 "pTA" <-
-function(flag, sys=0, var1, var2, pCO2a, co3, hco3, S=35, T=20, P=0, Pt=0, Sit=0){
+function(flag, sys=0, var1, var2, pCO2a, co3, hco3, S=35, T=20, P=0, Pt=0, Sit=0, k1k2='l', kf='pf', pHscale="T"){
 	if (sys==0) {
-		ci <- carb(flag=flag, var1=var1, var2=var2, S=S ,T=T, P=P, Pt=Pt, Sit=Sit)
+		ci <- carb(flag=flag, var1=var1, var2=var2, S=S ,T=T, P=P, Pt=Pt, Sit=Sit, k1k2=k1k2, kf=kf, pHscale=pHscale)
 		alkf <- ci$ALK + 2*co3 + hco3 # final alkalinity
 		dicf <- ci$DIC + co3 + hco3	# final dic
-		cf <- carb(flag=15, var1=alkf, var2=dicf, S=S ,T=T, P=P, Pt=Pt, Sit=Sit)
+		cf <- carb(flag=15, var1=alkf, var2=dicf, S=S ,T=T, P=P, Pt=Pt, Sit=Sit, k1k2=k1k2, kf=kf, pHscale=pHscale)
 		co <- as.data.frame(c("pTA-closed-initial", rep("pTA-closed-final", nrow(cf))))
 	}
 	if (sys==1) {
-		ci <- carb(flag=flag, var1=var1, var2=var2, S=S ,T=T, P=P, Pt=Pt, Sit=Sit)
+		ci <- carb(flag=flag, var1=var1, var2=var2, S=S ,T=T, P=P, Pt=Pt, Sit=Sit, k1k2=k1k2, kf=kf, pHscale=pHscale)
 		alkc <- ci$ALK + 2*co3 + hco3 # total alkalinity before requilibration
 		dicc <- ci$DIC + co3 + hco3	# dic before requilibration
-		cc <- carb(flag=15, var1=alkc, var2=dicc, S=S ,T=T, P=P, Pt=Pt, Sit=Sit)
+		cc <- carb(flag=15, var1=alkc, var2=dicc, S=S ,T=T, P=P, Pt=Pt, Sit=Sit, k1k2=k1k2, kf=kf, pHscale=pHscale)
 		alkf <- cc$ALK	# final total alkalinity
-		cf <- carb(flag=24, var1=pCO2a, var2=alkf, S=S ,T=T, P=P, Pt=Pt, Sit=Sit)
+		cf <- carb(flag=24, var1=pCO2a, var2=alkf, S=S ,T=T, P=P, Pt=Pt, Sit=Sit, k1k2=k1k2, kf=kf, pHscale=pHscale)
 		co <- as.data.frame(c("pTA-open-initial", rep("pTA-open-final", nrow(cf))))
 	}
 out <- rbind(ci, cf)

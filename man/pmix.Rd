@@ -5,7 +5,7 @@
 \title{pmix}
 \description{Calculates the carbonate chemistry after mixing of two water samples with different pCO2}
 \usage{
-pmix(flag, var1, var2, pCO2s, wf, S=35, T=20, P=0, Pt=0, Sit=0)
+pmix(flag, var1, var2, pCO2s, wf, S=35, T=20, P=0, Pt=0, Sit=0, k1k2="l", kf="pf", pHscale="T")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -60,6 +60,9 @@ flag = 25     pCO2 and DIC given
 	\item{P}{Hydrostatic pressure in bar (surface = 0)}
 	\item{Pt}{Concentration of total phosphate in mol/kg}
 	\item{Sit}{Concentration of total silicate in mol/kg}
+	\item{k1k2}{"l" for using K1 and K2 from Lueker et al. and "r" for using K1 and K2 from Roy and al. , default is "l"}
+	\item{kf}{"pf" for using Kf from Perez and Fraga (1987) and "dg" for using Kf from Dickson and Goyet (1979), default is "pf"}
+	\item{pHscale}{choice of pH scale: "T" for using the total scale, "F" for using the free scale and "SWS" for using the seawater scale, default is total scale}
 }
 
 \details{}
@@ -93,7 +96,7 @@ Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
 }
 
 \examples{
-pmix(flag=24, var1=384, var2=2302e-6, pCO2s=1e6, wf=0.003, S=34.3, T=16, P=0)
+pmix(flag=24, var1=384, var2=2302e-6, pCO2s=1e6, wf=0.003, S=34.3, T=16, P=0, pHscale="T", kf="pf", k1k2="l")
 }
 
 \keyword{utilities}

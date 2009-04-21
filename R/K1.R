@@ -9,10 +9,10 @@
 # You should have received a copy of the GNU General Public License along with seacarb; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
 "K1" <-
-function(S=35,T=25,P=0,k1k2='l')
+function(S=35,T=25,P=0,k1k2='l',pHscale="T")
 {
 
-nK <- max(length(S), length(T), length(P), length(k1k2))
+nK <- max(length(S), length(T), length(P), length(k1k2), length(pHscale))
 
 ##-------- Creation de vecteur pour toutes les entrees (si vectorielles)
 
@@ -20,6 +20,7 @@ if(length(S)!=nK){S <- rep(S[1], nK)}
 if(length(T)!=nK){T <- rep(T[1], nK)}
 if(length(P)!=nK){P <- rep(P[1], nK)}
 if(length(k1k2)!=nK){k1k2 <- rep(k1k2[1], nK)}
+if(length(pHscale)!=nK){pHscale <- rep(pHscale[1], nK)}
 
 
 #-------Constantes----------------
@@ -123,7 +124,18 @@ if (P[i] > 0.0)
 		
 }
 }
+
+###----------------pH scale corrections
+factor <- rep(NA,nK)
+pHsc <- rep(NA,nK)
+for(i in (1:nK)){   
+ if(pHscale[i]=="T"){factor[i] <- 1 ; pHsc[i] <- "total scale"}
+ if(pHscale[i]=="F"){factor[i] <- kconv(S=S[i], T=T[i], P=P[i])$ktotal2free ; pHsc[i] <- "free scale"}
+ if(pHscale[i]=="SWS"){factor[i] <- kconv(S=S[i], T=T[i], P=P[i])$ktotal2SWS ; pHsc[i] <- "seawater scale"}
+K1[i] <- K1[i]*factor[i]
+}
+
 attr(K1,"unit")     = "mol/kg-soln"
-attr(K1,"pH scale") = "total hydrogen ion concentration"
+attr(K1,"pH scale") = pHsc
 return(K1)
 }
