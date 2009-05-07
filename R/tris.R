@@ -1,4 +1,4 @@
-# Copyright (C) 2003 Jean-Pierre Gattuso and Aurelien Proye
+# Copyright (C) 2009 Jean-Pierre Gattuso
 #
 # This file is part of seacarb.
 #
@@ -9,9 +9,9 @@
 # You should have received a copy of the GNU General Public License along with seacarb; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
 #
-"bor" <-
-function(S=35,T=25,P=0){
-	bor = (416.*(S/35.))* 1e-6;   # (mol/kg), DOE94
-	attr(bor,"unit") <- "mol/kg"
-	return(bor)
+"tris" <- 
+function(S=35,T=25){
+	tris = ((11911.08-18.2499*S-0.039336*S^2)*1/(T+273.15))-366.27059+0.53993607*S+0.00016329*S^2+((64.52243-0.084041*S)*log(T+273.15))-(0.11149858*(T+273.15))
+	attr(tris,"unit") <- "mol/kg"
+	return(tris)
 }

@@ -1,3 +1,8 @@
+version 2.1.1, 2009-04-30
+
+- New functions: pH, pHslope, tris, amp
+
+--------------------------
 version 2.1.0, 2009-04-21
 
 - the pHscales were added in option to calculate the constants of acidity and in the functions : carb, buffer, pgas, pTA, pCa, ppH, pmix and psi.

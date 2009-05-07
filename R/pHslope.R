@@ -1,4 +1,4 @@
-# Copyright (C) 2003 Jean-Pierre Gattuso and Aurelien Proye
+# Copyright (C) 2009 Jean-Pierre Gattuso
 #
 # This file is part of seacarb.
 #
@@ -9,9 +9,12 @@
 # You should have received a copy of the GNU General Public License along with seacarb; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
 #
-"bor" <-
-function(S=35,T=25,P=0){
-	bor = (416.*(S/35.))* 1e-6;   # (mol/kg), DOE94
-	attr(bor,"unit") <- "mol/kg"
-	return(bor)
+"pHslope" <- 
+function(Etris=-72.4,Eamp=4.9,S=35,T=25){
+#	Etris=-99.4; Eamp=-18.9; S=35.1; T=1.6
+	R  =  8.31447215 # J K–1 mol–1, Dickson et al. (2007)
+	F  =  96485.339924 # C mol–1, Dickson et al. (2007)
+	pHslope = 100*(((Eamp/1000-Etris/1000)/(tris(S=S,T=T)-amp(S=S,T=T)))-(R*(T + 273.15)*log(10)/F))/(R*(T + 273.15)*log(10)/F)
+	attr(pHslope,"unit") <- "percent"
+	return(pHslope)
 }
