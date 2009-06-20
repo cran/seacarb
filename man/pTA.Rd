@@ -67,8 +67,6 @@ flag = 25     pCO2 and DIC given
 	\item{pHscale}{choice of pH scale: "T" for using the total scale, "F" for using the free scale and "SWS" for using the seawater scale, default is total scale}
 }
 
-\details{}
-
 
 \value{The function returns a data frame containing the following columns:
 
@@ -91,6 +89,7 @@ flag = 25     pCO2 and DIC given
 
 
 \references{
+Gattuso J.-P. and Lavigne H, 2009. Perturbation experiments to investigate the impact of ocean acidification: approaches and software tools. \emph{Biogeosciences} \bold{6}, 4413-4439.
 }
 
 \author{

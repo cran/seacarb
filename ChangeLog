@@ -1,8 +1,22 @@
+version 2.1.3, 2009-06-20
+
+- carb was modified in order to fix some bugs occurring when extremes values were given in arguments. 
+- renamed data set "seacarb_test" for P=0 as "seacarb_test_P0"
+- added a new data set "seacarb_test_P0" for P=300. 
+
+-----------------------------------
+version 2.1.2, 2009-05-26
+
+- Cosmetic changes in the documentation
+
+--------------------------
+
 version 2.1.1, 2009-04-30
 
 - New functions: pH, pHslope, tris, amp
 
 --------------------------
+
 version 2.1.0, 2009-04-21
 
 - the pHscales were added in option to calculate the constants of acidity and in the functions : carb, buffer, pgas, pTA, pCa, ppH, pmix and psi.

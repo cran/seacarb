@@ -65,8 +65,8 @@ fluo = (7*(S/35))*1e-5        # (mol/kg), DOE94 fluoride total
 
 K1 <- K1(S=S, T=T, P=P, pHscale=pHscale[i], k1k2=k1k2[i])   
 K2 <- K2(S=S, T=T, P=P, pHscale=pHscale[i], k1k2=k1k2[i])
-Ks <- Ks(S=S, T=T, P=P)
 Kf <- Kf(S=S, T=T, P=P, pHscale=pHscale[i], kf=kf[i])
+Ks <- Ks(S=S, T=T, P=P)
 Kw <- Kw(S=S, T=T, P=P, pHscale=pHscale[i])
 Kh <- Kh(S=S, T=T, P=P)
 Kb <- Kb(S=S, T=T, P=P, pHscale=pHscale[i])
@@ -166,7 +166,7 @@ rho <- rho(S=S,T=T,P=P)
 	############
 	OUT <- hco3+2*co3+boh4+oh+hpo4+2*po4+siooh3-h-hso4-hf-h3po4-ALK
 	OUT}	
-	h <- uniroot(fALK,c(1e-12,10^(-3.5)), tol=1e-20)$root
+	h <- uniroot(fALK,c(10^(-9.5),10^(-3.5)), tol=1e-20)$root
 	DIC <- CO2*(1+K1/h+K1*K2/(h*h))
 	HCO3 <- (DIC*K1*h)/(h*h+K1*h+K1*K2)
 	CO3 <- (DIC*K1*K2)/(h*h+K1*h+K1*K2)
@@ -237,7 +237,7 @@ rho <- rho(S=S,T=T,P=P)
 	############
 	OUT <- hco3+2*co3+boh4+oh+hpo4+2*po4+siooh3-h-hso4-hf-h3po4-ALK
 	OUT}	
-	DIC <- uniroot(fALK,c(1e-3,1e-2), tol=1e-20)$root
+	DIC <- uniroot(fALK,c(5e-4,0.8), tol=1e-20)$root
 	CO2 <- DIC/(1+K1/h+K1*K2/(h^2))
 	HCO3 <- CO2*K1/h
 	CO3 <- HCO3*K2/h
@@ -292,7 +292,7 @@ rho <- rho(S=S,T=T,P=P)
 	OUT <- hco3+2*co3+boh4+oh+hpo4+2*po4+siooh3-h-hso4-hf-h3po4-ALK
 	OUT}
 
-	h <- uniroot(fALK,c(1e-10,10^(-3.5)),tol=1e-20)$root
+	h <- uniroot(fALK,c(10^(-9.5),10^(-3)),tol=1e-20)$root
 	CO2 <- h*HCO3/K1
 	CO3 <- K2*HCO3/h
 	DIC <- CO2 + HCO3 + CO3
@@ -339,7 +339,7 @@ rho <- rho(S=S,T=T,P=P)
 	############
 	OUT <- hco3+2*co3+boh4+oh+hpo4+2*po4+siooh3-h-hso4-hf-h3po4-ALK
 	OUT}
-	h <- uniroot(fALK,c(1e-10,10^(-3.5)),tol=1e-20)$root
+	h <- uniroot(fALK,c(10^(-9.5),10^(-3.5)),tol=1e-20)$root
 	HCO3 <- h*CO3/K2
 	CO2 <- h*HCO3/K1
 	fCO2 <- CO2/Kh
