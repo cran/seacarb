@@ -5,7 +5,8 @@
 \title{Molar ratio of CO2 released vs CaCO3 precipitated}
 \description{Returns the molar ratio of CO2 released vs CaCO3 precipitated described by Frankignoulle et al. (1994).}
 \usage{
-psi(flag, var1, var2, S=35, T=20, P=0, Pt=0, Sit=0, pHscale="T", kf="pf", k1k2="l")
+psi(flag, var1, var2, S=35, T=20, P=0, Pt=0, Sit=0, pHscale="T", 
+	kf="pf", k1k2="l")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -86,7 +87,8 @@ Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
 
 \examples{
 ## Calculation using the numerical example given in Frankignoulle et al. (1994)
-psi(flag=24, var1=350, var2=2400e-6, S=35, T=25, P=0, Pt=0, Sit=0, pHscale="T", kf="pf", k1k2="l")
+psi(flag=24, var1=350, var2=2400e-6, S=35, T=25, P=0, Pt=0, 
+	Sit=0, pHscale="T", kf="pf", k1k2="l")
 }
 \keyword{utilities}
 

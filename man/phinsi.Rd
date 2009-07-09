@@ -4,7 +4,8 @@
 \title{pH at in situ temperature}
 \description{pH at in situ temperature}
 \usage{
-pHinsi(PH=8.2, ALK=2.4e-3, Tinsi=20, Tlab=25, S=35, Pt=0, Sit=0, k1k2 = "l", kf = "pf", pHscale = "T")
+pHinsi(PH=8.2, ALK=2.4e-3, Tinsi=20, Tlab=25, S=35, Pt=0, Sit=0, k1k2 = "l", 
+	kf = "pf", pHscale = "T")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

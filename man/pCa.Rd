@@ -5,7 +5,8 @@
 \title{pCa}
 \description{Calculates the changes in the saturation states of aragonite and calcite resulting from the manipulation of the calcium concentration}
 \usage{
-pCa(flag, var1, var2, Ca, S=35, T=20, P=0, Pt=0, Sit=0, k1k2="l", kf="pf", pHscale="T")
+pCa(flag, var1, var2, Ca, S=35, T=20, P=0, Pt=0, Sit=0, k1k2="l", 
+	kf="pf", pHscale="T")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -99,8 +100,10 @@ Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
 }
 
 \examples{
-pCa(flag=15, var1=2302e-6, var2=2050e-6, Ca=0.01028, S=35, T=20, P=0, Pt=0, Sit=0, pHscale="T", kf="pf", k1k2="l") # with normal Ca concentration
-pCa(flag=15, var1=2302e-6, var2=2050e-6, Ca=0.01028/2, S=35, T=20, P=0, Pt=0, Sit=0, pHscale="T", kf="pf", k1k2="l") # with 0.5 * Ca concentration
+pCa(flag=15, var1=2302e-6, var2=2050e-6, Ca=0.01028, S=35, T=20, P=0, 
+	Pt=0, Sit=0, pHscale="T", kf="pf", k1k2="l") # with normal Ca concentration
+pCa(flag=15, var1=2302e-6, var2=2050e-6, Ca=0.01028/2, S=35, T=20, P=0, 
+	Pt=0, Sit=0, pHscale="T", kf="pf", k1k2="l") # with 0.5 * Ca concentration
 }
 
 \keyword{utilities}

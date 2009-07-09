@@ -5,7 +5,8 @@
 \title{pmix}
 \description{Calculates the carbonate chemistry after mixing of two water samples with different pCO2}
 \usage{
-pmix(flag, var1, var2, pCO2s, wf, S=35, T=20, P=0, Pt=0, Sit=0, k1k2="l", kf="pf", pHscale="T")
+pmix(flag, var1, var2, pCO2s, wf, S=35, T=20, P=0, Pt=0, Sit=0, k1k2="l", 
+	kf="pf", pHscale="T")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -95,7 +96,8 @@ Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
 }
 
 \examples{
-pmix(flag=24, var1=384, var2=2302e-6, pCO2s=1e6, wf=0.003, S=34.3, T=16, P=0, pHscale="T", kf="pf", k1k2="l")
+pmix(flag=24, var1=384, var2=2302e-6, pCO2s=1e6, wf=0.003, S=34.3, 
+	T=16, P=0, pHscale="T", kf="pf", k1k2="l")
 }
 
 \keyword{utilities}

@@ -5,7 +5,8 @@
 \title{ppH}
 \description{Calculates the carbonate chemistry after pH manipulations through addition of acid or base}
 \usage{
-ppH(flag, sys, var1, var2, pCO2a, vol, N, S=35, T=20, P=0, Pt=0, Sit=0, pHscale="T", k1k2="l", kf="pf")
+ppH(flag, sys, var1, var2, pCO2a, vol, N, S=35, T=20, P=0, Pt=0, 
+	Sit=0, pHscale="T", k1k2="l", kf="pf")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -101,9 +102,11 @@ Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
 }
 
 \examples{
-ppH(flag=24, sys=0, var1=384, var2=2302e-6, pCO2a=384, vol=-12e-3, N=0.01, S=34.3, T=16, P=0, pHscale="T", kf="pf", k1k2="l")
+ppH(flag=24, sys=0, var1=384, var2=2302e-6, pCO2a=384, vol=-12e-3, 
+	N=0.01, S=34.3, T=16, P=0, pHscale="T", kf="pf", k1k2="l")
 
-ppH(flag=24, sys=1, var1=384, var2=2302e-6, pCO2a=384, vol=-12e-3, N=0.01, S=34.3, T=16, P=0, pHscale="T", kf="pf", k1k2="l")
+ppH(flag=24, sys=1, var1=384, var2=2302e-6, pCO2a=384, vol=-12e-3, 
+	N=0.01, S=34.3, T=16, P=0, pHscale="T", kf="pf", k1k2="l")
 }
 
 \keyword{utilities}
