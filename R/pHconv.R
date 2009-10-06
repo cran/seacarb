@@ -1,4 +1,4 @@
-# Copyright (C) 2008 Jean-Pierre Gattuso and Héloïse Lavigne
+# Copyright (C) 2008 Jean-Pierre Gattuso and Heloise Lavigne
 #
 # This file is part of seacarb.
 #

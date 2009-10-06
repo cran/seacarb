@@ -40,7 +40,17 @@ TC = T + tk               # TC [C]; T[K]
 Io  <- 19.924*S/(1000-1.005*S)                     # ionic strenght, mol/kg-H2O     # ionic strength
 lnK <- 117.385 + 3.5913*sqrt(Io) - 1.5998*Io + 0.07871*Io*Io +
       (-8904.2 - 458.79*sqrt(Io) + 188.74*Io - 12.1652*Io*Io)/TC +
-      (-19.334)*log(TC)
+      (-19.334)*log(TC)+log(1-0.001005*S)
+
+Ksi <- exp(lnK)
+
+# ---- Conversion from Total scale to seawater scale before pressure corrections
+
+factor <- kconv(S=S, T=T, P=rep(0,nK))$ktotal2SWS
+
+Ksi <- Ksi * factor
+
+# ---- Pressure Correction
 
 lnkpok0 <- rep(0, nK)
 
@@ -60,15 +70,15 @@ for(i in (1:nK)){
 }
 
   # from molality to molinity
-  Ksi      <- exp(lnK +lnkpok0)*(1.0 - 0.001005*S)
+  Ksi      <- Ksi*exp(lnkpok0)
 
 ###----------------pH scale corrections
 factor <- rep(NA,nK)
 pHsc <- rep(NA,nK)
 for(i in (1:nK)){   
- if(pHscale[i]=="T"){factor[i] <- 1 ; pHsc[i] <- "total scale"}
- if(pHscale[i]=="F"){factor[i] <- kconv(S=S[i], T=T[i], P=P[i])$ktotal2free ; pHsc[i] <- "free scale"}
- if(pHscale[i]=="SWS"){factor[i] <- kconv(S=S[i], T=T[i], P=P[i])$ktotal2SWS ; pHsc[i] <- "seawater scale"}
+ if(pHscale[i]=="T"){factor[i] <- kconv(S=S[i], T=T[i], P=P[i])$kSWS2total ; pHsc[i] <- "total scale"}
+ if(pHscale[i]=="F"){factor[i] <- kconv(S=S[i], T=T[i], P=P[i])$kSWS2free ; pHsc[i] <- "free scale"}
+ if(pHscale[i]=="SWS"){factor[i] <- 1 ; pHsc[i] <- "seawater scale"}
 Ksi[i] <- Ksi[i]*factor[i]
 }
 

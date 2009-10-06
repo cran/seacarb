@@ -1,4 +1,4 @@
-# Copyright (C) 2008 Jean-Pierre Gattuso and Héloïse Lavigne and Aurélien Proye
+# Copyright (C) 2008 Jean-Pierre Gattuso and Heloise Lavigne and Aurelien Proye
 # with a most valuable contribution of Bernard Gentili <gentili@obs-vlfr.fr>
 # and valuable suggestions from Jean-Marie Epitalon <epitalon@lsce.saclay.cea.fr>
 #

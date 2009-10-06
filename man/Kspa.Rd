@@ -23,7 +23,7 @@ Kspa(S = 35, T = 25, P = 0)
 \references{Mucci, A. 1983 The solubility of calcite and aragonite in seawater at various salinities, temperature, and one atmosphere total pressure. \emph{American Journal of Science} \bold{283}: 780-799.}
 
 \author{
-Aur\'elien Proye and Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
+Aurelien Proye and Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
 }
 
 \seealso{
@@ -31,6 +31,6 @@ Aur\'elien Proye and Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
 }
 
 \examples{
-Kspa(35,25,0)
+Kspa(S=35,T=25,P=0)
 }
 \keyword{utilities}

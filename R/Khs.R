@@ -35,6 +35,16 @@ TC = T + tk           # TC [C]; T[K]
  	#--------------------------------------------------------------
 lnK <- 225.838 + 0.3449*sqrt(S) - 0.0274*S -13275.3/TC  -34.6435*log(TC)
 
+Khs      <- exp(lnK)
+
+# ---- Conversion from Total scale to seawater scale before pressure corrections
+
+factor <- kconv(S=S, T=T, P=rep(0,nK))$ktotal2SWS
+
+Khs <- Khs * factor
+
+#------------------ Pressure Correction --------------------------
+
 lnkpok0 <- rep(0, nK)
 
 # P : applied pressure (in Bars) = (Total Pressure-1)
@@ -51,15 +61,15 @@ lnkpok0 <- rep(0, nK)
     lnkpok0[i] <-  -(deltav/(R*TC[i]))*P[i] + (0.5*deltak /(R*TC[i]))*P[i]*P[i]
   }
 }
-  Khs      <- exp(lnK +lnkpok0)  # K_H2S on total scale
+  Khs      <- Khs * exp(lnkpok0)  # K_H2S on total scale
 
 ###----------------pH scale corrections
 factor <- rep(NA,nK)
 pHsc <- rep(NA,nK)
 for(i in (1:nK)){   
- if(pHscale[i]=="T"){factor[i] <- 1 ; pHsc[i] <- "total scale"}
- if(pHscale[i]=="F"){factor[i] <- kconv(S=S[i], T=T[i], P=P[i])$ktotal2free ; pHsc[i] <- "free scale"}
- if(pHscale[i]=="SWS"){factor[i] <- kconv(S=S[i], T=T[i], P=P[i])$ktotal2SWS ; pHsc[i] <- "seawater scale"}
+ if(pHscale[i]=="T"){factor[i] <- kconv(S=S[i], T=T[i], P=P[i])$kSWS2total ; pHsc[i] <- "total scale"}
+ if(pHscale[i]=="F"){factor[i] <- kconv(S=S[i], T=T[i], P=P[i])$kSWS2free ; pHsc[i] <- "free scale"}
+ if(pHscale[i]=="SWS"){factor[i] <- 1 ; pHsc[i] <- "seawater scale"}
 Khs[i] <- Khs[i]*factor[i]
 }
 

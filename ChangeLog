@@ -1,5 +1,22 @@
+
+
 -----------------------------------
-version 2.1.4, 2009-00-09
+version 2.2, 2009-10-06
+
+- Andreas Hofmann identified bugs in the pressure corrections. These were fixed as explained below.
+- K1, K2, pK1, pK2, pK3, Kw, Kb, Khs, Ksi: pH is converted from the total to the SWS scale before doing the pressure corrections.
+- Kf using the Perez and Fraga formulation (kf = "pf"): pH is converted from the total to the free scale before doing the pressure correction
+- kconv: it is now possible to choose the formulation of Kf ("pf" for using Kf from Perez and Fraga (1987) and "dg" for using Kf from Dickson and Riley (1979), default is "pf").
+- K1, K2, pK1, pK2, pK3, Kw, Kb, Khs, Ksi: help files updated with information on the pressure correction.
+- Kh, Kspa and Kspc: minor changes were made in the example section of the help files.
+
+-----------------------------------
+version 2.1.5, 2009-07-17
+
+- corrected citations and list of references in the man pages of the carb function.
+
+-----------------------------------
+version 2.1.4, 2009-07-09
 
 - Another attempt to put line breaks in the documentation files
 

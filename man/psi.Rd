@@ -59,7 +59,7 @@ flag = 25     pCO2 and DIC given
   	\item{P}{Hydrostatic pressure in bar (surface = 0)}
   	\item{Pt}{Concentration of total phosphate in mol/kg}
   	\item{Sit}{Concentration of total silicate in mol/kg}
-	\item{pHscale}{choice of pH scale: "T" for the total scale, "F" for the free scale and "SWS" for using the seawater scale, default is "T" (total scale)}	\item{kf}{"pf" for using Kf from Perez and Fraga (1987) and "dg" for using Kf from Dickson and Goyet (1979), default is "pf"}
+	\item{pHscale}{choice of pH scale: "T" for the total scale, "F" for the free scale and "SWS" for using the seawater scale, default is "T" (total scale)}	\item{kf}{"pf" for using Kf from Perez and Fraga (1987) and "dg" for using Kf from Dickson and Riley (1979), default is "pf"}
 	\item{k1k2}{"l" for using K1 and K2 from Lueker et al. and "r" for using K1 and K2 from Roy et al. , default is "l"}
 }
 

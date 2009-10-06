@@ -65,7 +65,19 @@ flag = 25     pCO2 and DIC given
 	\item{Sit}{Concentration of total silicate in mol/kg}
 	\item{pHscale}{choice of pH scale: "T" for using the total scale, "F" for using the free scale and "SWS" for using the seawater scale, default is total scale}
 	\item{k1k2}{"l" for using K1 and K2 from Lueker et al. and "r" for using K1 and K2 from Roy and al. , default is "l"}
-	\item{kf}{"pf" for using Kf from Perez and Fraga (1987) and "dg" for using Kf from Dickson and Goyet (1979), default is "pf"}
+	\item{kf}{"pf" for using Kf from Perez and Fraga (1987) and "dg" for using Kf from Dickson and Riley (1979), default is "pf"}
+}
+
+\details{
+Pressure corrections and pH scale:
+
+For K1, K2, pK1, pK2, pK3, Kw, Kb, Khs and Ksi, the pressure correction was applied on the seawater scale. Hence, values were first transformed from the total scale to the seawater scale, the pressure correction applied as described by Millero (1995), and the value was transformed back to the required scale (T, F or SWS).
+
+For Kf, the pressure correction was applied on the free scale. The formulation of Dickson and Riley (1979) provides Kf on the free scale but that of Perez and Fraga (1987) provides it on the total scale. Hence, in that case, Kf was first transformed from the total scale to the free scale. With both formulations, the pressure correction was applied as described by Millero (1995), and the value was transformed back to the required scale (T, F or SWS).
+
+For Ks, the pressure correction was applied on the free scale. The pressure correction was applied as described by Millero (1995), and the value was transformed back to the required scale (T, F or SWS). 
+
+For Kn, the pressure correction was applied on the seawater scale. The pressure correction was applied as described by Millero (1995), and the value was transformed back to the required scale (T, F or SWS).
 }
 
 
@@ -90,7 +102,11 @@ flag = 25     pCO2 and DIC given
 
 
 \references{
+Dickson, A. G. and Riley, J. P. 1979 The estimation of acid dissociation constants in seawater media from potentiometric titrations with strong base. I. The ionic product of water. \emph{Marine Chemistry} \bold{7}, 89-99.
+
 Gattuso J.-P. and Lavigne H, 2009. Perturbation experiments to investigate the impact of ocean acidification: approaches and software tools. \emph{Biogeosciences} \bold{6}, 4413-4439.
+
+Millero F. J., 1995. Thermodynamics of the carbon dioxide system in the oceans. \emph{Geochimica Cosmochimica Acta} \bold{59}: 661-677.
 }
 
 \author{

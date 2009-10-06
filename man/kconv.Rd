@@ -4,13 +4,14 @@
 \title{Conversion factors to change the pH scale of dissociation constants}
 \description{Conversion factors from the total scale to the free and seawater scales}
 \usage{
-kconv(S=35,T=25, P=0)
+kconv(S=35,T=25, P=0, kf="pf")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{S}{Salinity, default is 35}
   \item{T}{Temperature in degrees Celsius, default is 25oC}
   \item{P}{Hydrostatic pressure in bar (surface = 0), default is 0}
+  \item{kf}{"pf" for using Kf from Perez and Fraga (1987) and "dg" for using Kf from Dickson and Riley (1979), default is "pf". Note that conversion factors computation requires Kf. Here is given the choice of the formulation for Kf.} 
 }
 
 \value{

@@ -1,4 +1,4 @@
-# Copyright (C) 2008 Jean-Pierre Gattuso and Héloïse Lavigne and Aurélien Proye
+# Copyright (C) 2008 Jean-Pierre Gattuso and Heloise Lavigne and Aurelien Proye
 #
 # This file is part of seacarb.
 #
@@ -44,7 +44,7 @@ bor = (416.*(S/35.))* 1e-6;   # (mol/kg), DOE94
 #     Mehrbach et al (1973) refit by Lueker et al. (2000).
 #
 #(Lueker  et al., 2000 in Guide to the Best Practices for Ocean CO2 Measurements
-#   Dickson, Sabin and Christian , 2007, Chapter 5, p. 13)
+#   Dickson, Sabine and Christian , 2007, Chapter 5, p. 13)
 #
 #   pH-scale: 'total'. mol/kg-soln
 	
@@ -76,6 +76,13 @@ for(i in (1:nK)){
 if(k1k2[i]=='l'){K1[i] <- K1lue[i] }
 if(k1k2[i]=='r'){K1[i] <- K1roy[i] }
 }
+
+# ---- Conversion from Total scale to seawater scale before pressure corrections
+
+factor <- kconv(S=S, T=T, P=rep(0,nK))$ktotal2SWS
+
+K1 <- K1 * factor
+
 
 # ------------------- Pression effect --------------------------------
 for(i in (1:nK)){
@@ -129,9 +136,9 @@ if (P[i] > 0.0)
 factor <- rep(NA,nK)
 pHsc <- rep(NA,nK)
 for(i in (1:nK)){   
- if(pHscale[i]=="T"){factor[i] <- 1 ; pHsc[i] <- "total scale"}
- if(pHscale[i]=="F"){factor[i] <- kconv(S=S[i], T=T[i], P=P[i])$ktotal2free ; pHsc[i] <- "free scale"}
- if(pHscale[i]=="SWS"){factor[i] <- kconv(S=S[i], T=T[i], P=P[i])$ktotal2SWS ; pHsc[i] <- "seawater scale"}
+ if(pHscale[i]=="T"){factor[i] <- kconv(S=S[i], T=T[i], P=P[i])$kSWS2total; pHsc[i] <- "total scale"}
+ if(pHscale[i]=="F"){factor[i] <- kconv(S=S[i], T=T[i], P=P[i])$kSWS2free ; pHsc[i] <- "free scale"}
+ if(pHscale[i]=="SWS"){factor[i] <- 1 ; pHsc[i] <- "seawater scale"}
 K1[i] <- K1[i]*factor[i]
 }
 

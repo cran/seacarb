@@ -1,4 +1,4 @@
-# Copyright (C) 2008 Jean-Pierre Gattuso and Héloïse Lavigne and Aurélien Proye
+# Copyright (C) 2008 Jean-Pierre Gattuso and Heloise Lavigne and Aurelien Proye
 #
 # This file is part of seacarb.
 #
@@ -32,7 +32,7 @@ cl3 = Cl^(1/3);
 ION = 0.00147 + 0.03592 * Cl + 0.000068 * Cl * Cl;   # ionic strength
 iom0 = 19.924*S/(1000-1.005*S);
 ST = 0.14/96.062/1.80655*S;   # (mol/kg soln) total sulfate
-
+FT = 7e-5*(S/35)    
 
 bor = (416.*(S/35.))* 1e-6;   # (mol/kg), DOE94 
 
@@ -48,6 +48,16 @@ bor = (416.*(S/35.))* 1e-6;   # (mol/kg), DOE94
 lnKfpf <- 874/TK - 9.68 + 0.111*S^(1/2)
 Kfpf <- exp(lnKfpf)
 
+# Conversion to free scale for pressure corrections
+
+Ks = Ks(S=S, T=T, P=rep(0,nK))                 # on free pH scale
+	ST  = 0.14/96.062/1.80655*S    # (mol/kg soln) total sulfate
+	total2free  = 1/(1+ST/Ks)      # Kfree = Ktotal*total2free
+	total2free <- as.numeric(total2free)	
+
+factor <- total2free
+
+Kfpf <- Kfpf * factor
 
 #---------------------------------------------------------------------
 # --------------------- Kf Dickson and Goyet -------------------------
@@ -131,9 +141,9 @@ Kf[i] = Kf[i]*tmp2;
 factor <- rep(NA,nK)
 pHsc <- rep(NA,nK)
 for(i in (1:nK)){   
- if(pHscale[i]=="T"){factor[i] <- 1 ; pHsc[i] <- "total scale"}
- if(pHscale[i]=="F"){factor[i] <- kconv(S=S[i], T=T[i], P=P[i])$ktotal2free ; pHsc[i] <- "free scale"}
- if(pHscale[i]=="SWS"){factor[i] <- kconv(S=S[i], T=T[i], P=P[i])$ktotal2SWS ; pHsc[i] <- "seawater scale"}
+ if(pHscale[i]=="T"){factor[i] <- 1+ST[i]/Ks(S=S[i], T=T[i], P=P[i]); pHsc[i] <- "total scale"}
+ if(pHscale[i]=="F"){factor[i] <- 1 ; pHsc[i] <- "free scale"}
+ if(pHscale[i]=="SWS"){factor[i] <- 1 + ST[i]/Ks(S=S[i], T=T[i], P=P[i])+ FT[i]/Kf[i] ; pHsc[i] <- "seawater scale"}
 Kf[i] <- Kf[i]*factor[i]
 }
 

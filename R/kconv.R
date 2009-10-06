@@ -1,4 +1,4 @@
-# Copyright (C) 2008 Karline Soetaert (K.Soetaert@nioo.knaw.nl) and Héloïse Lavigne
+# Copyright (C) 2008 Karline Soetaert (K.Soetaert@nioo.knaw.nl) and Heloise Lavigne
 #
 # This file is part of seacarb.
 #
@@ -18,10 +18,13 @@
 # kfree = ktotal * ktotal2free
 # kSWS  = ktotal * ktotal2SWS
 # kSWS  = kfree  * kfree2SWS
+# kfree = kSWS * kSWS2free
+# ktotal = kfree * kfree2total
+# ktotal = kSWS * kSWS2total
 #--------------------------------------------------------------
 
 
-"kconv" <- function (S=35,T=25,P=0)
+"kconv" <- function (S=35,T=25,P=0,kf='pf')
 
 {
 	#--------------------------------------------------------------
@@ -40,6 +43,7 @@
 	Ks = Ks(S=S, T=T, P=P)                 # on free pH scale
 	ST  = 0.14/96.062/1.80655*S    # (mol/kg soln) total sulfate
 	total2free  = 1/(1+ST/Ks)      # Kfree = Ktotal*total2free
+	total2free <- as.numeric(total2free)	
 
 	#---------------------------------------------------------------------
 	# --------------------- Kf  ------------------------------------------
@@ -48,8 +52,8 @@
 	#   (Dickson and Riley, 1979 in Dickson and Goyet,
 	#   1994, Chapter 5, p. 14)
 	#   pH-scale: 'total'
-	Kf = Kf(S=S, T=T, P=P, pHscale="T")
-	Kf  = Kf*total2free       # convert Kf from total to free pH scale
+	Kf = Kf(S=S, T=T, P=P, kf=kf, pHscale="F")
+	#Kf  = Kf*total2free       # convert Kf from total to free pH scale
 
 
 	#------- sws2free -----------------------------------------------
@@ -58,8 +62,10 @@
 	#       pH_sws = pH_free - log(1+S_T/K_S(S,T)+F_T/K_F(S,T))
 	FT = 7e-5*(S/35)                  # (mol/kg soln) total fluoride
 	free2SWS  = 1+ST/Ks+FT/Kf         # Kfree = Ksws*sws2free
+	free2SWS <- as.numeric(free2SWS)
 	total2SWS = total2free * free2SWS # KSWS = Ktotal*total2SWS
+	total2SWS <- as.numeric(total2SWS)
 
-return (list(ktotal2SWS=total2SWS, ktotal2free=total2free,kfree2SWS=free2SWS))
+return (list(ktotal2SWS=total2SWS, ktotal2free=total2free,kfree2SWS=free2SWS, kfree2total=(1/total2free), kSWS2total=(1/total2SWS), kSWS2free=(1/free2SWS)))
 }
 

@@ -14,18 +14,20 @@ Kn(S=35, T=25, P=0, pHscale="T")
   \item{pHscale}{choice of pH scale: "T" for using the total scale, "F" for using the free scale and "SWS" for using the seawater scale, default is total scale}
 }
 
-\details{Note that the arguments can be given as a unique number or as vectors. If the lengths of the vectors are different, the longer vector is retained and only the first value of the other vectors is used. It can therefore be critical to use vectors of the same length.} 
+\details{Note that the arguments can be given as a unique number or as vectors. If the lengths of the vectors are different, the longer vector is retained and only the first value of the other vectors is used. It can therefore be critical to use vectors of the same length. 
+
+The pressure correction was applied on the seawater scale. The pressure correction was applied as described by Millero (1995), and the value was transformed back to the required scale (T, F or SWS).}
 
 \value{
 	\item{Kn}{Dissociation constant of ammonium (mol/kg)}
 }
 
 \references{
-Millero F. J., 1995. Thermodynamics of the carbon dioxide system in the oceans. \emph{Geochimica Cosmochimica Acta} 59: 661-677.
+Millero F. J., 1995. Thermodynamics of the carbon dioxide system in the oceans. \emph{Geochimica Cosmochimica Acta} \bold{59}: 661-677.
 }
              
 \author{
-Karline Soetaert \email{K.Soetaert@nioo.knaw.nl} and Héloïse Lavigne
+Karline Soetaert \email{K.Soetaert@nioo.knaw.nl} and Heloise Lavigne
 }
 
 %\seealso{}

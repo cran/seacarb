@@ -60,7 +60,7 @@ flag = 25     pCO2 and DIC given
   	\item{Pt}{Concentration of total phosphate in mol/kg}
   	\item{Sit}{Concentration of total silicate in mol/kg}
 	\item{k1k2}{"l" for using K1 and K2 from Lueker et al. (2000) and "r" for using K1 and K2 from Roy et al. (1993), default is "l"}
-	\item{kf}{"pf" for using Kf from Perez and Fraga (1987) and "dg" for using Kf from Dickson and Goyet (1979), default is "pf"}
+	\item{kf}{"pf" for using Kf from Perez and Fraga (1987) and "dg" for using Kf from Dickson and Riley (1979), default is "pf"}
 	\item{pHscale}{choice of pH scale: "T" for the total scale, "F" for the free scale and "SWS" for using the seawater scale, default is "T" (total scale)}}
 
 
@@ -92,7 +92,7 @@ Roy, R. N. Roy, L. N. Vogel, K. M. Porter-Moore, C. Pearson, T. Good C. E., Mill
 }
 
 \author{
-Héloïse Lavigne, Aurélien Proye and Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
+Heloise Lavigne, Aurelien Proye and Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
 }
 
 \examples{
