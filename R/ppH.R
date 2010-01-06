@@ -23,15 +23,15 @@
 function(flag, sys, var1, var2, pCO2a, vol, N, S=35, T=20, P=0, Pt=0, Sit=0, pHscale="T", k1k2='l', kf='pf'){
 	if (sys==0) {
 		ci <- carb(flag=flag, var1=var1, var2=var2, S=S ,T=T, P=P, Pt=Pt, Sit=Sit,  pHscale=pHscale, k1k2=k1k2, kf=kf)
-		alkf <- ci$ALK + vol*N  # final alkalinity
-		dicf <- ci$DIC	# final dic
+		alkf <- (ci$ALK + vol*N)/(1+abs(vol)) #final alk - dilution is taken into account
+		dicf <- (ci$DIC)/(1+abs(vol))  #final dic - dilution is taken into account
 		cf <- carb(flag=15, var1=alkf, var2=dicf, S=S, T=T, P=P,  Pt=Pt, Sit=Sit, pHscale=pHscale, k1k2=k1k2, kf=kf)
 		co <- as.data.frame(c("ppH-closed-initial", rep("ppH-closed-final", nrow(cf)))) 
 	}
 	if (sys==1) {
 		ci <- carb(flag=flag, var1=var1, var2=var2, S=S ,T=T, P=P, Pt=Pt, Sit=Sit,  pHscale=pHscale, k1k2=k1k2, kf=kf)
-		alkf <- ci$ALK + vol*N # final total alkalinity
-		dicf <- ci$DIC	# final dic  before requilibration
+		alkf <- (ci$ALK + vol*N)/(1+abs(vol)) # final total alkalinity  - dilution is taken into account
+		dicf <- (ci$DIC)/(1+abs(vol))	# final dic  before requilibration - dilution is taken into account
 		#pHf <- ci$pH + ci$PhiH * (-vol) *N	# final pH using a buffer factor (see Frankignoulle, 1994)
 		cc <- carb(flag=15, var1=alkf, var2=dicf, S=S, T=T, P=P, Pt=Pt, Sit=Sit,  pHscale=pHscale, k1k2=k1k2, kf=kf) #  before requilibration	
 		cf <- carb(flag=24,var1=pCO2a, var2=alkf, S=S, T=T, P=P, Pt=Pt, Sit=Sit,  pHscale=pHscale, k1k2=k1k2, kf=kf)		

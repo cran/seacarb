@@ -1,3 +1,24 @@
+-----------------------------------
+version 2.3, 2010-01-06
+
+- identical to 2.2.3
+
+-----------------------------------
+version 2.2.3, 2010-01-06
+
+- minor changes on function ocean acidification and its help file
+
+-----------------------------------
+version 2.2.2, 2009-12-31
+
+- oa: new function added. It describes the different ways to simulate an ocean acidification.
+- Minor corrections in pph to take into account the dilution effect on DIC and ALK. However, the effect of dilution on salinity is not taken into account (i.e; it is assumed that the salinity change is minor or that the acid added has the same salinity as the sample).
+
+-----------------------------------
+version 2.2.1, 2009-10-17
+
+- Help of pmix revised with the correct definition of wf: "Weight fraction of the high CO2 seawater per kg seawater" (instead of "Weight fraction of the high CO2 seawater vs normal seawater")
+- Other minor changes to some help files.
 
 
 -----------------------------------

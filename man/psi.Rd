@@ -64,7 +64,7 @@ flag = 25     pCO2 and DIC given
 }
 
 
-\details{Note that the arguments can be given as a unique number or as vectors. If the lengths of the vectors are different, the longer vector is retained and only the first value of the other vectors is used. It can therefore be critical to use vectors of the same length. For instance, to compute parameters from one couple of variable for a range of temperatures, a vector with temperatures required can be given in enter and other arguments can be completed be one variable this variable will be used for each temperatures.}
+\details{The arguments can be given as a unique number or as vectors. If the lengths of the vectors are different, the longer vector is retained and only the first value of the other vectors is used. It is recommended to use either vectors with the same dimension or one vector for one argument and numbers for the other arguments.}
 
 \value{The function returns a data frame containing the following columns:
 	\item{psi}{ratio of CO2 released vs CaCO3 precipitated (mol/mol)}
