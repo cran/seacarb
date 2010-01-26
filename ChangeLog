@@ -1,4 +1,10 @@
 -----------------------------------
+version 2.3.1, 2010-01-26
+
+- minor changes to the documentation
+- In order to better reflect the contribution of the authors, the main authors are now Lavigne & Gattuso and Proye is listed as a contributor
+
+-----------------------------------
 version 2.3, 2010-01-06
 
 - identical to 2.2.3

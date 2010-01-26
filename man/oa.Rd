@@ -3,7 +3,7 @@
 \alias{oa}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Perturbation of the seawater carbonate system}
-\description{Describes the various approaches that can be used to alter the seawater carbonate system. The main purpose is to carry out ocean acidification perturbation experiments.}
+\description{Describes the various approaches that can be used to alter the seawater carbonate system. Its main purpose is to assist the design of ocean acidification perturbation experiments.}
 \usage{oa(flag, var1, var2, pCO2f, pCO2s=1e6, S=35, T=25, P=0, 
 	Pt=0, Sit=0, k1k2='l', kf='pf', pHscale="T", plot=FALSE)}
 %- maybe also 'usage' for other objects documented here.
