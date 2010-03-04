@@ -13,7 +13,8 @@
 #
 
 buffer <- 
-function(flag, var1, var2, S=35, T=25, P=0, Pt=0, Sit=0, k1k2='l', kf='pf', pHscale="T"){
+function(flag, var1, var2, S=35, T=25, P=0, Pt=0, Sit=0, k1k2='x', kf='x', pHscale="T"){
+
 Carb <- carb(flag=flag, var1=var1, var2=var2, S=S, T=T, P=P, Pt=Pt, Sit=Sit, k1k2=k1k2, kf=kf, pHscale=pHscale)
 RES <- data.frame()
 

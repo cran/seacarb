@@ -5,8 +5,8 @@
 \title{pCa}
 \description{Calculates the changes in the saturation states of aragonite and calcite resulting from the manipulation of the calcium concentration}
 \usage{
-pCa(flag, var1, var2, Ca, S=35, T=20, P=0, Pt=0, Sit=0, k1k2="l", 
-	kf="pf", pHscale="T")
+pCa(flag, var1, var2, Ca, S=35, T=20, P=0, Pt=0, Sit=0, k1k2="x", 
+	kf="x", pHscale="T")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -60,11 +60,31 @@ flag = 25     pCO2 and DIC given
 	\item{P}{Hydrostatic pressure in bar (surface = 0)}
 	\item{Pt}{Concentration of total phosphate in mol/kg}
 	\item{Sit}{Concentration of total silicate in mol/kg}
-	\item{k1k2}{"l" for using K1 and K2 from Lueker et al. and "r" for using K1 and K2 from Roy et al. , default is "l"}
-	\item{kf}{"pf" for using Kf from Perez and Fraga (1987) and "dg" for using Kf from Dickson and Riley (1979), default is "pf"}
+	\item{k1k2}{"l" for using K1 and K2 from Lueker et al. (2000), "m" from Millero et al. (2006) and "r" from Roy et al. (1993). "x" is the default flag; the default value is then "l", except if T is outside the range 2 to 35oC and/or S is outside the range 19 to 43. In these cases, the default value is "m". }
+	\item{kf}{"pf" for using Kf from Perez and Fraga (1987) and "dg" for using Kf from Dickson and Riley (1979). "x" is the default flag; the default value is then "pf", except if T is outside the range 9 to 33oC and/or S is outside the range 10 to 40. In these cases, the default is "dg".}
 	\item{pHscale}{choice of pH scale: "T" for the total scale, "F" for the free scale and "SWS" for using the seawater scale, default is "T" (total scale)}}
 
-\details{This function assumes that the simplified synthetic sea water recipe described by Dickson et al. (2007) was used. It is the basis of the synthetic seawater that has been used to determine a variety of equilibrium constants for use in sea water.
+\details{The Lueker et al. (2000) constant is recommended by Guide to Best Practices for Ocean CO2 Measurements (2007). It is critical to consider that each formulation is valid in specific ranges of temperature and salinity:
+
+\emph{For K1 and K2:}
+\itemize{
+\item Roy et al. (1993): S ranging between 0 and 45 and T ranging between 0 and 45oC.
+
+\item Lueker et al. (2000): S ranging between 19 and 43 and T ranging between 2 and 35oC.
+
+\item Millero et al. (2006): S ranging between 0 and 50 and T ranging between 0 and 50oC.
+}
+
+\emph{For Kh:}
+\itemize{
+\item Perez and Fraga (1987): S ranging between 10 and 40 and T ranging between 9 and 33oC.
+
+\item Dickson and Goyet (1979): S ranging between 0 and 45 and T ranging between 0 and 45oC.
+}
+
+The arguments can be given as a unique number or as vectors. If the lengths of the vectors are different, the longer vector is retained and only the first value of the other vectors is used. It is recommended to use either vectors with the same dimension or one vector for one argument and numbers for the other arguments.
+
+This function assumes that the simplified synthetic sea water recipe described by Dickson et al. (2007) was used. It is the basis of the synthetic seawater that has been used to determine a variety of equilibrium constants for use in sea water.
 
 Note that this function does not account for the effect of the changes in the calcium concentration of the dissociation constants of carbonic acid and on the solubility product of CaCO3 (Ben-Yaakov and Goldhaber, 1973).
 
@@ -103,6 +123,8 @@ Dickson A. G., Sabine C. L. and Christian J. R., 2007 Guide to best practices fo
 Gattuso J.-P. and Lavigne H, 2009. Perturbation experiments to investigate the impact of ocean acidification: approaches and software tools. \emph{Biogeosciences} \bold{6}, 4413-4439.
 
 Millero F. J., 1995. Thermodynamics of the carbon dioxide system in the oceans. \emph{Geochimica Cosmochimica Acta} \bold{59}: 661-677.
+
+Millero, F. J. Graham, T. B. Huang, F. Bustos-Serrano, H. and Pierrot, D. 2006. Dissociation constants of carbonic acid in seawater as a function of salinity and temperature.  \emph{Marine Chemistry} \bold{100}, 80-84.
 }
 
 \author{

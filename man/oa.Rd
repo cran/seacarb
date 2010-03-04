@@ -5,7 +5,7 @@
 \title{Perturbation of the seawater carbonate system}
 \description{Describes the various approaches that can be used to alter the seawater carbonate system. Its main purpose is to assist the design of ocean acidification perturbation experiments.}
 \usage{oa(flag, var1, var2, pCO2f, pCO2s=1e6, S=35, T=25, P=0, 
-	Pt=0, Sit=0, k1k2='l', kf='pf', pHscale="T", plot=FALSE)}
+	Pt=0, Sit=0, k1k2='x', kf='x', pHscale="T", plot=FALSE)}
 %- maybe also 'usage' for other objects documented here.
 \arguments{
 	\item{flag}{select the couple of variables available to describe the initial seawater. The flags which can be used are: 
@@ -59,13 +59,30 @@ flag = 25     pCO2 and DIC given
   	\item{P}{Hydrostatic pressure in bar (surface = 0), default is 0}
   	\item{Pt}{Concentration of total phosphate in mol/kg, default is 0}
   	\item{Sit}{Concentration of total silicate in mol/kg, default is 0}
-	\item{k1k2}{"l" for using K1 and K2 from Lueker et al. (2000) and "r" for using K1 and K2 from Roy et al. (1993), default is "l"}
-	\item{kf}{"pf" for using Kf from Perez and Fraga (1987) and "dg" for using Kf from Dickson and Goyet (1979), default is "pf"}
+	\item{k1k2}{"l" for using K1 and K2 from Lueker et al. (2000), "m" from Millero et al. (2006) and "r" from Roy et al. (1993). "x" is the default flag; the default value is then "l", except if T is outside the range 2 to 35oC and/or S is outside the range 19 to 43. In these cases, the default value is "m". }
+	\item{kf}{"pf" for using Kf from Perez and Fraga (1987) and "dg" for using Kf from Dickson and Riley (1979). "x" is the default flag; the default value is then "pf", except if T is outside the range 9 to 33oC and/or S is outside the range 10 to 40. In these cases, the default is "dg".}
 	\item{pHscale}{"T" for the total scale, "F" for the free scale and "SWS" for using the seawater scale, default is "T" (total scale)}
 	\item{plot}{A plot of the different perturbation methods can be plotted in a DIC vs ALK field with pCO2 isoclines are drawn in the back. Default is false.}
 }
 
-\details{
+\details{The Lueker et al. (2000) constant is recommended by Guide to Best Practices for Ocean CO2 Measurements (2007). It is critical to consider that each formulation is valid in specific ranges of temperature and salinity:
+
+\emph{For K1 and K2:}
+\itemize{
+\item Roy et al. (1993): S ranging between 0 and 45 and T ranging between 0 and 45oC.
+
+\item Lueker et al. (2000): S ranging between 19 and 43 and T ranging between 2 and 35oC.
+
+\item Millero et al. (2006): S ranging between 0 and 50 and T ranging between 0 and 50oC.
+}
+
+\emph{For Kh:}
+\itemize{
+\item Perez and Fraga (1987): S ranging between 10 and 40 and T ranging between 9 and 33oC.
+
+\item Dickson and Goyet (1979): S ranging between 0 and 45 and T ranging between 0 and 45oC.
+}
+
 The arguments can be given as a unique number or as vectors. If the lengths of the vectors are different, the longer vector is retained and only the first value of the other vectors is used. It is recommended to use either vectors with the same dimension or one vector for one argument and numbers for the other arguments.
 
 \emph{Pressure corrections and pH scale}
@@ -120,6 +137,8 @@ Dickson A. G., Sabine C. L. and Christian J. R., 2007. Guide to best practices f
 Gattuso J.-P. and Lavigne H., 2009; Technical note: approaches and software tools to investigate the impact of ocean acidification. \emph{Biogeosciences} \bold{21}, 6:2121-2133. 
 
 Lueker, T. J. Dickson, A. G. and Keeling, C. D. 2000. Ocean pCO2 calculated from dissolved inorganic carbon, alkalinity, and equations for K1 and K2: validation based on laboratory measurements of CO2 in gas and seawater at equilibrium. \emph{Marine Chemistry} \bold{70} 105-119.
+
+Millero, F. J. Graham, T. B. Huang, F. Bustos-Serrano, H. and Pierrot, D. 2006. Dissociation constants of carbonic acid in seawater as a function of salinity and temperature.  \emph{Marine Chemistry} \bold{100}, 80-84.
 
 Perez, F. F. and Fraga, F. 1987. Association constant of fluoride and hydrogen ions in seawater. \emph{Marine Chemistry} \bold{21}, 161-168.
 

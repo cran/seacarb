@@ -9,7 +9,7 @@
 # You should have received a copy of the GNU General Public License along with seacarb; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
 "K1" <-
-function(S=35,T=25,P=0,k1k2='l',pHscale="T")
+function(S=35,T=25,P=0,k1k2='x',pHscale="T")
 {
 
 nK <- max(length(S), length(T), length(P), length(k1k2), length(pHscale))
@@ -22,6 +22,14 @@ if(length(P)!=nK){P <- rep(P[1], nK)}
 if(length(k1k2)!=nK){k1k2 <- rep(k1k2[1], nK)}
 if(length(pHscale)!=nK){pHscale <- rep(pHscale[1], nK)}
 
+##----------Check the validity of the method regarding the T/S range
+
+for(i in 1:nK){
+if(k1k2[i]=='x'){
+k1k2[i] <- 'l'  ## luecker by default
+if((T[i]>35)|(T[i]<2)|(S[i]<19)|(S[i]>43)){k1k2[i] <- 'm' }
+}
+}
 
 #-------Constantes----------------
 
@@ -66,7 +74,22 @@ tmp4 =         + log(1 - 0.001005 * S);
 lnK1roy = tmp1 + tmp2 + tmp3 + tmp4;
 
         K1roy  = exp(lnK1roy);
+        
+# --------------------- K1 ---------------------------------------
+#   first acidity constant:
+#   [H^+] [HCO_3^-] / [CO2] = K_1
+#
+#   Millero et al. 2006 Marine Chemistry
+#   pH-scale: 'SWS scale'. mol/kg-soln
 
+pK1o <- 6320.813/TK + 19.568224*log(TK) -126.34048
+A1 <- 13.4191*S^(0.5) + 0.0331*S - (5.33e-5)*S^2
+B1 <- -530.123*S^(0.5) - 6.103*S
+C1 <- -2.06950*S^(0.5)
+
+pK1 <- pK1o + A1 + B1/TK + C1*log(TK)
+
+K1mil <- 10^(-pK1)
 
 # ---------- Choice between methods (Lueker or Roy) ----------
 
@@ -75,14 +98,17 @@ K1 <- K1lue
 for(i in (1:nK)){
 if(k1k2[i]=='l'){K1[i] <- K1lue[i] }
 if(k1k2[i]=='r'){K1[i] <- K1roy[i] }
+if(k1k2[i]=='m'){K1[i] <- K1mil[i] }
 }
 
 # ---- Conversion from Total scale to seawater scale before pressure corrections
 
-factor <- kconv(S=S, T=T, P=rep(0,nK))$ktotal2SWS
-
-K1 <- K1 * factor
-
+for(i in (1:nK)){
+if(k1k2[i] %in% c('l', 'r')){      
+factor <- kconv(S=S[i], T=T[i], P=0)$ktotal2SWS
+K1[i] <- K1[i] * factor
+}}
+## K1 is already in the sea water scale with the Millero formulation
 
 # ------------------- Pression effect --------------------------------
 for(i in (1:nK)){
@@ -142,7 +168,26 @@ for(i in (1:nK)){
 K1[i] <- K1[i]*factor[i]
 }
 
+##---------------Attributes
+method <- c()
+for(i in 1:nK){
+m <- "Luecker et al. (2000)"
+if(k1k2=="m"){m <- "Millero et al. (2006)"}
+if(k1k2=="r"){m <- "Roy et al. (1993)"}
+method <- c(method, m)
+}
+
+##------------Warnings
+
+for(i in 1:nK){
+if((k1k2[i]=='l')&((T[i]>35)|(T[i]<2)|(S[i]<19)|(S[i]>43))){warning("The method used to compute K1 does not fit with the T/S values.")}
+if((k1k2[i]=='r')&((T[i]>45)|(S[i]>45))){warning("The method used to compute K1 does not fit with the T/S values.")}
+if((T[i]>50)|(S[i]>50)){warning("The calculation methods proposed in seacarb are not efficient to compute K1 if T exceeds 50oC and/or S exceeds 50")}
+}
+
+
 attr(K1,"unit")     = "mol/kg-soln"
 attr(K1,"pH scale") = pHsc
+attr(K1, "method") = method
 return(K1)
 }

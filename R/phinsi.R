@@ -9,7 +9,7 @@
 # You should have received a copy of the GNU General Public License along with seacarb; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
 #
-"pHinsi" <- function(PH=8.2, ALK=2.4e-3, Tinsi=20, Tlab=25, S=35, Pt = 0, Sit = 0, k1k2='l', kf='pf', pHscale="T") {
+"pHinsi" <- function(PH=8.2, ALK=2.4e-3, Tinsi=20, Tlab=25, S=35, Pt = 0, Sit = 0, k1k2='x', kf='x', pHscale="T") {
 	# according to Hunter (1998)
 	#si TA=0 alors calculer TA: TA=660+47.6 * S
 	dat1 <- carb(flag = 8, var1 = PH, var2 = ALK, S = S, T = Tlab, P = 0, Pt = Pt, Sit = Sit, k1k2=k1k2, kf=kf, pHscale=pHscale)

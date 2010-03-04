@@ -1,4 +1,12 @@
 -----------------------------------
+version 2.3.2, 2010-03-04
+
+- carb was modified in order to fix minor bugs occurring when a pH scale other than the total scale is used. 
+- K1 and K2 were modified in order to add the calculation from Millero et al. (2006). 
+- The default values of K1, K2 and Kh now depend on T and S.
+- minor changes to the documentation of Ks, 
+
+-----------------------------------
 version 2.3.1, 2010-01-26
 
 - minor changes to the documentation

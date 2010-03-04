@@ -10,7 +10,7 @@
 #
 #
 "Kf" <-
-function(S=35,T=25,P=0,kf='pf',pHscale="T"){
+function(S=35,T=25,P=0,kf='x',pHscale="T"){
 
 nK <- max(length(S), length(T), length(P), length(kf), length(pHscale))
 
@@ -21,6 +21,16 @@ if(length(T)!=nK){T <- rep(T[1], nK)}
 if(length(P)!=nK){P <- rep(P[1], nK)}
 if(length(kf)!=nK){kf <- rep(kf[1], nK)}
 if(length(pHscale)!=nK){pHscale <- rep(pHscale[1], nK)}
+ 
+##----------Check the validity of the method regarding the T/S range
+
+for(i in 1:nK){
+if(kf[i]=='x'){
+kf[i] <- 'pf'  ## Perez and Fraga by default
+if((T[i]>33)|(T[i]<10)|(S[i]<10)|(S[i]>40)){kf[i] <- 'dg' }
+}
+}
+
  
 #-------Constantes----------------
 
@@ -148,8 +158,25 @@ Kf[i] <- Kf[i]*factor[i]
 }
 
 
+##------------Warnings
+
+for(i in 1:nK){
+if((kf[i]=='pf')&((T[i]>33)|(T[i]<9)|(S[i]<10)|(S[i]>40))){warning("The method used to compute Kf does not fit with the T/S values.")}
+if((T[i]>45)|(S[i]>45)){warning("The calculation methods proposed in seacarb are not efficient to compute K1 if T exceeds 45oC and/or S exceeds 45")}
+}
+
+##---------------Attributes
+method <- c()
+for(i in 1:nK){
+m <- "Perez and Fraga (1987)"
+if(kf=="dg"){m <- "Dickson and Goyet (1979)"}
+method <- c(method, m)
+}
+
+
 attr(Kf,"unit")     = "mol/kg-soln"
 attr(Kf,"pH scale") = pHsc
+attr(Kf, "method") = method
 return(Kf)
 }
 

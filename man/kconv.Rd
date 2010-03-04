@@ -4,14 +4,15 @@
 \title{Conversion factors to change the pH scale of dissociation constants}
 \description{Conversion factors from the total scale to the free and seawater scales}
 \usage{
-kconv(S=35,T=25, P=0, kf="pf")
+kconv(S=35,T=25, P=0, kf="x")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{S}{Salinity, default is 35}
   \item{T}{Temperature in degrees Celsius, default is 25oC}
   \item{P}{Hydrostatic pressure in bar (surface = 0), default is 0}
-  \item{kf}{"pf" for using Kf from Perez and Fraga (1987) and "dg" for using Kf from Dickson and Riley (1979), default is "pf". Note that conversion factors computation requires Kf. Here is given the choice of the formulation for Kf.} 
+  \item{kf}{"pf" for using Kf from Perez and Fraga (1987) and "dg" for using Kf from Dickson and Riley (1979);
+  the default value is "pf", except if T is outside the ragne 9 to 33oC or of S is outside the range 10 to 40. In these cases, the default is "dg".}	
 }
 
 \value{
@@ -20,6 +21,11 @@ The function returns a list with 3 conversion factors :
   \item{ktotal2free}{to convert from the total scale to the free scale}
   \item{kfree2SWS}{to convert from the free scale to the seawater scale}  
 }
+
+\details{It is critical to consider that each formulation is valid in specific ranges of temperature and salinity:
+- Perez and Fraga (1987): S ranging between 10 and 40 and T ranging between 9 and 33oC.
+- Dickson and Goyet (1979): S ranging between 0 and 45 and T ranging between 0 and 45oC.
+ } 
 
 \references{Dickson, A.G. & F.J. Millero, 1987 A comparison of the equilibrium constants for the dissociation of carbonic acid in seawater media. \emph{Deep-Sea Research} \bold{34}:1733-1743.}
 

@@ -8,7 +8,7 @@
 #
 # You should have received a copy of the GNU General Public License along with seacarb; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
-"pCa" <- function(flag,  var1,  var2, Ca, S=35, T=20, P=0, Pt=0, Sit=0, k1k2='l', kf='pf', pHscale="T"){
+"pCa" <- function(flag,  var1,  var2, Ca, S=35, T=20, P=0, Pt=0, Sit=0, k1k2='x', kf='x', pHscale="T"){
 	ci <- carb(flag, var1= var1, var2= var2, S=S ,T=T, P=P, Pt=Pt, Sit=Sit, k1k2=k1k2, kf=kf, pHscale=pHscale) # initial carbonate chemistry
 	#0.01028*(S/35) # calcium concentration (Dickson et al., 2007)
 	#co <- ci
