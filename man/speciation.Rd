@@ -24,7 +24,7 @@ speciation(K1=K1(), K2=NULL, K3=NULL, pH, conc=1)
 
 
 \references{
-Zeebe, R. E. and Wolf-Gladrow D. A., 2001 \emph{CO2 in seawater: equilibrium, kinetics, isotopes}. Amsterdam: Elsevier, 346 pp.
+Zeebe R. E. and Wolf-Gladrow D. A., 2001 \emph{CO2 in seawater: equilibrium, kinetics, isotopes}. Amsterdam: Elsevier, 346 pp.
 }
              
 \author{

@@ -13,12 +13,22 @@ Kh(S = 35, T = 25, P = 0)
   \item{P}{Hydrostatic pressure in bar (surface = 0), default is 0}
 }
 
+\details{
+This formulation is only valid for specific ranges of temperature and salinity: 
+
+\itemize{
+\item S ranging between 0 and 45 and T ranging between -1 and 45oC.
+}
+
+Note that the arguments can be given as a unique number or as vectors. If the lengths of the vectors are different, the longer vector is retained and only the first value of the other vectors is used. It can therefore be critical to use vectors of the same length.
+} 
+
 \value{
   \item{Kh}{Henry's constant mol/(kg/atm)}
  
 }
 
-\references{Weiss, R. F. 1974 Carbon dioxide in water and seawater: the solubility of a non-ideal gas. \emph{Marine Chemistry} \bold{2}, 203-215.}
+\references{Weiss R. F., 1974 Carbon dioxide in water and seawater: the solubility of a non-ideal gas. \emph{Marine Chemistry} \bold{2}, 203-215.}
 
 \author{
 Aurelien Proye and Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}

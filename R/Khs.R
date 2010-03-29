@@ -73,6 +73,13 @@ for(i in (1:nK)){
 Khs[i] <- Khs[i]*factor[i]
 }
 
+##------------Warnings
+
+for(i in 1:nK){
+if((T[i]>45)|(S[i]>45)|(T[i]<0)){warning("S and/or T is outside the range of validity of the formulation available for Khs in seacarb.")}
+}
+
+
   attr(Khs,"unit")     = "mol/kg-soln"
   attr(Khs,"pH scale") = pHsc
   return(Khs)

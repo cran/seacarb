@@ -161,15 +161,15 @@ Kf[i] <- Kf[i]*factor[i]
 ##------------Warnings
 
 for(i in 1:nK){
-if((kf[i]=='pf')&((T[i]>33)|(T[i]<9)|(S[i]<10)|(S[i]>40))){warning("The method used to compute Kf does not fit with the T/S values.")}
-if((T[i]>45)|(S[i]>45)){warning("The calculation methods proposed in seacarb are not efficient to compute K1 if T exceeds 45oC and/or S exceeds 45")}
+if((kf[i]=='pf')&((T[i]>33)|(T[i]<9)|(S[i]<10)|(S[i]>40))){warning("S and/or T is outside the range of validity of the formulation chosen for Kf.")}
+if((T[i]>45)|(S[i]>45)){warning("S and/or T is outside the range of validity of the formulations available for Kf in seacarb.")}
 }
 
 ##---------------Attributes
 method <- c()
 for(i in 1:nK){
 m <- "Perez and Fraga (1987)"
-if(kf=="dg"){m <- "Dickson and Goyet (1979)"}
+if(kf[i]=="dg"){m <- "Dickson and Riley (1979 in Dickson and Goyet, 1994)"}
 method <- c(method, m)
 }
 

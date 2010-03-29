@@ -70,6 +70,11 @@ for(i in (1:nK)){
 Kn[i] <- Kn[i]*factor[i]
 }
 
+##------------Warnings
+
+for(i in 1:nK){
+if((T[i]>45)|(S[i]>45)|(T[i]<0)){warning("S and/or T is outside the range of validity of the formulation available for Kn in seacarb.")}
+}
 
   attr(Kn,"pH scale") = pHsc
   attr(Kn,"unit")     = "mol/kg-soln"

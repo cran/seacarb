@@ -9,8 +9,8 @@
 # You should have received a copy of the GNU General Public License along with seacarb; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
 "psi" <-
-function(flag, var1, var2, S=35, T=20, P=0, Pt=0, Sit=0, pHscale="T", kf="x", k1k2="x"){
-		buf <- buffer(flag=flag, var1=var1, var2=var2, S=S, T=T, P=P, Pt=Pt, Sit=Sit, pHscale=pHscale, kf=kf, k1k2=k1k2)
+function(flag, var1, var2, S=35, T=20, P=0, Pt=0, Sit=0, pHscale="T", kf="x", k1k2="x", ks="d"){
+		buf <- buffer(flag=flag, var1=var1, var2=var2, S=S, T=T, P=P, Pt=Pt, Sit=Sit, pHscale=pHscale, kf=kf, k1k2=k1k2, ks=ks)
 		psi <- -buf$PiC/buf$PiD
 out <- psi
 attr(out,"unit") <- "mol CO2/mol CaCO3"

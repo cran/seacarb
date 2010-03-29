@@ -13,9 +13,9 @@
 #
 
 buffer <- 
-function(flag, var1, var2, S=35, T=25, P=0, Pt=0, Sit=0, k1k2='x', kf='x', pHscale="T"){
+function(flag, var1, var2, S=35, T=25, P=0, Pt=0, Sit=0, k1k2='x', kf='x', ks="d", pHscale="T"){
 
-Carb <- carb(flag=flag, var1=var1, var2=var2, S=S, T=T, P=P, Pt=Pt, Sit=Sit, k1k2=k1k2, kf=kf, pHscale=pHscale)
+Carb <- carb(flag=flag, var1=var1, var2=var2, S=S, T=T, P=P, Pt=Pt, Sit=Sit, k1k2=k1k2, kf=kf, ks=ks, pHscale=pHscale)
 RES <- data.frame()
 
 n <- nrow(Carb)
@@ -24,6 +24,8 @@ k1k2.V <- k1k2
 if(length(k1k2.V)!=n){k1k2.V <- rep(k1k2.V[1], n)}
 kf.V <- kf
 if(length(kf.V)!=n){kf.V <- rep(kf.V[1], n)}
+ks.V <- ks
+if(length(ks.V)!=n){ks.V <- rep(ks.V[1], n)}
 pHscale.V <- pHscale
 if(length(pHscale.V)!=n){pHscale.V <- rep(pHscale.V[1], n)}
 
@@ -46,6 +48,7 @@ if(length(pHscale.V)!=n){pHscale.V <- rep(pHscale.V[1], n)}
 
 	k1k2 <- k1k2.V[i]
 	kf <- kf.V[i]
+	ks <- ks.V[i]
 	pHscale <- pHscale.V[i]
 
 #-------Constantes----------------
@@ -71,7 +74,7 @@ fluo = (7*(S/35))*1e-5        # (mol/kg), DOE94 fluoride total
 
 K1 <- K1(S=S, T=T, P=P, pHscale=pHscale, k1k2=k1k2)   
 K2 <- K2(S=S, T=T, P=P, pHscale=pHscale, k1k2=k1k2)
-Ks <- Ks(S=S, T=T, P=P)
+Ks <- Ks(S=S, T=T, P=P, ks=ks)
 Kf <- Kf(S=S, T=T, P=P, pHscale=pHscale, kf=kf)
 Kw <- Kw(S=S, T=T, P=P, pHscale=pHscale)
 Kh <- Kh(S=S, T=T, P=P)

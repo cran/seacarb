@@ -12,6 +12,13 @@
 "Kh" <-
 function(S=35,T=25,P=0){
 
+nK <- max(length(S), length(T), length(P))
+
+##-------- Creation de vecteur pour toutes les entrees (si vectorielles)
+
+if(length(S)!=nK){S <- rep(S[1], nK)}
+if(length(T)!=nK){T <- rep(T[1], nK)}
+if(length(P)!=nK){P <- rep(P[1], nK)}
 	
 #-------Constantes----------------
 
@@ -38,7 +45,12 @@ bor = (416.*(S/35.))* 1e-6;   # (mol/kg), DOE94
 	
 	tmp = 9345.17 / TC - 60.2409 + 23.3585 * log(TC/100);
 	nKhwe74 = tmp + S*(0.023517-0.00023656*TC+0.0047036e-4*TC*TC);
-	
+
+##------------Warnings
+
+for(i in 1:nK){
+if((T[i]>45)|(S[i]>45)|(T[i]<(-1))){warning("S and/or T is outside the range of validity of the formulation available for Kh in seacarb.")}
+}	
 
 	Kh= exp(nKhwe74);
 	attr(Kh,"unit") = "mol/kg"	

@@ -116,8 +116,13 @@ for(i in (1:nK)){
 K2P[i] <- K2P[i]*factor[i]
 }
 
+##------------Warnings
 
-attr(K2p,"unit")     = "mol/kg-soln"
-attr(K2p,"pH scale") = pHsc
+for(i in 1:nK){
+if((T[i]>45)|(S[i]>45)|(T[i]<0)){warning("S and/or T is outside the range of validity of the formulation available for K2p in seacarb.")}
+}
+
+attr(K2P,"unit")     = "mol/kg-soln"
+attr(K2P,"pH scale") = pHsc
 return(K2P)
 }

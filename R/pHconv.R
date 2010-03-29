@@ -9,24 +9,25 @@
 # You should have received a copy of the GNU General Public License along with seacarb; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
 
-"pHconv" <- function (flag=1, pH=8.100, S=35, T=25, P=0)
+"pHconv" <- function (flag=1, pH=8.100, S=35, T=25, P=0, ks="d")
 
 {
 
-n <- max(length(pH), length(flag), length(S), length(T), length(S), length(P))
+n <- max(length(pH), length(flag), length(S), length(T), length(S), length(P), length(ks))
 
 if(length(pH)!=n){pH <- rep(pH[1],n)}
 if(length(flag)!=n){flag <- rep(flag[1],n)}
 if(length(S)!=n){S <- rep(S[1],n)}
 if(length(T)!=n){T <- rep(T[1],n)}
 if(length(P)!=n){P <- rep(P[1],n)}
+if(length(ks)!=n){ks <- rep(ks[1],n)}
 
 pHconv <- rep(NA, n)
 conv <- rep(NA, n)
 
 for(i in (1:n)){  
 
-	Ks = Ks(S=S[i], T=T[i], P=P[i])[1]                 # on free pH scale
+	Ks = Ks(S=S[i], T=T[i], P=P[i], ks=ks[i])[1]                 # on free pH scale
 	ST  = 0.14/96.062/1.80655*S[i]    # (mol/kg soln) total sulfate
 	Kf = Kf(S=S[i], T=T[i], P=P[i], pHscale="F")[1]  # on the free pH scale
 	FT = 7e-5*(S[i]/35)                  # (mol/kg soln) total fluoride

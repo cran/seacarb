@@ -6,7 +6,7 @@
 \description{Calculates the changes in the saturation states of aragonite and calcite resulting from the manipulation of the calcium concentration}
 \usage{
 pCa(flag, var1, var2, Ca, S=35, T=20, P=0, Pt=0, Sit=0, k1k2="x", 
-	kf="x", pHscale="T")
+	kf="x", ks="d", pHscale="T")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -60,11 +60,13 @@ flag = 25     pCO2 and DIC given
 	\item{P}{Hydrostatic pressure in bar (surface = 0)}
 	\item{Pt}{Concentration of total phosphate in mol/kg}
 	\item{Sit}{Concentration of total silicate in mol/kg}
-	\item{k1k2}{"l" for using K1 and K2 from Lueker et al. (2000), "m" from Millero et al. (2006) and "r" from Roy et al. (1993). "x" is the default flag; the default value is then "l", except if T is outside the range 2 to 35oC and/or S is outside the range 19 to 43. In these cases, the default value is "m". }
-	\item{kf}{"pf" for using Kf from Perez and Fraga (1987) and "dg" for using Kf from Dickson and Riley (1979). "x" is the default flag; the default value is then "pf", except if T is outside the range 9 to 33oC and/or S is outside the range 10 to 40. In these cases, the default is "dg".}
+	\item{k1k2}{"l" for using K1 and K2 from Lueker et al. (2000), "m06" from Millero et al. (2006), "m10" from Millero (2010) and "r" from Roy et al. (1993). "x" is the default flag; the default value is then "l", except if T is outside the range 2 to 35oC and/or S is outside the range 19 to 43. In these cases, the default value is "m10".}
+  	\item{kf}{"pf" for using Kf from Perez and Fraga (1987) and "dg" for using Kf from Dickson and Riley (1979 in Dickson and Goyet, 1994). "x" is the default flag; the default value is then "pf", except if T is outside the range 9 to 33oC and/or S is outside the range 10 to 40. In these cases, the default is "dg".}
+	\item{ks}{"d" for using Ks from Dickon (1990), "k" for using Ks from Khoo et al. (1977), default is "d"} 
 	\item{pHscale}{choice of pH scale: "T" for the total scale, "F" for the free scale and "SWS" for using the seawater scale, default is "T" (total scale)}}
 
-\details{The Lueker et al. (2000) constant is recommended by Guide to Best Practices for Ocean CO2 Measurements (2007). It is critical to consider that each formulation is valid in specific ranges of temperature and salinity:
+
+\details{The Lueker et al. (2000) constants for K1 and K2, the Perez and Fraga (1987) constant for Kf and the Dickson (1990) constant for Ks are recommended by Dickson et al. (2007). It is, however, critical to consider that each formulation is only valid for specific ranges of temperature and salinity:
 
 \emph{For K1 and K2:}
 \itemize{
@@ -72,30 +74,38 @@ flag = 25     pCO2 and DIC given
 
 \item Lueker et al. (2000): S ranging between 19 and 43 and T ranging between 2 and 35oC.
 
-\item Millero et al. (2006): S ranging between 0 and 50 and T ranging between 0 and 50oC.
+\item Millero et al. (2006): S ranging between 0.1 and 50 and T ranging between 1 and 50oC.
+
+\item Millero (2010): S ranging between 1 and 50 and T ranging between 0 and 50oC. Millero (2010) provides a K1 and K2 formulation for the seawater, total and free pH scales. Therefore, when this method is used and if P=0, K1 and K2 are computed with the formulation corresponding to the pH scale given in the flag "pHscale". 
 }
 
 \emph{For Kh:}
 \itemize{
 \item Perez and Fraga (1987): S ranging between 10 and 40 and T ranging between 9 and 33oC.
 
-\item Dickson and Goyet (1979): S ranging between 0 and 45 and T ranging between 0 and 45oC.
+\item Dickson and Riley (1979 in Dickson and Goyet, 1994): S ranging between 0 and 45 and T ranging between 0 and 45oC.
+}
+
+\emph{For Ks:}
+\itemize{
+\item Dickson (1990): S ranging between 5 and 45 and T ranging between 0 and 45oC.
+
+\item Khoo et al. (1977): S ranging between 20 and 45 and T ranging between 5 and 40oC.
 }
 
 The arguments can be given as a unique number or as vectors. If the lengths of the vectors are different, the longer vector is retained and only the first value of the other vectors is used. It is recommended to use either vectors with the same dimension or one vector for one argument and numbers for the other arguments.
 
-This function assumes that the simplified synthetic sea water recipe described by Dickson et al. (2007) was used. It is the basis of the synthetic seawater that has been used to determine a variety of equilibrium constants for use in sea water.
+\emph{Pressure corrections and pH scale:}
 
-Note that this function does not account for the effect of the changes in the calcium concentration of the dissociation constants of carbonic acid and on the solubility product of CaCO3 (Ben-Yaakov and Goldhaber, 1973).
+\itemize{
+\item For K1, K2, pK1, pK2, pK3, Kw, Kb, Khs and Ksi, the pressure correction was applied on the seawater scale. Hence, if needed, values were first transformed from the total scale to the seawater scale, the pressure correction applied as described by Millero (1995), and the value was transformed back to the required scale (T, F or SWS).
 
-Pressure corrections and pH scale:
+\item For Kf, the pressure correction was applied on the free scale. The formulation of Dickson and Riley (1979 in Dickson and Goyet, 1994) provides Kf on the free scale but that of Perez and Fraga (1987) provides it on the total scale. Hence, in that case, Kf was first transformed from the total scale to the free scale. With both formulations, the pressure correction was applied as described by Millero (1995), and the value was transformed back to the required scale (T, F or SWS). 
 
-For K1, K2, pK1, pK2, pK3, Kw, Kb, Khs and Ksi, the pressure correction was applied on the seawater scale. Hence, values were first transformed from the total scale to the seawater scale, the pressure correction applied as described by Millero (1995), and the value was transformed back to the required scale (T, F or SWS).
+\item For Ks, the pressure correction was applied on the free scale. The pressure correction was applied as described by Millero (1995), and the value was transformed back to the required scale (T, F or SWS). 
 
-For Kf, the pressure correction was applied on the free scale. The formulation of Dickson and Riley (1979) provides Kf on the free scale but that of Perez and Fraga (1987) provides it on the total scale. Hence, in that case, Kf was first transformed from the total scale to the free scale. With both formulations, the pressure correction was applied as described by Millero (1995), and the value was transformed back to the required scale (T, F or SWS). 
-For Ks, the pressure correction was applied on the free scale. The pressure correction was applied as described by Millero (1995), and the value was transformed back to the required scale (T, F or SWS). 
-
-For Kn, The pressure correction was applied on the seawater scale. The pressure correction was applied as described by Millero (1995), and the value was transformed back to the required scale (T, F or SWS).
+\item For Kn, The pressure correction was applied on the seawater scale. The pressure correction was applied as described by Millero (1995), and the value was transformed back to the required scale (T, F or SWS).
+}
 }
 
 \value{The function returns a data frame containing the following columns:
@@ -118,13 +128,19 @@ For Kn, The pressure correction was applied on the seawater scale. The pressure 
 \references{
 Ben-Yaakov S. and Goldhaber M. B., 1973 The influence of sea water composition on the apparent constants of the carbonate system. \emph{Deep-Sea Research} \bold{20}, 87-99.
 
+Dickson A. G., 1990 Standard potential of the reaction: AgCI(s) + 1/2H2(g) = Ag(s) + HCI(aq), and the standard acidity constant of the ion HSO4 in synthetic sea water from 273.15 to 318.15 K. \emph{Journal of Chemical Thermodynamics} \bold{22}, 113-127.
+
 Dickson A. G., Sabine C. L. and Christian J. R., 2007 Guide to best practices for ocean CO2 measurements. \emph{PICES Special Publication} \bold{3}, 1-191.
 
-Gattuso J.-P. and Lavigne H, 2009. Perturbation experiments to investigate the impact of ocean acidification: approaches and software tools. \emph{Biogeosciences} \bold{6}, 4413-4439.
+Gattuso J.-P. and Lavigne H, 2009 Perturbation experiments to investigate the impact of ocean acidification: approaches and software tools. \emph{Biogeosciences} \bold{6}, 4413-4439.
 
-Millero F. J., 1995. Thermodynamics of the carbon dioxide system in the oceans. \emph{Geochimica Cosmochimica Acta} \bold{59}: 661-677.
+Khoo H. K., Ramette R. W., Culberson C. H. and Bates R. G., 1977 Determination of Hydrogen Ion Concentration in Seawater from 5 to 40oC: Standard Potentials at Salinities from 20 to 45. \emph{Analytical Chemistry} \bold{49}, 29-34. 
 
-Millero, F. J. Graham, T. B. Huang, F. Bustos-Serrano, H. and Pierrot, D. 2006. Dissociation constants of carbonic acid in seawater as a function of salinity and temperature.  \emph{Marine Chemistry} \bold{100}, 80-84.
+Millero F. J., 1995 Thermodynamics of the carbon dioxide system in the oceans. \emph{Geochimica Cosmochimica Acta} \bold{59}: 661-677.
+
+Millero F. J., 2010 Carbonate constant for estuarine waters. \emph{Marine and Freshwater Research} \bold{61}: 139-142.
+
+Millero F. J., Graham T. B., Huang F., Bustos-Serrano H. and Pierrot D., 2006. Dissociation constants of carbonic acid in seawater as a function of salinity and temperature.  \emph{Marine Chemistry} \bold{100}, 80-84.
 }
 
 \author{
@@ -133,9 +149,9 @@ Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
 
 \examples{
 pCa(flag=15, var1=2302e-6, var2=2050e-6, Ca=0.01028, S=35, T=20, P=0, 
-	Pt=0, Sit=0, pHscale="T", kf="pf", k1k2="l") # with normal Ca concentration
+	Pt=0, Sit=0, pHscale="T", kf="pf", k1k2="l", ks="d") # with normal Ca concentration
 pCa(flag=15, var1=2302e-6, var2=2050e-6, Ca=0.01028/2, S=35, T=20, P=0, 
-	Pt=0, Sit=0, pHscale="T", kf="pf", k1k2="l") # with 0.5 * Ca concentration
+	Pt=0, Sit=0, pHscale="T", kf="pf", k1k2="l", ks="d") # with 0.5 * Ca concentration
 }
 
 \keyword{utilities}

@@ -10,21 +10,21 @@
 #
 #
 "Ks" <-
-function(S=35,T=25,P=0){
+function(S=35,T=25,P=0, ks="d"){
 
-nK <- max(length(S), length(T), length(P))
+nK <- max(length(S), length(T), length(P), length(ks))
 
 ##-------- Creation de vecteur pour toutes les entrees (si vectorielles)
 
 if(length(S)!=nK){S <- rep(S[1], nK)}
 if(length(T)!=nK){T <- rep(T[1], nK)}
 if(length(P)!=nK){P <- rep(P[1], nK)}
-
+if(length(ks)!=nK){P <- rep(ks[1], nK)}
 
 #-------Constantes----------------
 
 #---- issues de equic----
-tk = 273.15;           # [K] (for conversion [deg C] <-> [K])
+tk = 273.15;          # [K] (for conversion [deg C] <-> [K])
 TK = T + tk;           # T [C]; TK [K]
 Cl = S / 1.80655;      # Cl = chlorinity; S = salinity (per mille)
 cl3 = Cl^(1/3);   
@@ -56,7 +56,36 @@ bor = (416.*(S/35.))* 1e-6;   # (mol/kg), DOE94
 	
 	lnKs = tmp1 + tmp2 + tmp3 + tmp4 + log(1-0.001005*S);
 		
-	Ks = exp(lnKs);
+	Ks_d = exp(lnKs);
+	
+	#--------------------------------------------------------------
+	#------------------ Ks ----------------------------------------
+	#       Khoo et al. 1977
+	#     
+	#       Equilibrium constant for HSO4- = H+ + SO4--
+	#
+	#       K_S  = [H+]free [SO4--] / [HSO4-]
+	#       pH-scale: free scale !!!
+	#        
+	#      correct for T range : 5 - 40°C
+	#      correct for S range : 20 - 45
+
+  I35 <- 0.7227
+  I <- I35*(27.570*S)/(1000-1.0016*S)   #formal ionic strenght
+  logbeta <- 647.59/TK - 6.3451 + 0.019085*TK - 0.5208*I^(0.5)
+  beta <- 10^(logbeta)
+  Ks_k <- 1/beta
+
+
+  #-------------------------------------------------------------------
+  #--------------- choice between the formulations -------------------
+  Ks <- Ks_d
+  method <- rep("Dickson (1990)", nK)
+  for(i in 1:nK){
+  if(ks[i]=="k"){ Ks[i] <- Ks_k[i]
+  method[i] <- "Khoo et al. (1977)"
+  if((T<5)|(T>40)|(S<20)|(S>45)) {warning("S and/or T is outside the range of validity of the formulation chosen for Ks.")} }
+  }
 
 # ------------------- Pression effect --------------------------------
 for(i in (1:nK)){
@@ -104,9 +133,18 @@ if (P[i] > 0.0)
 
 	Ks[i] <- Ks[i]*exp(lnkpok0[5])
 }
+
+##------------Warnings
+
+for(i in 1:nK){
+if((T[i]>45)|(S[i]>45)|(T[i]<0)|(S[i]<5)){warning("S and/or T is outside the range of validity of the formulations available for Ks in seacarb.")}
+}
+
+
 }
 attr(Ks,"unit") = "mol/kg-soln"	
 attr(Ks,"pH scale") = "free scale"
+attr(Ks, "method") = method
 return(Ks)
 }
 

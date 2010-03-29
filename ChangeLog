@@ -1,10 +1,21 @@
 -----------------------------------
+version 2.3.3, 2010-03-29
+
+- New functions: p2fCO2 and f2pCO2 to convert pCO2 to fCO2 and vice versa.
+- K1p, K2p, K3p, Kb, Kf, Khs, Kn, Ks, Kw, Ksi were modified in order to return warnings if they are used outside of the ranges of salinity and temperature of the formulations used.  
+- carb was modified in order to return NA if an NA is given in var1 or var2. 
+- K1 and K2 were modified in order to add the formulation of Millero (2010). 
+- Ks was modified in order to add the formulation of Khoo et al. (1977).  
+- Minor changes to the documentation of K1, K2 and Kf. Also, the reference to Kf was changed to Dickson and Riley (1979 in Dickson and Goyet, 1994).
+
+-----------------------------------
 version 2.3.2, 2010-03-04
 
 - carb was modified in order to fix minor bugs occurring when a pH scale other than the total scale is used. 
 - K1 and K2 were modified in order to add the calculation from Millero et al. (2006). 
 - The default values of K1, K2 and Kh now depend on T and S.
 - minor changes to the documentation of Ks, 
+- K1, K2 and Kf were modified in order to return warnings if they are used out of the T/S range of validity of formulations. 
 
 -----------------------------------
 version 2.3.1, 2010-01-26
@@ -41,7 +52,7 @@ version 2.2, 2009-10-06
 - Andreas Hofmann identified bugs in the pressure corrections. These were fixed as explained below.
 - K1, K2, pK1, pK2, pK3, Kw, Kb, Khs, Ksi: pH is converted from the total to the SWS scale before doing the pressure corrections.
 - Kf using the Perez and Fraga formulation (kf = "pf"): pH is converted from the total to the free scale before doing the pressure correction
-- kconv: it is now possible to choose the formulation of Kf ("pf" for using Kf from Perez and Fraga (1987) and "dg" for using Kf from Dickson and Riley (1979), default is "pf").
+- kconv: it is now possible to choose the formulation of Kf ("pf" for using Kf from Perez and Fraga (1987) and "dg" for using Kf from Dickson and Riley (1979 in Dickson and Goyet, 1994), default is "pf").
 - K1, K2, pK1, pK2, pK3, Kw, Kb, Khs, Ksi: help files updated with information on the pressure correction.
 - Kh, Kspa and Kspc: minor changes were made in the example section of the help files.
 

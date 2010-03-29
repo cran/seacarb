@@ -112,7 +112,13 @@ for(i in (1:nK)){
 K3P[i] <- K3P[i]*factor[i]
 }
 
-	attr(K3p,"unit")     = "mol/kg-soln"
-	attr(K3p,"pH scale") = pHsc
+##------------Warnings
+
+for(i in 1:nK){
+if((T[i]>45)|(S[i]>45)|(T[i]<0)){warning("S and/or T is outside the range of validity of the formulation available for K3p in seacarb.")}
+}
+
+	attr(K3P,"unit")     = "mol/kg-soln"
+	attr(K3P,"pH scale") = pHsc
 	return(K3P)
 }

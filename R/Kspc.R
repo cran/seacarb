@@ -95,6 +95,14 @@ bor = (416.*(S/35.))* 1e-6;   # (mol/kg), DOE94
 		Kspc[i] = Kspc[i]*exp(lnkpok0[7]);
 	}	
 	}
+	
+		##------------Warnings
+
+for(i in 1:nK){
+if((T[i]>40)|(S[i]>44)|(T[i]<5)|(S[i]<5)){warning("S and/or T is outside the range of validity of the formulation available for Kspc in seacarb.")}
+}
+
+	
 	attr(Kspc,"unit") = "mol/kg"
 	return(Kspc)
 	}

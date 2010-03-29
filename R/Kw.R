@@ -115,6 +115,12 @@ for(i in (1:nK)){
 Kw[i] <- Kw[i]*factor[i]
 }
 
+##------------Warnings
+
+for(i in 1:nK){
+if((T[i]>45)|(S[i]>45)|(T[i]<0)){warning("S and/or T is outside the range of validity of the formulation available for Kw in seacarb.")}
+}
+
 
 	attr(Kw,"unit")     = "mol/kg-soln"
 	attr(Kw,"pH scale") = pHsc

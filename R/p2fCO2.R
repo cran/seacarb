@@ -1,4 +1,6 @@
-# Copyright (C) 2003 Jean-Pierre Gattuso and Aurelien Proye
+# Copyright (C) 2010  Héloise Lavigne and Jean-Pierre Gattuso
+# with a most valuable contribution of Bernard Gentili <gentili@obs-vlfr.fr>
+# and valuable suggestions from Jean-Marie Epitalon <epitalon@lsce.saclay.cea.fr>
 #
 # This file is part of seacarb.
 #
@@ -9,14 +11,15 @@
 # You should have received a copy of the GNU General Public License along with seacarb; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
 #
-"pHinsi" <- function(pH=8.2, ALK=2.4e-3, Tinsi=20, Tlab=25, S=35, Pt = 0, Sit = 0, k1k2='x', kf='x', ks="d", pHscale="T") {
-	# according to Hunter (1998)
-	#si TA=0 alors calculer TA: TA=660+47.6 * S
-	dat1 <- carb(flag = 8, var1 = pH, var2 = ALK, S = S, T = Tlab, P = 0, Pt = Pt, Sit = Sit, k1k2=k1k2, kf=kf, ks=ks, pHscale=pHscale)
-	DIC <- dat1$DIC
-	dat2 <- carb(flag = 15, var1 = ALK, var2 = DIC, S = S, T = Tinsi, P = 0, Pt = Pt, Sit = Sit, k1k2=k1k2, kf=kf, ks=ks, pHscale=pHscale)
-	ph_insi <- dat2$pH
-	#utiliser DIC et TA pour calculer pH in situ (flag=15)
-	#attr(bor,"unit") <- "mol/kg"
-	return(ph_insi)
+#
+p2fCO2 <- function(T=25, pCO2){
+
+tk <- 273.15;           # [K] (for conversion [deg C] <-> [K])
+TK <- T + tk;           # TK [K]; T[C]
+
+B <- (-1636.75+12.0408*TK-0.0327957*(TK*TK)+0.0000316528*(TK*TK*TK))*1e-6
+
+fCO2 <-  pCO2*(1/exp((1*100000)*(B+2*(57.7-0.118*TK)*1e-6)/(8.314*TK)))^(-1)
+
+return(fCO2)
 }

@@ -13,9 +13,9 @@
 #
 #
 carb<-
-function(flag, var1, var2, S=35, T=25, P=0, Pt=0, Sit=0, k1k2='x', kf='x', pHscale="T"){
+function(flag, var1, var2, S=35, T=25, P=0, Pt=0, Sit=0, k1k2='x', kf='x', ks="d", pHscale="T"){
 RES <- data.frame()
-n <- max(length(var1), length(var2), length(S), length(T), length(P), length(Pt), length(Sit), length(k1k2), length(kf), length(pHscale))
+n <- max(length(var1), length(var2), length(S), length(T), length(P), length(Pt), length(Sit), length(k1k2), length(kf), length(pHscale), length(ks))
 if(length(flag)!=n){ flag <- rep(flag[1],n)}
 if(length(var1)!=n){ var1 <- rep(var1[1],n)}
 if(length(var2)!=n){ var2 <- rep(var2[1],n)}
@@ -26,6 +26,7 @@ if(length(Pt)!=n){ Pt <- rep(Pt[1],n)}
 if(length(Sit)!=n){ Sit <- rep(Sit[1],n)}
 if(length(k1k2)!=n){ k1k2 <- rep(k1k2[1],n)}
 if(length(kf)!=n){ kf <- rep(kf[1],n)}
+if(length(ks)!=n){ ks <- rep(ks[1],n)}
 if(length(pHscale)!=n){pHscale <- rep(pHscale[1],n)}
 
 df <- data.frame(flag, var1, var2, S, T, P, Pt, Sit, pHscale)
@@ -43,6 +44,9 @@ for(i in (1:nrow(df))) {
   Sit <- as.numeric(df[i,8])
   pHscale <- as.character(df[i,9])
 
+res <- rep(NA, 14)
+
+if((is.na(var1)==FALSE)&(is.na(var2)==FALSE)){
 	
 #-------Constantes----------------
 
@@ -69,7 +73,7 @@ fluo = (7*(S/35))*1e-5        # (mol/kg), DOE94 fluoride total
 K1 <- K1(S=S, T=T, P=P, pHscale=pHscale, k1k2=k1k2[i])   
 K2 <- K2(S=S, T=T, P=P, pHscale=pHscale, k1k2=k1k2[i])
 Kf <- Kf(S=S, T=T, P=P, pHscale=pHscale, kf=kf[i])
-Ks <- Ks(S=S, T=T, P=P)
+Ks <- Ks(S=S, T=T, P=P, ks=ks[i])
 Kw <- Kw(S=S, T=T, P=P, pHscale=pHscale)
 Kh <- Kh(S=S, T=T, P=P)
 Kb <- Kb(S=S, T=T, P=P, pHscale=pHscale)
@@ -581,7 +585,9 @@ rho <- rho(S=S,T=T,P=P)
 	pCO2 <- pCO2*1e6
 	fCO2 <- fCO2*1e6	
 
-	res<-data.frame(flag,S,T,P,PH,CO2,pCO2,fCO2,HCO3,CO3,DIC,ALK,Oa,Oc)
+	res <- data.frame(flag,S,T,P,PH,CO2,pCO2,fCO2,HCO3,CO3,DIC,ALK,Oa,Oc)
+	
+	}
 	RES<- rbind(RES, res)
 	}
 	names(RES) <- c("flag", "S", "T", "P", "pH", "CO2", "pCO2", "fCO2", "HCO3", "CO3", "DIC", "ALK", "OmegaAragonite", "OmegaCalcite")

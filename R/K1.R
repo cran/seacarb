@@ -27,7 +27,7 @@ if(length(pHscale)!=nK){pHscale <- rep(pHscale[1], nK)}
 for(i in 1:nK){
 if(k1k2[i]=='x'){
 k1k2[i] <- 'l'  ## luecker by default
-if((T[i]>35)|(T[i]<2)|(S[i]<19)|(S[i]>43)){k1k2[i] <- 'm' }
+if((T[i]>35)|(T[i]<2)|(S[i]<19)|(S[i]>43)){k1k2[i] <- 'm10' }
 }
 }
 
@@ -89,7 +89,46 @@ C1 <- -2.06950*S^(0.5)
 
 pK1 <- pK1o + A1 + B1/TK + C1*log(TK)
 
-K1mil <- 10^(-pK1)
+K1mil06 <- 10^(-pK1)
+
+# --------------------- K1 ---------------------------------------
+#   first acidity constant:
+#   [H^+] [HCO_3^-] / [CO2] = K_1
+#
+#   Millero 2010 Marine and Fresh water research
+
+pK1o <- 6320.813/TK + 19.568224*log(TK) -126.34048
+
+#   pH-scale: 'SWS scale'. mol/kg-soln
+
+A1 <- 13.4038*S^(0.5) + 0.03206*S - (5.242e-5)*S^2
+B1 <- -530.659*S^(0.5) - 5.8210*S
+C1 <- -2.0664*S^(0.5)
+
+pK1 <- pK1o + A1 + B1/TK + C1*log(TK)
+
+K1mil10_SWS <- 10^(-pK1)
+
+#   pH-scale: 'Total scale'. mol/kg-soln
+
+A1 <- 13.4051*S^(0.5) + 0.03185*S - (5.218e-5)*S^2
+B1 <- -531.095*S^(0.5) - 5.7789*S
+C1 <- -2.0663*S^(0.5)
+
+pK1 <- pK1o + A1 + B1/TK + C1*log(TK)
+
+K1mil10_total <- 10^(-pK1)
+
+#   pH-scale: 'Free scale'. mol/kg-soln
+
+A1 <- 5.09247*S^(0.5) + 0.05574*S - (9.279e-5)*S^2
+B1 <- -189.879*S^(0.5) - 11.3108*S
+C1 <- -0.8080*S^(0.5)
+
+pK1 <- pK1o + A1 + B1/TK + C1*log(TK)
+
+K1mil10_free <- 10^(-pK1)
+
 
 # ---------- Choice between methods (Lueker or Roy) ----------
 
@@ -98,17 +137,23 @@ K1 <- K1lue
 for(i in (1:nK)){
 if(k1k2[i]=='l'){K1[i] <- K1lue[i] }
 if(k1k2[i]=='r'){K1[i] <- K1roy[i] }
-if(k1k2[i]=='m'){K1[i] <- K1mil[i] }
+if(k1k2[i]=='m06'){K1[i] <- K1mil06[i] }
+if(k1k2[i]=='m10'){K1[i] <-  K1mil10_SWS[i]
+  if((pHscale[i]=="F")&(P[i]==0)){K1[i] <-  K1mil10_free[i]}
+  if((pHscale[i]=="T")&(P[i]==0)){K1[i] <-  K1mil10_total[i]}
+  }
 }
 
 # ---- Conversion from Total scale to seawater scale before pressure corrections
+pHsc <- rep(NA,nK)
 
 for(i in (1:nK)){
-if(k1k2[i] %in% c('l', 'r')){      
+if((k1k2[i] %in% c('l', 'r'))&(P[i]>0)){      
 factor <- kconv(S=S[i], T=T[i], P=0)$ktotal2SWS
 K1[i] <- K1[i] * factor
 }}
-## K1 is already in the sea water scale with the Millero formulation
+## K1 is already in the sea water scale with the Millero 2006 formulation
+## with the Millero 2010 formulation K1 is on SWS scale if P is greater than 0
 
 # ------------------- Pression effect --------------------------------
 for(i in (1:nK)){
@@ -154,35 +199,54 @@ if (P[i] > 0.0)
 	}
 	
 	K1[i] = K1[i]*exp(lnkpok0[1]);
-		
+
+###----------------pH scale corrections  
+ if(pHscale[i]=="T"){factor <- kconv(S=S[i], T=T[i], P=P[i])$kSWS2total; pHsc[i] <- "total scale"}
+ if(pHscale[i]=="F"){factor <- kconv(S=S[i], T=T[i], P=P[i])$kSWS2free ; pHsc[i] <- "free scale"}
+ if(pHscale[i]=="SWS"){factor <- 1 ; pHsc[i] <- "seawater scale"}
+K1[i] <- K1[i]*factor
+
 }
 }
 
-###----------------pH scale corrections
-factor <- rep(NA,nK)
-pHsc <- rep(NA,nK)
-for(i in (1:nK)){   
- if(pHscale[i]=="T"){factor[i] <- kconv(S=S[i], T=T[i], P=P[i])$kSWS2total; pHsc[i] <- "total scale"}
- if(pHscale[i]=="F"){factor[i] <- kconv(S=S[i], T=T[i], P=P[i])$kSWS2free ; pHsc[i] <- "free scale"}
- if(pHscale[i]=="SWS"){factor[i] <- 1 ; pHsc[i] <- "seawater scale"}
-K1[i] <- K1[i]*factor[i]
+###----------------pH scale corrections in case P=0
+for(i in (1:nK)){ 
+  if(P[i]==0){ 
+    if(k1k2[i] %in% c("l", "r")){  # whith the Luecker 2000 and Roy formulation pHscale is total scale
+      if(pHscale[i]=="T"){factor <- 1; pHsc[i] <- "total scale"}
+      if(pHscale[i]=="F"){factor <- kconv(S=S[i], T=T[i], P=P[i])$ktotal2free ; pHsc[i] <- "free scale"}
+      if(pHscale[i]=="SWS"){factor <- kconv(S=S[i], T=T[i], P=P[i])$ktotal2SWS  ; pHsc[i] <- "seawater scale"}
+    }
+    if(k1k2[i]=="m06"){ # whith the Millero 2006 formulation pHscale is SWS scale
+      if(pHscale[i]=="T"){factor <- kconv(S=S[i], T=T[i], P=P[i])$kSWS2total; pHsc[i] <- "total scale"}
+      if(pHscale[i]=="F"){factor <- kconv(S=S[i], T=T[i], P=P[i])$kSWS2free ; pHsc[i] <- "free scale"}
+      if(pHscale[i]=="SWS"){factor <- 1 ; pHsc[i] <- "seawater scale"}
+    }
+    if(k1k2[i]=="m10"){ # whith the Millero 2010 formulation pHscale is already adaptated to the require scale
+      if(pHscale[i]=="T"){factor <- 1; pHsc[i] <- "total scale"}
+      if(pHscale[i]=="F"){factor <- 1 ; pHsc[i] <- "free scale"}
+      if(pHscale[i]=="SWS"){factor <- 1 ; pHsc[i] <- "seawater scale"}
+    }
+K1[i] <- K1[i]*factor
+}
 }
 
 ##---------------Attributes
 method <- c()
 for(i in 1:nK){
 m <- "Luecker et al. (2000)"
-if(k1k2=="m"){m <- "Millero et al. (2006)"}
-if(k1k2=="r"){m <- "Roy et al. (1993)"}
+if(k1k2[i]=="m06"){m <- "Millero et al. (2006)"}
+if(k1k2[i]=="m10"){m <- "Millero (2010)"}
+if(k1k2[i]=="r"){m <- "Roy et al. (1993)"}
 method <- c(method, m)
 }
 
 ##------------Warnings
 
 for(i in 1:nK){
-if((k1k2[i]=='l')&((T[i]>35)|(T[i]<2)|(S[i]<19)|(S[i]>43))){warning("The method used to compute K1 does not fit with the T/S values.")}
-if((k1k2[i]=='r')&((T[i]>45)|(S[i]>45))){warning("The method used to compute K1 does not fit with the T/S values.")}
-if((T[i]>50)|(S[i]>50)){warning("The calculation methods proposed in seacarb are not efficient to compute K1 if T exceeds 50oC and/or S exceeds 50")}
+if((k1k2[i]=='l')&((T[i]>35)|(T[i]<2)|(S[i]<19)|(S[i]>43))){warning("S and/or T is outside the range of validity of the formulation chosen for K1.")}
+if((k1k2[i]=='r')&((T[i]>45)|(S[i]>45))){warning("S and/or T is outside the range of validity of the formulation chosen for K1.")}
+if((T[i]>50)|(S[i]>50)){warning("S and/or T is outside the range of validity of the formulations available for K1 in seacarb.")}
 }
 
 
