@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>HierarchyData</key>
+	<array>
+		<string>F2F94380-84ED-47FE-8436-03CEAD675B1B</string>
+	</array>
+	<key>ProjectItems</key>
+	<dict>
+		<key>F2F94380-84ED-47FE-8436-03CEAD675B1B</key>
+		<dict>
+			<key>ItemData</key>
+			<dict>
+				<key>AliasData</key>
+				<data>
+				AAAAAAGMAAIAAQdtYWNfanBnAAAAAAAAAAAAAAAAAAAA
+				AAAAAADGOuokSCsAAAALwJsHc2VhY2FyYgAAAAAAAAAA
+				AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+				AAAAAAAAAAAAAAAAAAAAAjo32sdiZyAAAAAAAAAAAP//
+				//8AAAkgAAAAAAAAAAAAAAAAAAAADnNlYWNhcmJfZm9s
+				ZGVyABAACAAAxjrOBAAAABEACAAAx2JZEAAAAAEAFAAL
+				wJsAC75hAAq6PgAKomAAAIXtAAIAPm1hY19qcGc6VXNl
+				cnM6Z2F0dHVzbzpEb2N1bWVudHM6Ui1mb3JnZTpzZWFj
+				YXJiX2ZvbGRlcjpzZWFjYXJiAA4AEAAHAHMAZQBhAGMA
+				YQByAGIADwAQAAcAbQBhAGMAXwBqAHAAZwASADZVc2Vy
+				cy9nYXR0dXNvL0RvY3VtZW50cy9SLWZvcmdlL3NlYWNh
+				cmJfZm9sZGVyL3NlYWNhcmIAEwABLwAAFQACAA7//wAA
+				</data>
+				<key>FileURL</key>
+				<string>file://localhost/Users/gattuso/Documents/R-forge/seacarb_folder/seacarb/</string>
+				<key>RelativePath</key>
+				<string>./</string>
+				<key>TypeID</key>
+				<string>_CFileLocator</string>
+				<key>Version</key>
+				<integer>1</integer>
+			</dict>
+			<key>ItemName</key>
+			<string>seacarb</string>
+			<key>ItemType</key>
+			<string>FolderReference</string>
+		</dict>
+	</dict>
+	<key>com.barebones.DocumentFormatVersion</key>
+	<integer>5</integer>
+	<key>com.barebones.DocumentType</key>
+	<string>Project</string>
+</dict>
+</plist>

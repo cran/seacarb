@@ -1,4 +1,13 @@
 -----------------------------------
+version 2.3.4, 2010-04-23
+
+- New functions: p2d and d2p to convert pressure to depth and vice versa.
+- Kb: pressure correction modified in order to be consistent with Millero (1979). 
+- Kw modified in order to be consistent with Dickson et al. (2007). 
+- Pressure correction constants in Kw were modified in order to be consistent with a seawater system (and not fresh water), according to Millero 1983. 
+- The changes on Kb and Kw were made following comments from James Rae, to whom we are grateful. 
+
+-----------------------------------
 version 2.3.3, 2010-03-29
 
 - New functions: p2fCO2 and f2pCO2 to convert pCO2 to fCO2 and vice versa.

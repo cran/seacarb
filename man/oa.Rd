@@ -131,9 +131,9 @@ The arguments can be given as a unique number or as vectors. If the lengths of t
 
 \emph{SW mixing}: mixing of \dQuote{normal} and \dQuote{high-CO2} seawater. The fist parameter, \dQuote{Weight fraction high-CO2 SW} or wf, is the weight fraction of the high-CO2 seawater per kg seawater.
 
-\emph{Addition of acid}: strong acid is added to seawater. Note that this method is not recommended because it does not closely mimic natural ocean acidification (Gattuso and Lavigne, 2009). The first parameter, H+ (mol/kg), is the amount of H+ that must be added (mol/kg).
+\emph{Addition of acid}: strong acid is added to seawater. Note that this method is not recommended because it does not closely mimic natural ocean acidification (Gattuso and Lavigne, 2009). The first parameter, H+ (mol/kg), is the amount of H+ that must be added (mol/kg). The acid must be fortified with NaCl in order to have the same salinity than seawater.
 
-\emph{Addition of HCO3 and acid}: bicarbonate (HCO3) and a strong acid are added. The first parameter, HCO3, is the amount of HCO3 that must be added (mol/kg). The second parameter, H+, is the quantity of H+ that must be added (mol/kg).
+\emph{Addition of HCO3 and acid}: bicarbonate (HCO3) and a strong acid are added. The first parameter, HCO3, is the amount of HCO3 that must be added (mol/kg). The second parameter, H+, is the quantity of H+ that must be added (mol/kg). The acid must be fortified with NaCl in order to have the same salinity than seawater.
 
 \emph{Addition of CO3 and acid}: carbonate, CO3, and a strong acid are added. The first parameter, HCO3, is the quantity of CO3 that must be added (mol/kg). The second parameter, H+, is the quantity of H+ that must be added (mol/kg).
 }

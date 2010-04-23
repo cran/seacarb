@@ -1,7 +1,7 @@
 Package: seacarb
 Title: seawater carbonate chemistry with R
-Version: 2.3.3
-Date: 2010-03-29
+Version: 2.3.4
+Date: 2010-04-23
 Author: Heloise Lavigne, Jean-Pierre Gattuso
 Description: Calculates parameters of the seawater carbonate system.
         Code and/or corrections were contributed by Jean-Marie
@@ -10,6 +10,6 @@ Description: Calculates parameters of the seawater carbonate system.
 Maintainer: Jean-Pierre Gattuso <gattuso@obs-vlfr.fr>
 URL: http://CRAN.R-project.org/package=seacarb
 License: GPL (>= 2)
-Packaged: 2010-03-29 13:25:27 UTC; gattuso
+Packaged: 2010-04-23 14:21:02 UTC; gattuso
 Repository: CRAN
-Date/Publication: 2010-04-02 17:09:48
+Date/Publication: 2010-04-25 07:26:55

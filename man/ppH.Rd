@@ -56,7 +56,7 @@ flag = 25     pCO2 and DIC given
 	\item{var1}{Value of the first  variable in mol/kg, except for pH and for pCO2 in \eqn{\mu}atm}
 	\item{var2}{Value of the second  variable in mol/kg, except for pH}
 	\item{pCO2a}{CO2 partial pressure in the atmosphere pCO2 in \eqn{\mu}atm. It is only used in systems open to the atmosphere (i.e. when sys=1)}
-	\item{vol}{Volume of acid or base added in liter. By convention, it is given a negative sign for acid additions and a positive sign for base additions}
+	\item{vol}{Volume of acid or base added in liter. By convention, it is given a negative sign for acid additions and a positive sign for base additions. The acid must be fortified with NaCl in order to have the same salinity than seawater.}
 	\item{N}{Normality of the acid or base in mol/kg}
 	\item{S}{Salinity}
 	\item{T}{Temperature in degrees Celsius}

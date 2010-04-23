@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>EmbeddedEditorHidden:gattuso</key>
+	<false/>
+	<key>ExpandedEditorWidth:gattuso:displays([(0, 0), (1920, 1200)])</key>
+	<integer>640</integer>
+	<key>ExpandedItems:gattuso</key>
+	<array>
+		<string>F2F94380-84ED-47FE-8436-03CEAD675B1B</string>
+	</array>
+	<key>FileFilterID:gattuso</key>
+	<integer>0</integer>
+	<key>OpenDocuments:gattuso</key>
+	<array>
+		<dict>
+			<key>AliasData</key>
+			<data>
+			AAAAAAGiAAIAAAdtYWNfanBnAAAAAAAAAAAAAAAAAAAAAAAAAADG
+			OuokSCsAAAI6N9oJQ2hhbmdlTG9nAAAAAAAAAAAAAAAAAAAAAAAA
+			AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAkfz
+			/Mf2hBJURVhUAAAAAP////8AAAkgAAAAAAAAAAAAAAAAAAAAB3Nl
+			YWNhcmIAABAACAAAxjrOBAAAABEACAAAx/Zn8gAAAAEAGAI6N9oA
+			C8CbAAu+YQAKuj4ACqJgAACF7QACAEhtYWNfanBnOlVzZXJzOmdh
+			dHR1c286RG9jdW1lbnRzOlItZm9yZ2U6c2VhY2FyYl9mb2xkZXI6
+			c2VhY2FyYjpDaGFuZ2VMb2cADgAUAAkAQwBoAGEAbgBnAGUATABv
+			AGcADwAQAAcAbQBhAGMAXwBqAHAAZwASAEBVc2Vycy9nYXR0dXNv
+			L0RvY3VtZW50cy9SLWZvcmdlL3NlYWNhcmJfZm9sZGVyL3NlYWNh
+			cmIvQ2hhbmdlTG9nABMAAS8AABUAAgAO//8AAA==
+			</data>
+			<key>FileURL</key>
+			<string>file://localhost/Users/gattuso/Documents/R-forge/seacarb_folder/seacarb/ChangeLog</string>
+			<key>RelativePath</key>
+			<string>./ChangeLog</string>
+			<key>TypeID</key>
+			<string>_CFileLocator</string>
+			<key>Version</key>
+			<integer>1</integer>
+		</dict>
+	</array>
+	<key>ShowInvisibles:gattuso</key>
+	<false/>
+	<key>TextFilesOnly:gattuso</key>
+	<false/>
+	<key>ToolbarVisible:gattuso</key>
+	<true/>
+	<key>ViewSplitterPosition:gattuso</key>
+	<real>0.26011559367179871</real>
+	<key>WindowFrame:gattuso:displays([(0, 0), (1920, 1200)])</key>
+	<string>rect(44,217,1196,1082)</string>
+</dict>
+</plist>
