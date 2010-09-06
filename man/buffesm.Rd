@@ -1,11 +1,11 @@
 \encoding{latin1}
-\name{buffer}
-\alias{buffer}
+\name{buffesm}
+\alias{buffesm}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Buffer parameters of the seawater carbonate system}
-\description{Returns buffer parameters of the seawater carbonate system.}
+\title{Buffer capacities of the seawater carbonate system as defined by Egleston et al. (2010)}
+\description{Returns the six buffer factors of the seawater carbonate system as defined by Egleston, Sabine and Morel (2010), denoted here as ESM. Also returns the classic Revelle factor (relative change in pCO2 over that for DIC). In ESM, there are errors in the equations in Table 1 for \eqn{S}, \eqn{\Omega_{DIC}}, and \eqn{\Omega_{Alk}}. These errors have been corrected here.  The results of this routine have been validated: they produce results that are identical to those shown in ESM's Fig. 2. This routine was inspired and adapted from seacarb's ``buffer'' function. Its input arguments are indentical to those in the ``buffer'' and ``carb'' functions of seacarb.}
 \usage{
-buffer(flag, var1, var2, S=35, T=25, P=0, Pt=0, Sit=0, k1k2="x", 
+buffesm(flag, var1, var2, S=35, T=25, P=0, Pt=0, Sit=0, k1k2="x", 
 	kf="x", ks="d", pHscale="T")
 }
 %- maybe also 'usage' for other objects documented here.
@@ -75,7 +75,7 @@ flag = 25     pCO2 and DIC given
 
 \item Millero et al. (2006): S ranging between 0.1 and 50 and T ranging between 1 and 50oC.
 
-\item Millero (2010): S ranging between 1 and 50 and T ranging between 0 and 50oC. Millero (2010) provides a K1 and K2 formulation for the seawater, total and free pH scales. Therefore, when this method is used and if P=0, K1 and K2 are computed with the formulation corresponding to the pH scale given in the flag``pHscale''. 
+\item Millero (2010): S ranging between 1 and 50 and T ranging between 0 and 50oC. Millero (2010) provides a K1 and K2 formulation for the seawater, total and free pH scales. Therefore, when this method is used and if P=0, K1 and K2 are computed with the formulation corresponding to the pH scale given in the flag? "pHscale". 
 }
 
 \emph{For Kh:}
@@ -109,17 +109,13 @@ The arguments can be given as a unique number or as vectors. If the lengths of t
 
 \value{The function returns a data frame containing the following columns:
 
-\item{PhiD}{PhiD, chemical buffer factor (dpH/d[DIC]); input/output of dissolved CO2 (unit pH per mol/kg)}
-  \item{BetaD}{BetaD, homogeneous or Revelle buffer factor (dln(pCO2)/dln[DIC]); input/output of dissolved CO2}
-  \item{PiD}{PiD, chemical buffer factor (dpCO2/d[DIC]); input/output of dissolved CO2 (\eqn{\mu atm} per mol/kg)}
-  \item{PhiB}{PhiB, chemical buffer factor (dpH/d[DIC]); from input/output of bicarbonate (unit pH per mol/kg)}
-  \item{BetaB}{BetaB, homogeneous buffer factor (dln(pCO2)/dln[DIC]); input/output of bicarbonate}
-  \item{PiB}{PiB, chemical buffer factor (dpCO2/d[DIC]); input/output of dissolved CO2 (\eqn{\mu atm} per mol/kg)}
-  \item{PhiC}{PhiC, chemical buffer factor (dpH/d[DIC]); input/output of carbonate (unit pH per mol/kg)}
-  \item{BetaC}{BetaC, homogeneous buffer factor (dln(pCO2)/dln[DIC]); input/output of carbonate}
-  \item{PiC}{PiC, chemical buffer factor (dpCO2/d[DIC]); input/output of carbonate (\eqn{\mu atm} per mol/kg)}
-  \item{PhiH}{PhiH, chemical buffer factor (dpH/d[ALK]); input/output of strong acid (unit pH per mol/kg)}
-  \item{PiH}{PiH, chemical buffer factor (dpCO2/d[ALK]); input/output of strong acid (\eqn{\mu atm} per mol/kg)}
+  \item{gammaDIC}{\eqn{\gamma_{DIC}}, ocean's capacity to buffer changes in [CO2] due to accumulation of CO2 from the atmosphere \eqn{(\partial ln[CO_2]/\partial DIC)^{-1}}  (units = mol/kg; multiply by 1000 to get mmol/kg, i.e., the units presented in Egleston et al., 2010)}
+  \item{betaDIC}{\eqn{\beta_{DIC}},  ocean's capacity to buffer changes in [H+] due to accumulation of CO2 from the atmosphere \eqn{(\partial ln[H^+]/\partial DIC)^{-1}} (units = mol/kg)}
+  \item{omegaDIC}{\eqn{\Omega_{DIC}}, ocean's capacity to buffer changes in \eqn{[CO_3^{2-}]} due to accumulation of CO2 from the atmosphere \eqn{(\partial ln[CO_3^{2-}]/\partial DIC)^{-1}}; same as \eqn{(\partial ln \Omega_A / \partial DIC)^{-1}} and \eqn{(\partial ln \Omega_C / \partial DIC)^{-1}} (units= mol/kg) }
+  \item{gammaALK}{\eqn{\gamma_{Alk}}, ocean's capacity to buffer changes in [CO2] due to changes in alkalinity \eqn{(\partial ln[CO_2]/\partial ALK)^-1}  (units = mol/kg)}
+  \item{betaALK}{\eqn{\beta_{Alk}},  ocean's capacity to buffer changes in [H+] due to changes in alkalinity \eqn{(\partial ln[H^+]/\partial ALK)^{-1}} (units = mol/kg)}
+  \item{omegaALK}{\eqn{\Omega_{Alk}}, ocean's capacity to buffer changes in \eqn{[CO_3^{2-}]} due to changes in alkalinity \eqn{(\partial ln[CO_3^{2-}]/\partial ALK)^{-1}}; same as \eqn{(\partial ln \Omega_A / \partial ALK)^{-1}} and \eqn{(\partial ln \Omega_C / \partial ALK)^{-1}} (units = mol/kg)}
+  \item{R}{Revelle factor, relative change in \eqn{[CO_2]} or \eqn{pCO_2} over the relative change in DIC \eqn{(\partial ln[CO_2]/\partial ln DIC)^{-1}}  (unitless)}
 }
 
 \references{
@@ -127,7 +123,9 @@ Dickson A. G., 1990 Standard potential of the reaction: AgCI(s) + 1/2H2(g) = Ag(
 
 Dickson A. G., Sabine C. L. and Christian J. R., 2007 Guide to best practices for ocean CO2 measurements. \emph{PICES Special Publication} \bold{3}, 1-191.
 
-Khoo H. K., Ramette R. W., Culberson C. H. and Bates R. G., 1977 Determination of Hydrogen Ion Concentration in Seawater from 5 to 40oC: Standard Potentials at Salinities from 20 to 45. \emph{Analytical Chemistry} \bold{49}, 29-34. 
+Egleston, E. S., Sabine, C. L. and Morel, F. M. M.,  2010 Revelle revisited: Buffer factors that quantify the response of ocean chemistry to changes in DIC and alkalinity, Global Biogeochem. Cycles \bold{24}, GB1002, doi:10.1029/2008GB003407. 
+
+Khoo H. K., Ramette R. W., Culberson C. H. and Bates R. G., 1977 Determination of hydrogen ion concentration in seawater from 5 to 40oC: standard potentials at salinities from 20 to 45. \emph{Analytical Chemistry} \bold{49}, 29-34. 
 
 Frankignoulle M., 1994 A complete set of buffer factors for acid/base CO2 system in seawater. \emph{Journal of Marine Systems} \bold{5}, 111-118.
 
@@ -143,13 +141,13 @@ Roy R. N., Roy L. N., Vogel K. M., Porter-Moore C., Pearson T., Good C. E., Mill
 }
 
 \author{
-Heloise Lavigne, Aurelien Proye and Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
+James Orr \email{James.Orr@lsce.ipsl.fr}
 }
 
 \examples{
 
 ## Computation with a couple of variables
-buffer(flag=8, var1=8.2, var2=0.00234, S=35, T=25, P=0, Pt=0, 
+buffesm(flag=8, var1=8.2, var2=0.00234, S=35, T=25, P=0, Pt=0, 
 	Sit=0, pHscale="T", kf="pf", k1k2="l")
 
 ## Using vectors as arguments
@@ -164,24 +162,29 @@ Sit <- c(0, 0, 0)
 kf <- c("pf", "pf", "pf")
 k1k2 <- c("l", "l", "l")
 pHscale <- c("T", "T", "T")
-buffer(flag=flag, var1=var1, var2=var2, S=S, T=T, P=P, Pt=Pt, 
+buffesm(flag=flag, var1=var1, var2=var2, S=S, T=T, P=P, Pt=Pt, 
 	Sit=Sit, kf=kf, k1k2=k1k2, pHscale=pHscale)
 
-
 ## Test for all flags 
-
 flag <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 21, 22, 23, 24, 25)
 
 var1 <- c(8.200000, 7.477544e-06, 7.477544e-06, 7.477544e-06, 7.477544e-06, 8.2, 
 	8.2, 8.2, 8.2, 0.001685024, 0.001685024, 0.001685024,  0.0002888382, 
 	0.0002888382, 0.002391252, 264.2008, 264.2008, 264.2008, 264.2008, 264.2008)
-
 var2 <- c(7.477544e-06, 0.001685024, 0.0002888382, 0.002391252, 0.001981340, 
 	0.001685024, 0.0002888382, 0.002391252, 0.001981340, 0.0002888382, 0.002391252,
 	0.001981340,  0.002391252, 0.001981340, 0.001981340, 8.2, 0.001685024, 
 	0.0002888382, 0.002391252, 0.001981340)
+buffesm(flag=flag, var1=var1, var2=var2)
 
-buffer(flag=flag, var1=var1, var2=var2)
+## Compute 2 additional factors of interest (ratios of relative changes)
+be <- buffesm(flag=flag, var1=var1, var2=var2, S=S, T=T, P=P, Pt=Pt, 
+	Sit=Sit, kf=kf, k1k2=k1k2, pHscale=pHscale)
+#     Ratio of gammaDIC/betaDIC = d ln [H+] / d ln pCO2
+      Hfac <- (be$gammaDIC/be$betaDIC)                         #H+ factor
+#     Ratio of gammaDIC/omegaDIC = d ln [CO32-] / d ln pCO2
+      Satfac <- (be$gammaDIC/be$omegaDIC)                      #Saturation factor
 
 }
 \keyword{utilities}
+
