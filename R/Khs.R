@@ -38,30 +38,12 @@ lnK <- 225.838 + 0.3449*sqrt(S) - 0.0274*S -13275.3/TC  -34.6435*log(TC)
 Khs      <- exp(lnK)
 
 # ---- Conversion from Total scale to seawater scale before pressure corrections
-
 factor <- kconv(S=S, T=T, P=rep(0,nK))$ktotal2SWS
-
 Khs <- Khs * factor
 
-#------------------ Pressure Correction --------------------------
+# ----------------- Pressure Correction ------------------	
+Khs <- Pcorrect(Kvalue=Khs, Ktype="Khs", T=T, S=S, P=P, pHscale="SWS")
 
-lnkpok0 <- rep(0, nK)
-
-# P : applied pressure (in Bars) = (Total Pressure-1)
-#Pressure Correction from Millero 1995 - Typos corrections from Lewis and Wallace (CO2SYS)
-  
-	for(i in (1:nK)){		
-	if (P[i]> 0.0)
-  {
-		R = 83.14472             # mol bar deg-1
-    a0 <- -14.80; a1<- 0.002; a2 <- -0.4e-3
-    b0 <- 2.89e-3 ; b1 <- 0.054e-3; b2 <- 0
-    deltav  <-   a0 + a1 *T[i] + a2 *T[i]*T[i]
-    deltak  <-  (b0  + b1 *T[i] + b2*T[i]*T[i])
-    lnkpok0[i] <-  -(deltav/(R*TC[i]))*P[i] + (0.5*deltak /(R*TC[i]))*P[i]*P[i]
-  }
-}
-  Khs      <- Khs * exp(lnkpok0)  # K_H2S on total scale
 
 ###----------------pH scale corrections
 factor <- rep(NA,nK)

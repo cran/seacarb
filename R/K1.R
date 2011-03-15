@@ -22,6 +22,11 @@ if(length(P)!=nK){P <- rep(P[1], nK)}
 if(length(k1k2)!=nK){k1k2 <- rep(k1k2[1], nK)}
 if(length(pHscale)!=nK){pHscale <- rep(pHscale[1], nK)}
 
+##---------- pHsc : this vector note the actual pHscale because it can change during processing
+pHsc <- rep(NA,nK)
+pHlabel <- rep(NA,nK)
+K1 <- rep(NA, nK)
+
 ##----------Check the validity of the method regarding the T/S range
 
 for(i in 1:nK){
@@ -36,14 +41,8 @@ if((T[i]>35)|(T[i]<2)|(S[i]<19)|(S[i]>43)){k1k2[i] <- 'm10' }
 #---- issues de equic----
 tk = 273.15;           # [K] (for conversion [deg C] <-> [K])
 TK = T + tk;           # TC [C]; T[K]
-Cl = S / 1.80655;      # Cl = chlorinity; S = salinity (per mil)
-cl3 = Cl^(1/3);   
-ION = 0.00147 + 0.03592 * Cl + 0.000068 * Cl * Cl;   # ionic strength
-iom0 = 19.924*S/(1000-1.005*S);
-ST = 0.14/96.062/1.80655*S;   # (mol/kg soln) total sulfate
 
-
-bor = (416.*(S/35.))* 1e-6;   # (mol/kg), DOE94   
+for(i in 1:nK){
 
 # --------------------- K1 ---------------------------------------
 #   first acidity constant:
@@ -55,9 +54,11 @@ bor = (416.*(S/35.))* 1e-6;   # (mol/kg), DOE94
 #   Dickson, Sabine and Christian , 2007, Chapter 5, p. 13)
 #
 #   pH-scale: 'total'. mol/kg-soln
-	
-logK1lue <- (-3633.86)/TK + 61.2172 - 9.67770*log(TK) + 0.011555*S - 0.0001152*S*S
-K1lue <- 10^logK1lue
+if(k1k2[i] == "l"){
+logK1lue <- (-3633.86)/TK[i] + 61.2172 - 9.67770*log(TK[i]) + 0.011555*S[i] - 0.0001152*S[i]*S[i]
+K1[i]<- 10^logK1lue
+pHsc[i] <- "T"
+}
 
 # --------------------- K1 ---------------------------------------
 #   first acidity constant:
@@ -65,15 +66,15 @@ K1lue <- 10^logK1lue
 #
 #   (Roy et al., 1993 in Dickson and Goyet, 1994, Chapter 5, p. 14)
 #   pH-scale: 'total'. mol/kg-soln
-
-tmp1 = 2.83655 - 2307.1266 / TK - 1.5529413 * log(TK);
-tmp2 =         - (0.20760841 + 4.0484 / TK) * sqrt(S);
-tmp3 =         + 0.08468345 * S - 0.00654208 * S * sqrt(S);   
-tmp4 =         + log(1 - 0.001005 * S);
-
-lnK1roy = tmp1 + tmp2 + tmp3 + tmp4;
-
-        K1roy  = exp(lnK1roy);
+if(k1k2[i] == "r"){
+tmp1  <- 2.83655 - 2307.1266 / TK[i] - 1.5529413 * log(TK[i])
+tmp2  <- - (0.20760841 + 4.0484 / TK[i]) * sqrt(S[i])
+tmp3 <- 0.08468345 * S[i] - 0.00654208 * S[i] * sqrt(S[i])   
+tmp4 <- log(1 - 0.001005 * S[i])
+lnK1roy <- tmp1 + tmp2 + tmp3 + tmp4
+K1[i] <- exp(lnK1roy)
+pHsc[i] <- "T"
+}
         
 # --------------------- K1 ---------------------------------------
 #   first acidity constant:
@@ -81,15 +82,15 @@ lnK1roy = tmp1 + tmp2 + tmp3 + tmp4;
 #
 #   Millero et al. 2006 Marine Chemistry
 #   pH-scale: 'SWS scale'. mol/kg-soln
-
-pK1o <- 6320.813/TK + 19.568224*log(TK) -126.34048
-A1 <- 13.4191*S^(0.5) + 0.0331*S - (5.33e-5)*S^2
-B1 <- -530.123*S^(0.5) - 6.103*S
-C1 <- -2.06950*S^(0.5)
-
-pK1 <- pK1o + A1 + B1/TK + C1*log(TK)
-
-K1mil06 <- 10^(-pK1)
+if(k1k2[i] == "m06"){
+pK1o <- 6320.813/TK[i] + 19.568224*log(TK[i]) -126.34048
+A1 <- 13.4191*S[i]^(0.5) + 0.0331*S[i] - (5.33e-5)*S[i]^2
+B1 <- -530.123*S[i]^(0.5) - 6.103*S[i]
+C1 <- -2.06950*S[i]^(0.5)
+pK1 <- pK1o + A1 + B1/TK[i] + C1*log(TK[i])
+K1[i] <- 10^(-pK1)
+pHsc[i] <- "SWS"
+}
 
 # --------------------- K1 ---------------------------------------
 #   first acidity constant:
@@ -97,139 +98,85 @@ K1mil06 <- 10^(-pK1)
 #
 #   Millero 2010 Marine and Fresh water research
 
-pK1o <- 6320.813/TK + 19.568224*log(TK) -126.34048
+if(k1k2[i] == "m10"){
+pK1o <- 6320.813/TK[i] + 19.568224*log(TK[i]) -126.34048
 
 #   pH-scale: 'SWS scale'. mol/kg-soln
-
-A1 <- 13.4038*S^(0.5) + 0.03206*S - (5.242e-5)*S^2
-B1 <- -530.659*S^(0.5) - 5.8210*S
-C1 <- -2.0664*S^(0.5)
-
-pK1 <- pK1o + A1 + B1/TK + C1*log(TK)
-
-K1mil10_SWS <- 10^(-pK1)
-
-#   pH-scale: 'Total scale'. mol/kg-soln
-
-A1 <- 13.4051*S^(0.5) + 0.03185*S - (5.218e-5)*S^2
-B1 <- -531.095*S^(0.5) - 5.7789*S
-C1 <- -2.0663*S^(0.5)
-
-pK1 <- pK1o + A1 + B1/TK + C1*log(TK)
-
-K1mil10_total <- 10^(-pK1)
-
-#   pH-scale: 'Free scale'. mol/kg-soln
-
-A1 <- 5.09247*S^(0.5) + 0.05574*S - (9.279e-5)*S^2
-B1 <- -189.879*S^(0.5) - 11.3108*S
-C1 <- -0.8080*S^(0.5)
-
-pK1 <- pK1o + A1 + B1/TK + C1*log(TK)
-
-K1mil10_free <- 10^(-pK1)
-
-
-# ---------- Choice between methods (Lueker or Roy) ----------
-
-K1 <- K1lue
-
-for(i in (1:nK)){
-if(k1k2[i]=='l'){K1[i] <- K1lue[i] }
-if(k1k2[i]=='r'){K1[i] <- K1roy[i] }
-if(k1k2[i]=='m06'){K1[i] <- K1mil06[i] }
-if(k1k2[i]=='m10'){K1[i] <-  K1mil10_SWS[i]
-  if((pHscale[i]=="F")&(P[i]==0)){K1[i] <-  K1mil10_free[i]}
-  if((pHscale[i]=="T")&(P[i]==0)){K1[i] <-  K1mil10_total[i]}
-  }
+if(pHscale[i]=="SWS" | P[i]>0){
+A1 <- 13.4038*S[i]^(0.5) + 0.03206*S[i] - (5.242e-5)*S[i]^2
+B1 <- -530.659*S[i]^(0.5) - 5.8210*S[i]
+C1 <- -2.0664*S[i]^(0.5)
+pK1 <- pK1o + A1 + B1/TK[i] + C1*log(TK[i])
+K1[i] <- 10^(-pK1)   # K1 according to Millero et al. 2010 at Seawater scale
+pHsc[i] <- "SWS" 
 }
 
-# ---- Conversion from Total scale to seawater scale before pressure corrections
-pHsc <- rep(NA,nK)
+#   pH-scale: 'Total scale'. mol/kg-soln
+if(pHscale[i]=="T" & P[i]==0){
+A1 <- 13.4051*S[i]^(0.5) + 0.03185*S[i] - (5.218e-5)*S[i]^2
+B1 <- -531.095*S[i]^(0.5) - 5.7789*S[i]
+C1 <- -2.0663*S[i]^(0.5)
+pK1 <- pK1o + A1 + B1/TK[i] + C1*log(TK[i])
+K1[i] <- 10^(-pK1)   # K1 according to Millero et al. 2010 at Total scale 
+pHsc[i] <- "T"
+}
 
-for(i in (1:nK)){
-if((k1k2[i] %in% c('l', 'r'))&(P[i]>0)){      
-factor <- kconv(S=S[i], T=T[i], P=0)$ktotal2SWS
-K1[i] <- K1[i] * factor
-}}
-## K1 is already in the sea water scale with the Millero 2006 formulation
-## with the Millero 2010 formulation K1 is on SWS scale if P is greater than 0
+#   pH-scale: 'Free scale'. mol/kg-soln
+if(pHscale[i]=="F" & P[i]==0){
+A1 <- 5.09247*S[i]^(0.5) + 0.05574*S[i] - (9.279e-5)*S[i]^2
+B1 <- -189.879*S[i]^(0.5) - 11.3108*S[i]
+C1 <- -0.8080*S[i]^(0.5)
+pK1 <- pK1o + A1 + B1/TK[i] + C1*log(TK[i])
+K1[i] <- 10^(-pK1)  # K1 according to Millero et al. 2010 at Total scale
+pHsc[i] <- "F"
+}
+}
+}
+
+
 
 # ------------------- Pression effect --------------------------------
 for(i in (1:nK)){
-if (P[i] > 0.0)
-{
-		
-	RGAS = 8.314510;        # J mol-1 deg-1 (perfect Gas)  
-	R = 83.14472;             # mol bar deg-1 
-	                        # conversion cm3 -> m3          *1.e-6
-        	                  #            bar -> Pa = N m-2  *1.e+5
-	                        #                => *1.e-1 or *1/10
-		
-		
-	# index: K1 1, K2 2, Kb 3, Kw 4, Ks 5, Kf 6, Kspc 7, Kspa 8,
-	#        K1P 9, K2P 10, K3P 11
-	
-	#----- note: there is an error in Table 9 of Millero, 1995.
-	#----- The coefficients -b0 and b1
-	#----- have to be multiplied by 1.e-3!
-
-	#----- there are some more errors! 
-	#----- the signs (+,-) of coefficients in Millero 95 do not
-	#----- agree with Millero 79
-	
-		
-		
-	a0 = c(-25.5, -15.82, -29.48, -25.60, -18.03, -9.78, -48.76, -46, -14.51, -23.12, -26.57);
-	a1 = c(0.1271, -0.0219, 0.1622, 0.2324, 0.0466, -0.0090, 0.5304, 0.5304, 0.1211, 0.1758, 0.2020);
-	a2 = c(0.0, 0.0, 2.608*1e-3, -3.6246*1e-3, 0.316*1e-3, -0.942*1e-3, 0.0, 0.0, -0.321*1e-3, -2.647*1e-3, -3.042*1e-3);
-	b0 = c(-3.08*1e-3, 1.13*1e-3, -2.84*1e-3, -5.13*1e-3, -4.53*1e-3, -3.91*1e-3, -11.76*1e-3, -11.76*1e-3, -2.67*1e-3, -5.15*1e-3, -4.08*1e-3);
-	b1 = c(0.0877*1e-3, -0.1475*1e-3, 0.0, 0.0794*1e-3, 0.09*1e-3, 0.054*1e-3, 0.3692*1e-3, 0.3692*1e-3, 0.0427*1e-3, 0.09*1e-3, 0.0714*1e-3);
-	b2 = c(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-	
-	deltav = c(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-	deltak = c(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-	lnkpok0 = c(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-	
-	for (ipc in 1:length(a0))
-	{
-	  deltav[ipc]  =  a0[ipc] + a1[ipc] *T[i] + a2[ipc] *T[i]*T[i];
-	  deltak[ipc]   = (b0[ipc]  + b1[ipc] *T[i] + b2[ipc] *T[i]*T[i]);  
-	  lnkpok0[ipc]  = -(deltav[ipc] /(R*TK[i]))*P[i] + (0.5*deltak[ipc] /(R*TK[i]))*P[i]*P[i];
-	}
-	
-	K1[i] = K1[i]*exp(lnkpok0[1]);
-
-###----------------pH scale corrections  
- if(pHscale[i]=="T"){factor <- kconv(S=S[i], T=T[i], P=P[i])$kSWS2total; pHsc[i] <- "total scale"}
- if(pHscale[i]=="F"){factor <- kconv(S=S[i], T=T[i], P=P[i])$kSWS2free ; pHsc[i] <- "free scale"}
- if(pHscale[i]=="SWS"){factor <- 1 ; pHsc[i] <- "seawater scale"}
-K1[i] <- K1[i]*factor
-
+if (P[i] > 0.0){    ## pressure correction
+if (pHsc[i] == "T"){    ## conversion of K1 from Total scale to SWS scale in the case of Luecker or Roy calculation
+factor <- kconv(S=S[i], T=T[i], P=0)$ktotal2SWS
+K1[i] <- K1[i] * factor
+pHsc[i] <- "SWS"
+}
 }
 }
 
-###----------------pH scale corrections in case P=0
-for(i in (1:nK)){ 
-  if(P[i]==0){ 
-    if(k1k2[i] %in% c("l", "r")){  # whith the Luecker 2000 and Roy formulation pHscale is total scale
-      if(pHscale[i]=="T"){factor <- 1; pHsc[i] <- "total scale"}
-      if(pHscale[i]=="F"){factor <- kconv(S=S[i], T=T[i], P=P[i])$ktotal2free ; pHsc[i] <- "free scale"}
-      if(pHscale[i]=="SWS"){factor <- kconv(S=S[i], T=T[i], P=P[i])$ktotal2SWS  ; pHsc[i] <- "seawater scale"}
+K1 <- Pcorrect(Kvalue=K1, Ktype="K1", T=T, S=S, P=P, pHscale=pHsc)
+
+## --------------- Last conversion in the require pHscale ----------------
+
+for(i in (1:nK)){
+## In case of pressure correction (K2 is in the SWS scale)
+if (P[i] > 0.0){     
+ if(pHscale[i]=="T"){factor <- kconv(S=S[i], T=T[i], P=P[i])$kSWS2total; pHlabel[i] <- "total scale"}
+ if(pHscale[i]=="F"){factor <- kconv(S=S[i], T=T[i], P=P[i])$kSWS2free ; pHlabel[i] <- "free scale"}
+ if(pHscale[i]=="SWS"){factor <- 1 ; pHlabel[i] <- "seawater scale"}
+ }
+## In case of no pressure correction (the pH scale of K2 depends on the calculation method)
+ if(P[i]==0){ 
+    if(pHsc[i] == "T"){  # with the Luecker, Roy and Millero 2010 formulations
+      if(pHscale[i]=="T"){factor <- 1; pHlabel[i] <- "total scale"}
+      if(pHscale[i]=="F"){factor <- kconv(S=S[i], T=T[i], P=P[i])$ktotal2free ; pHlabel[i] <- "free scale"}
+      if(pHscale[i]=="SWS"){factor <- kconv(S=S[i], T=T[i], P=P[i])$ktotal2SWS  ; pHlabel[i] <- "seawater scale"}
     }
-    if(k1k2[i]=="m06"){ # whith the Millero 2006 formulation pHscale is SWS scale
-      if(pHscale[i]=="T"){factor <- kconv(S=S[i], T=T[i], P=P[i])$kSWS2total; pHsc[i] <- "total scale"}
-      if(pHscale[i]=="F"){factor <- kconv(S=S[i], T=T[i], P=P[i])$kSWS2free ; pHsc[i] <- "free scale"}
-      if(pHscale[i]=="SWS"){factor <- 1 ; pHsc[i] <- "seawater scale"}
+    if(pHsc[i] == "SWS"){ # whith the Millero 2006 and Millero 2010 formulations 
+      if(pHscale[i]=="T"){factor <- kconv(S=S[i], T=T[i], P=P[i])$kSWS2total; pHlabel[i] <- "total scale"}
+      if(pHscale[i]=="F"){factor <- kconv(S=S[i], T=T[i], P=P[i])$kSWS2free ; pHlabel[i] <- "free scale"}
+      if(pHscale[i]=="SWS"){factor <- 1 ; pHlabel[i] <- "seawater scale"}
     }
-    if(k1k2[i]=="m10"){ # whith the Millero 2010 formulation pHscale is already adaptated to the require scale
-      if(pHscale[i]=="T"){factor <- 1; pHsc[i] <- "total scale"}
-      if(pHscale[i]=="F"){factor <- 1 ; pHsc[i] <- "free scale"}
-      if(pHscale[i]=="SWS"){factor <- 1 ; pHsc[i] <- "seawater scale"}
+    if(pHsc[i]=="F"){ # whith the Millero 2010 formulation
+    factor <- 1
+    pHlabel[i] <- "free scale"
+    }
     }
 K1[i] <- K1[i]*factor
 }
-}
+
 
 ##---------------Attributes
 method <- c()
@@ -249,9 +196,8 @@ if((k1k2[i]=='r')&((T[i]>45)|(S[i]>45))){warning("S and/or T is outside the rang
 if((T[i]>50)|(S[i]>50)){warning("S and/or T is outside the range of validity of the formulations available for K1 in seacarb.")}
 }
 
-
-attr(K1,"unit")     = "mol/kg-soln"
-attr(K1,"pH scale") = pHsc
-attr(K1, "method") = method
+attr(K1,"unit") <- "mol/kg-soln"
+attr(K1,"pH scale") <- pHlabel
+attr(K1, "method") <- method
 return(K1)
 }

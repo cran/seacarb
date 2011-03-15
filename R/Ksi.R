@@ -45,32 +45,11 @@ lnK <- 117.385 + 3.5913*sqrt(Io) - 1.5998*Io + 0.07871*Io*Io +
 Ksi <- exp(lnK)
 
 # ---- Conversion from Total scale to seawater scale before pressure corrections
-
 factor <- kconv(S=S, T=T, P=rep(0,nK))$ktotal2SWS
-
 Ksi <- Ksi * factor
 
-# ---- Pressure Correction
+Ksi <- Pcorrect(Kvalue=Ksi, Ktype="Ksi", T=T, S=S, P=P, pHscale="SWS")
 
-lnkpok0 <- rep(0, nK)
-
-# P : applied pressure (in Bars) = (Total Pressure-1)
-# Pressure Correction from Millero 1995 - same as for BOH3
-
-for(i in (1:nK)){	
-  if (P[i]> 0.0)
-  {
-		R = 83.14472             # mol bar deg-1
-		a0 <- -29.48; a1 <- 0.1622; a2 <- 2.6080e-3
-    b0 <- -2.84e-3 ; b1 <- 0.0; b2 <- 0.0
-    deltav  <-   a0 + a1 *T[i] + a2 *T[i]*T[i]
-    deltak  <-  (b0  + b1 *T[i] + b2*T[i]*T[i])
-    lnkpok0[i] <-  -(deltav/(R*TC[i]))*P[i] + (0.5*deltak /(R*TC[i]))*P[i]*P[i]
-  }
-}
-
-  # from molality to molinity
-  Ksi      <- Ksi*exp(lnkpok0)
 
 ###----------------pH scale corrections
 factor <- rep(NA,nK)
