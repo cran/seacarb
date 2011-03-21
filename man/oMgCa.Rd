@@ -1,10 +1,10 @@
 \encoding{latin1}
-\name{oMgCa}
-\alias{oMgCa}
+\name{Om}
+\alias{Om}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Carbonate saturation state for magnesian calcites}
 \description{Calculates the calcium carbonate saturation state for magnesian calcite}
-\usage{oMgCa(x, flag, var1, var2, k1k2='x', kf='x', ks="d", pHscale="T")}
+\usage{Om(x, flag, var1, var2, k1k2='x', kf='x', ks="d", pHscale="T")}
 %- maybe also 'usage' for other objects documented here.
 \arguments{
 	\item{x}{mole fraction of magnesium ions, note that the function is only valid for x ranging between 0 and 0.25}
@@ -145,6 +145,6 @@ Heloise Lavigne, Andreas J. Andersson and Jean-Pierre Gattuso \email{gattuso@obs
 }
 
 \examples{
-oMgCa(x=seq(0.01, 0.252, 0.01), flag=8, var1=8.2, var2=0.00234, k1k2='x', kf='x', ks="d", pHscale="T")
+Om(x=seq(0.01, 0.252, 0.01), flag=8, var1=8.2, var2=0.00234, k1k2='x', kf='x', ks="d", pHscale="T")
 }
 \keyword{utilities}

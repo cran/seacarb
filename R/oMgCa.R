@@ -11,7 +11,7 @@
 #
 
 
-"oMgCa" <- function(x, flag, var1, var2, k1k2='x', kf='x', ks="d", pHscale="T"){
+"Om" <- function(x, flag, var1, var2, k1k2='x', kf='x', ks="d", pHscale="T"){
 c <- carb(flag=flag, var1=var1, var2=var2, S=35, T=25, P=0, Pt=0, Sit=0, k1k2= k1k2, kf= kf, ks=ks,  pHscale= pHscale)
 
 S=35
