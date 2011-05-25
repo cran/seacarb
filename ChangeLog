@@ -1,5 +1,9 @@
 
 -----------------------------------
+version 2.4.2, 2011-05-25
+- Fixed a major bug in Om
+
+-----------------------------------
 version 2.4.1, 2011-03-21
 - Changed name of function oMgCa to Om in preparation for consistency with new functions Oa (aragonite saturation state) and Oc (calcite saturation state). Sorry for the inconvenience.
 - Fixed small mistakes in the ChangeLog
