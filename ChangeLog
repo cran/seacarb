@@ -1,3 +1,6 @@
+version 2.4.3, 2011-11-13
+- New function: carbm Returns parameters of the carbonate system when seawater is artificially manipulated. At the present time, only boron addition is considered.
+- The functions bor, buffer, bufferesm, oa, Om, pCa, pgas, pHinsi, pmix, pTA were modified in order to add the formulation of Lee et al. (2010) to compute total boron from salinity.
 
 -----------------------------------
 version 2.4.2, 2011-05-25

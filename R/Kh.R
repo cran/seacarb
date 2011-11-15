@@ -25,13 +25,7 @@ if(length(P)!=nK){P <- rep(P[1], nK)}
 #---- issues de equic----
 tk = 273.15;           # [K] (for conversion [deg C] <-> [K])
 TC = T + tk;           # TC [C]; T[K]
-Cl = S / 1.80655;      # Cl = chlorinity; S = salinity (per mille)
-cl3 = Cl^(1/3);   
-ION = 0.00147 + 0.03592 * Cl + 0.000068 * Cl * Cl;   # ionic strength
-iom0 = 19.924*S/(1000-1.005*S);
-ST = 0.14/96.062/1.80655*S;   # (mol/kg soln) total sulfate
 
-bor = (416.*(S/35.))* 1e-6;   # (mol/kg), DOE94   
 
 	#---------------------------------------------------------------------
 	#---------------------- Kh (K Henry) ---------------------------------

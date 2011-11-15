@@ -13,12 +13,14 @@
 #
 
 buffer <- 
-function(flag, var1, var2, S=35, T=25, P=0, Pt=0, Sit=0, k1k2='x', kf='x', ks="d", pHscale="T"){
+function(flag, var1, var2, S=35, T=25, P=0, Pt=0, Sit=0, k1k2='x', kf='x', ks="d", pHscale="T", b="l10"){
 
-Carb <- carb(flag=flag, var1=var1, var2=var2, S=S, T=T, P=P, Pt=Pt, Sit=Sit, k1k2=k1k2, kf=kf, ks=ks, pHscale=pHscale)
+Carb <- carb(flag=flag, var1=var1, var2=var2, S=S, T=T, P=P, Pt=Pt, Sit=Sit, k1k2=k1k2, kf=kf, ks=ks, pHscale=pHscale, b=b)
 RES <- data.frame()
 
 n <- nrow(Carb)
+if(length(b)!=n){ b <- rep(b[1],n)}  #transforme b en vecteur tel que carb le fait
+
 
 k1k2.V <- k1k2
 if(length(k1k2.V)!=n){k1k2.V <- rep(k1k2.V[1], n)}
@@ -65,7 +67,7 @@ cl3 = Cl^(1/3);
 ION = 0.00147 + 0.03592 * Cl + 0.000068 * Cl * Cl;   # ionic strength
 iom0 = 19.924*S/(1000-1.005*S);
 ST = 0.14/96.062/1.80655*S;   # (mol/kg soln) total sulfate
-bor = (416.*(S/35.))* 1e-6;   # (mol/kg), DOE94 boron total
+bor = bor(S=S, b=b[i]);   # (mol/kg), DOE94 boron total
 fluo = (7*(S/35))*1e-5        # (mol/kg), DOE94 fluoride total
 
 #---------------------------------------------------------------------

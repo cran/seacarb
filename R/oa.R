@@ -13,7 +13,7 @@
 #
 #
 oa <-
-function(flag, var1, var2, pCO2f, pCO2s=1e6, S=35, T=25, P=0, Pt=0, Sit=0, k1k2='x', kf='x', ks="d", pHscale="T", plot=FALSE){
+function(flag, var1, var2, pCO2f, pCO2s=1e6, S=35, T=25, P=0, Pt=0, Sit=0, k1k2='x', kf='x', ks="d", pHscale="T", plot=FALSE,  b="l10"){
 
 n <- max(length(var1), length(var2), length(pCO2f), length(pCO2s), length(S), length(T), length(P), length(Pt), length(Sit), length(k1k2), length(kf), length(pHscale), length(ks))
 if(length(flag)!=n){ flag <- rep(flag[1],n)}
@@ -30,22 +30,23 @@ if(length(k1k2)!=n){ k1k2 <- rep(k1k2[1],n)}
 if(length(kf)!=n){ kf <- rep(kf[1],n)}
 if(length(ks)!=n){ ks <- rep(ks[1],n)}
 if(length(pHscale)!=n){pHscale <- rep(pHscale[1],n)}
+if(length(b)!=n){ b <- rep(b[1],n)}
 
 
 # initial system
 # --------------
-SYSi <- carb(flag=flag, var1=var1, var2=var2, S=S, T=T, P=P, Sit=Sit, Pt=Pt, k1k2=k1k2, kf=kf, ks=ks, pHscale=pHscale)
+SYSi <- carb(flag=flag, var1=var1, var2=var2, S=S, T=T, P=P, Sit=Sit, Pt=Pt, k1k2=k1k2, kf=kf, ks=ks, pHscale=pHscale, b=b)
 
 # CO2 bubbling
 # -----------------------------
-SYSfCO2bubbling <- carb(flag=24, var1=pCO2f, var2=SYSi$ALK, S=S, T=T, P=P, Sit=Sit, Pt=Pt, k1k2=k1k2, kf=kf, ks=ks, pHscale=pHscale)
+SYSfCO2bubbling <- carb(flag=24, var1=pCO2f, var2=SYSi$ALK, S=S, T=T, P=P, Sit=Sit, Pt=Pt, k1k2=k1k2, kf=kf, ks=ks, pHscale=pHscale, b=b)
 
 
 # Seawater mixing
 # ---------------------------------
-SYSs <- carb(flag=24, var1=pCO2s, var2=SYSi$ALK, S=S, T=T, P=P, Sit=Sit, Pt=Pt, k1k2=k1k2, kf=kf, ks=ks, pHscale=pHscale)
+SYSs <- carb(flag=24, var1=pCO2s, var2=SYSi$ALK, S=S, T=T, P=P, Sit=Sit, Pt=Pt, k1k2=k1k2, kf=kf, ks=ks, pHscale=pHscale, b=b)
 
-SYSf <- carb(flag=24, var1=pCO2f, var2=SYSi$ALK, S=S, T=T, P=P, Sit=Sit, Pt=Pt, k1k2=k1k2, kf=kf, ks=ks, pHscale=pHscale)
+SYSf <- carb(flag=24, var1=pCO2f, var2=SYSi$ALK, S=S, T=T, P=P, Sit=Sit, Pt=Pt, k1k2=k1k2, kf=kf, ks=ks, pHscale=pHscale, b=b)
 
 DICi <- SYSi$DIC
 DICs <- SYSs$DIC
@@ -61,7 +62,7 @@ SYSfSWmixing <- SYSf
 # Addition of strong acid
 # -----------------------------------
 
-SYSfacid <- carb(flag=25, var1=pCO2f, var2=SYSi$DIC, S=S, T=T, P=P, Sit=Sit, Pt=Pt, k1k2=k1k2, kf=kf, ks=ks, pHscale=pHscale)
+SYSfacid <- carb(flag=25, var1=pCO2f, var2=SYSi$DIC, S=S, T=T, P=P, Sit=Sit, Pt=Pt, k1k2=k1k2, kf=kf, ks=ks, pHscale=pHscale, b=b)
 ALKf <- SYSfacid$ALK
 ALKi <- SYSi$ALK
 
@@ -73,7 +74,7 @@ hplus <- round(hplus, 8)
 
 # Addition of strong acid and carbonate
 # ------------------------------------------------------
-SYSfCarboAcid <- carb(flag=24, var1=pCO2f, var2=SYSi$ALK, S=S, T=T, P=P, Sit=Sit, Pt=Pt, k1k2=k1k2, kf=kf,  ks=ks, pHscale=pHscale)
+SYSfCarboAcid <- carb(flag=24, var1=pCO2f, var2=SYSi$ALK, S=S, T=T, P=P, Sit=Sit, Pt=Pt, k1k2=k1k2, kf=kf,  ks=ks, pHscale=pHscale, b=b)
 
 deltaDIC <- SYSfCarboAcid$DIC - SYSi$DIC
 
@@ -83,7 +84,7 @@ TAintCO3 <- TAint  ## we keep the value for the plot
 
 DICint <- SYSfCarboAcid$DIC
 
-SYSint <- carb(flag=15, var1=TAint, var2=DICint, S=S, T=T, P=P, Sit=Sit, Pt=Pt, k1k2=k1k2, kf=kf, ks=ks, pHscale=pHscale)
+SYSint <- carb(flag=15, var1=TAint, var2=DICint, S=S, T=T, P=P, Sit=Sit, Pt=Pt, k1k2=k1k2, kf=kf, ks=ks, pHscale=pHscale, b=b)
 
 deltaTA <- SYSf$ALK-SYSint$ALK
 
@@ -96,7 +97,7 @@ TAintHCO3 <- TAint  ## we keep the value for the plot
 
 DICint <- SYSfCarboAcid$DIC
 
-SYSint <- carb(flag=15, var1=TAint, var2=DICint, S=S, T=T, P=P, Sit=Sit, Pt=Pt, k1k2=k1k2, kf=kf, ks=ks, pHscale=pHscale)
+SYSint <- carb(flag=15, var1=TAint, var2=DICint, S=S, T=T, P=P, Sit=Sit, Pt=Pt, k1k2=k1k2, kf=kf, ks=ks, pHscale=pHscale, b=b)
 
 deltaTA <- SYSf$ALK-SYSint$ALK
 

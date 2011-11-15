@@ -6,7 +6,7 @@
 \description{Calculates the changes in the saturation states of aragonite and calcite resulting from the manipulation of the calcium concentration}
 \usage{
 pCa(flag, var1, var2, Ca, S=35, T=20, P=0, Pt=0, Sit=0, k1k2="x", 
-	kf="x", ks="d", pHscale="T")
+	kf="x", ks="d", pHscale="T", b="l10")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -63,7 +63,9 @@ flag = 25     pCO2 and DIC given
 	\item{k1k2}{"l" for using K1 and K2 from Lueker et al. (2000), "m06" from Millero et al. (2006), "m10" from Millero (2010) and "r" from Roy et al. (1993). "x" is the default flag; the default value is then "l", except if T is outside the range 2 to 35oC and/or S is outside the range 19 to 43. In these cases, the default value is "m10".}
   	\item{kf}{"pf" for using Kf from Perez and Fraga (1987) and "dg" for using Kf from Dickson and Riley (1979 in Dickson and Goyet, 1994). "x" is the default flag; the default value is then "pf", except if T is outside the range 9 to 33oC and/or S is outside the range 10 to 40. In these cases, the default is "dg".}
 	\item{ks}{"d" for using Ks from Dickon (1990), "k" for using Ks from Khoo et al. (1977), default is "d"} 
-	\item{pHscale}{choice of pH scale: "T" for the total scale, "F" for the free scale and "SWS" for using the seawater scale, default is "T" (total scale)}}
+	\item{pHscale}{choice of pH scale: "T" for the total scale, "F" for the free scale and "SWS" for using the seawater scale, default is "T" (total scale)}
+	\item{b}{"l10" for computing boron total from the Lee et al. (2010) formulation or "u74" for using the Uppstrom (1974) formulation, default is "l10" }
+}
 
 
 \details{The Lueker et al. (2000) constants for K1 and K2, the Perez and Fraga (1987) constant for Kf and the Dickson (1990) constant for Ks are recommended by Dickson et al. (2007). It is, however, critical to consider that each formulation is only valid for specific ranges of temperature and salinity:
@@ -136,11 +138,15 @@ Gattuso J.-P. and Lavigne H, 2009 Perturbation experiments to investigate the im
 
 Khoo H. K., Ramette R. W., Culberson C. H. and Bates R. G., 1977 Determination of Hydrogen Ion Concentration in Seawater from 5 to 40oC: Standard Potentials at Salinities from 20 to 45. \emph{Analytical Chemistry} \bold{49}, 29-34. 
 
+Lee K., Tae-Wook K., Byrne R.H., Millero F.J., Feely R.A. and Liu Y-M, 2010 The universal ratio of the boron to chlorinity for the North Pacific and North Atlantoc oceans. \emph{Geochimica et Cosmochimica Acta} \bold{74} 1801-1811.
+
 Millero F. J., 1995 Thermodynamics of the carbon dioxide system in the oceans. \emph{Geochimica Cosmochimica Acta} \bold{59}: 661-677.
 
 Millero F. J., 2010 Carbonate constant for estuarine waters. \emph{Marine and Freshwater Research} \bold{61}: 139-142.
 
 Millero F. J., Graham T. B., Huang F., Bustos-Serrano H. and Pierrot D., 2006. Dissociation constants of carbonic acid in seawater as a function of salinity and temperature.  \emph{Marine Chemistry} \bold{100}, 80-84.
+
+Uppstrom L.R., 1974 The boron/chlorinity ratio of the deep-sea water from the Pacific Ocean. \emph{Deep-Sea Research I} \bold{21} 161-162.
 }
 
 \author{
@@ -149,9 +155,9 @@ Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
 
 \examples{
 pCa(flag=15, var1=2302e-6, var2=2050e-6, Ca=0.01028, S=35, T=20, P=0, 
-	Pt=0, Sit=0, pHscale="T", kf="pf", k1k2="l", ks="d") # with normal Ca concentration
+	Pt=0, Sit=0, pHscale="T", kf="pf", k1k2="l", ks="d", b="l10") # with normal Ca concentration
 pCa(flag=15, var1=2302e-6, var2=2050e-6, Ca=0.01028/2, S=35, T=20, P=0, 
-	Pt=0, Sit=0, pHscale="T", kf="pf", k1k2="l", ks="d") # with 0.5 * Ca concentration
+	Pt=0, Sit=0, pHscale="T", kf="pf", k1k2="l", ks="d", b="l10") # with 0.5 * Ca concentration
 }
 
 \keyword{utilities}

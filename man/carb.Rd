@@ -5,7 +5,7 @@
 \title{Parameters of the seawater carbonate system}
 \description{Returns parameters of the seawater carbonate system.}
 \usage{carb(flag, var1, var2, S=35, T=25, P=0, Pt=0, Sit=0,
-        k1k2="x", kf="x", ks="d", pHscale="T")}
+        k1k2="x", kf="x", ks="d", pHscale="T", b="l10")}
 %- maybe also 'usage' for other objects documented here.
 \arguments{
 	\item{flag}{select the couple of variables available. The flags which can be used are: 
@@ -60,7 +60,9 @@ flag = 25     pCO2 and DIC given
 	\item{k1k2}{"l" for using K1 and K2 from Lueker et al. (2000), "m06" from Millero et al. (2006), "m10" from Millero (2010) and "r" from Roy et al. (1993). "x" is the default flag; the default value is then "l", except if T is outside the range 2 to 35oC and/or S is outside the range 19 to 43. In these cases, the default value is "m10".}
 	\item{kf}{"pf" for using Kf from Perez and Fraga (1987) and "dg" for using Kf from Dickson and Riley (1979 in Dickson and Goyet, 1994). "x" is the default flag; the default value is then "pf", except if T is outside the range 9 to 33oC and/or S is outside the range 10 to 40. In these cases, the default is "dg".}
 	\item{ks}{"d" for using Ks from Dickon (1990) and "k" for using Ks from Khoo et al. (1977), default is "d"} 
-	\item{pHscale}{"T" for the total scale, "F" for the free scale and "SWS" for using the seawater scale, default is "T" (total scale)}}
+	\item{pHscale}{"T" for the total scale, "F" for the free scale and "SWS" for using the seawater scale, default is "T" (total scale)}
+  	\item{b}{"l10" for computing boron total from the Lee et al. (2010) formulation or "u74" for using the Uppstrom (1974) formulation, default is "l10" }
+}
 
 
 \details{The Lueker et al. (2000) constants for K1 and K2, the Perez and Fraga (1987) constant for Kf and the Dickson (1990) constant for Ks are recommended by Dickson et al. (2007). It is, however, critical to consider that each formulation is only valid for specific ranges of temperature and salinity:
@@ -133,6 +135,8 @@ Dickson A. G., Sabine C. L. and Christian J. R., 2007 Guide to best practices fo
 
 Khoo H. K., Ramette R. W., Culberson C. H. and Bates R. G., 1977 Determination of Hydrogen Ion Concentration in Seawater from 5 to 40oC: Standard Potentials at Salinities from 20 to 45. \emph{Analytical Chemistry} \bold{22}, vol49 29-34. 
 
+Lee K., Tae-Wook K., Byrne R.H., Millero F.J., Feely R.A. and Liu Y-M, 2010 The universal ratio of the boron to chlorinity for the North Pacific and North Atlantoc oceans. \emph{Geochimica et Cosmochimica Acta} \bold{74} 1801-1811.
+
 Lueker T. J., Dickson A. G. and Keeling C. D., 2000 Ocean pCO2 calculated from dissolved inorganic carbon, alkalinity, and equations for K1 and K2: validation based on laboratory measurements of CO2 in gas and seawater at equilibrium. \emph{Marine Chemistry} \bold{70} 105-119.
 
 Millero F. J., 1995. Thermodynamics of the carbon dioxide system in the oceans. \emph{Geochimica Cosmochimica Acta} \bold{59}: 661-677.
@@ -145,6 +149,8 @@ Perez F. F. and Fraga F., 1987 Association constant of fluoride and hydrogen ion
 
 Roy R. N., Roy L. N., Vogel K. M., Porter-Moore C., Pearson T., Good C. E., Millero F. J. and Campbell D. M., 1993. The dissociation constants of carbonic acid in seawater at salinities 5 to 45 and temperatures 0 to 45oC. \emph{Marine Chemistry} \bold{44}, 249-267.
 
+Uppstrom L.R., 1974 The boron/chlorinity ratio of the deep-sea water from the Pacific Ocean. \emph{Deep-Sea Research I} \bold{21} 161-162.
+
 Zeebe R. E. and Wolf-Gladrow D. A., 2001 \emph{CO2 in seawater: equilibrium, kinetics, isotopes}. Amsterdam: Elsevier, 346 pp.
 }
 
@@ -156,7 +162,7 @@ Heloise Lavigne and Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
 
 ## With a couple of variables
 carb(flag=8, var1=8.2, var2=0.00234, S=35, T=25, P=0, Pt=0, Sit=0,
-	pHscale="T", kf="pf", k1k2="l", ks="d")
+	pHscale="T", kf="pf", k1k2="l", ks="d", b="l10")
 
 ## Using vectors as arguments
 flag <- c(8, 2, 8)
@@ -170,8 +176,9 @@ Sit <- c(0, 0, 0)
 kf <- c("pf", "pf", "pf")
 k1k2 <- c("l", "l", "l")
 pHscale <- c("T", "T", "T")
+b <- c("l10", "l10", "l10")
 carb(flag=flag, var1=var1, var2=var2, S=S, T=T, P=P,
-	Pt=Pt, Sit=Sit, kf=kf, k1k2=k1k2, pHscale=pHscale)
+	Pt=Pt, Sit=Sit, kf=kf, k1k2=k1k2, pHscale=pHscale, b=b)
 
 ## Test with all flags 
 flag <- c((1:15), (21:25))
