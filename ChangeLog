@@ -1,6 +1,12 @@
+version 2.4.4, 2012-06-26
+- Modification on Pcorrect to optimise processing speed.
+- New function zzz.R which loads Pcoeff when package is loaded.
+
+-----------------------------------
+
 version 2.4.3, 2011-11-13
-- New function: carbm Returns parameters of the carbonate system when seawater is artificially manipulated. At the present time, only boron addition is considered.
-- The functions bor, buffer, bufferesm, oa, Om, pCa, pgas, pHinsi, pmix, pTA were modified in order to add the formulation of Lee et al. (2010) to compute total boron from salinity.
+- New function: carbm Returns parameters of the seawater carbonate system, in case of artificial addition of boron in seawater.
+- bor, buffer, bufferesm, oa, Om, pCa, pgas, pHinsi, pmix, pTA were modified in order to add the formulation of Lee et al. (2011) to compute total boron from salinity.
 
 -----------------------------------
 version 2.4.2, 2011-05-25

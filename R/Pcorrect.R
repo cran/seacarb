@@ -28,7 +28,7 @@ TK <- T + 273.15   # Temperature in Kelvin
 R = 83.14472;             # mol bar deg-1
 	
 ## loading of table with coefficients
-data(Pcoeffs)
+if(!exists("Pcoeffs", where = .GlobalEnv)) data(Pcoeffs)
 
 # ------------------- Pression effect --------------------------------
 for(i in (1:nK)){

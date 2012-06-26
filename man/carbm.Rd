@@ -2,8 +2,8 @@
 \name{carbm}
 \alias{carbm}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Parameters of the carbonate system when seawater is artificially manipulated.}
-\description{Returns parameters of the carbonate system when seawater is artificially manipulated. At the present time, only boron addition is considered.}
+\title{Parameters of the seawater carbonate system, in case of artificial addition of boron}
+\description{Returns parameters of the seawater carbonate system, in case of artificial addition of boron in seawater.}
 \usage{carbm(flag, var1, var2, badd=0, S=35, T=25, P=0, Pt=0, Sit=0, 	              
 k1k2="x", kf="x", ks="d", pHscale="T", b="l10")}
 %- maybe also 'usage' for other objects documented here.
@@ -52,7 +52,7 @@ flag = 25     pCO2 and DIC given
 }
 	\item{var1}{Value of the first  variable in mol/kg, except for pH and for pCO2 in \eqn{\mu}atm}
 	\item{var2}{Value of the second  variable in mol/kg, except for pH}
-	\item{badd}{Quantity of boron added in mol/kg, default is 0}
+	\item{badd}{Quantity of boron added in seawater in mol/kg, default is 0}
 	\item{S}{Salinity}
 	\item{T}{Temperature in degrees Celsius}
   	\item{P}{Hydrostatic pressure in bar (surface = 0)}
@@ -162,7 +162,7 @@ Heloise Lavigne and Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
 \examples{
 
 ## With a couple of variables
-carbm(flag=8, var1=8.7, var2=0.002571, badd=0.003, S=38, T=21, P=0, Pt=0, Sit=0, pHscale="T", kf="pf", k1k2="l", ks="d") 
+carbm(flag=8, var1=8.7, var2=0.002571, S=38, T=21, P=0, Pt=0, Sit=0, pHscale="T", kf="pf", k1k2="l", ks="d", badd=0.003) 
 
 }
 \keyword{utilities}
