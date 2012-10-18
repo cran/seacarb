@@ -1,5 +1,5 @@
-fbb3627da7183eb65202d09431571282 *ChangeLog
-c0107b4dae0db3105278d02adc36f72b *DESCRIPTION
+ae5114fd92e3e0d4eddef648575d7128 *ChangeLog
+3799b36c6d14c6b32e835d164f1d465c *DESCRIPTION
 22cb3a69b08c9387b0f01537732821a5 *NAMESPACE
 8b8e655a0f18c9c58b18b50952a3ae0c *R/K1.R
 d11dd5eaaa3ec517a27337c46be5ff84 *R/K1p.R
@@ -74,7 +74,7 @@ f36d8065c91bba07d497990bc6563ce2 *man/Pcorrect.Rd
 0cc5b3074cd38d79efb703ac2f4c7105 *man/bor.Rd
 87cf791b8b63a6d98e98a5505d67b505 *man/buffer.Rd
 b7a6d0fc25570b58cdabce45f406e5a8 *man/buffesm.Rd
-e4e3d25807d786c1e52fae40ebcf9365 *man/carb.Rd
+3725c801f66dce7146700564018e63db *man/carb.Rd
 a12cef3937235b9d4765b84796fe58ab *man/carbm.Rd
 46dc63c131bd608267eec0c667c533e3 *man/d2p.Rd
 6e262c075455a2526cdabc876d273315 *man/f2pCO2.Rd
@@ -93,7 +93,6 @@ e86075f7e4281ed5a662b6779fbb86bd *man/pgas.Rd
 487b8e90830f81b82cab8dbfd5c7ce00 *man/ppH.Rd
 2499adce4b5ddd5c3e3934941df651e8 *man/psi.Rd
 247fbb477c50f7e4b7e3a53eb27a6ebf *man/rho.Rd
-49503dc8f4a35d1e4e554dfdc8cbf9dd *man/seacarb_test.Rd
 6e5415843cc0d31b1e155d71627a4df7 *man/seacarb_test_P0.Rd
 ed31d9e32a2a33a51f06d78bbf345e57 *man/seacarb_test_P300.Rd
 edaffdefb7a34450a641341f4be19e46 *man/speciation.Rd

@@ -197,7 +197,7 @@ tab <- seacarb_test_P0
 
 ## method 1 using the column numbers
 carb(flag=tab[[1]], var1=tab[[2]], var2=tab[[3]], S=tab[[4]], T=tab[[5]], 
-	P=tab[[6]], Sit=tab[[7]], Pt=tab[[8]])
+	P=tab[[6]], Sit=tab[[8]], Pt=tab[[7]])
 
 ## method 2 using the column names
 carb(flag=tab$flag, var1=tab$var1, var2=tab$var2, S=tab$S, T=tab$T, P=tab$P, 

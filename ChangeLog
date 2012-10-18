@@ -1,9 +1,14 @@
+version 2.4.5, 2012-10-18
+Thanks to Jean-Marie Epitalon for reporting the following two minor errors.
+- Minor error corrected in the documentation of carb (example of method #1, Sit and Pt were not corretly used)
+- "seacarb_test" removed as it is no longer used. It was replaced by "seacarb_test_P0" and "seacarb_test_P300" long ago but remained in the documentation.
+
+-----------------------------------
 version 2.4.4, 2012-06-26
 - Modification on Pcorrect to optimise processing speed.
 - New function zzz.R which loads Pcoeff when package is loaded.
 
 -----------------------------------
-
 version 2.4.3, 2011-11-13
 - New function: carbm Returns parameters of the seawater carbonate system, in case of artificial addition of boron in seawater.
 - bor, buffer, bufferesm, oa, Om, pCa, pgas, pHinsi, pmix, pTA were modified in order to add the formulation of Lee et al. (2011) to compute total boron from salinity.
