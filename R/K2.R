@@ -58,7 +58,7 @@ for(i in 1:nK){
 
 if(k1k2[i] == "l"){
 logK2lue <- -471.78/TK[i] - 25.9290 + 3.16967*log(TK[i]) + 0.01781*S[i] - 0.0001122*S[i]*S[i]
-K2 <- 10^(logK2lue)
+K2[i] <- 10^(logK2lue)
 pHsc[i] <- "T"
 }
 

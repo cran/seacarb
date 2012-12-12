@@ -1,3 +1,8 @@
+-----------------------------------
+version 2.4.6, 2012-12-12
+- Corrected a small bu which prevented to use function K2 with a vector.
+
+-----------------------------------
 version 2.4.5, 2012-10-18
 Thanks to Jean-Marie Epitalon for reporting the following two minor errors.
 - Minor error corrected in the documentation of carb (example of method #1, Sit and Pt were not corretly used)
