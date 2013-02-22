@@ -1,4 +1,5 @@
 # Copyright (C) 2008 Jean-Pierre Gattuso and Heloise Lavigne and Aurelien Proye
+# Revised by James Orr, 2012-01-17
 #
 # This file is part of seacarb.
 #
@@ -34,16 +35,32 @@ TK = T + tk;           # T [C]; TK[K]
 	#  (Dickson and Goyet): pH_T, mol/(kg-soln)
 	#  
 	#
+	#	*** J. Orr (15 Jan 2013): Formulation changed to be on the SWS scale (without later conversion)
 	
-	lnK2P = -8814.715 / TK + 172.0883 - 27.927 * log(TK) + (-160.34 / TK + 1.3566) * sqrt(S) + (0.37335 / TK - 0.05778) * S;
+	#lnK2P = -8814.715 / TK + 172.0883 - 27.927 * log(TK) + (-160.34 / TK + 1.3566) * sqrt(S) + (0.37335 / TK - 0.05778) * S;
 	
+	# From J. C. Orr on 15 Jan 2013:
+	# The formulation above was a modified version of Millero (1995) where Dickson et al. (2007) subtracted 0.015
+        # from Millero's original constant (172.1033) to give 172.0883 (the 2nd term above). BUT Dickson's reason for that 
+        # operation was to "convert--approximately--from theSWS pH scale (including HF) used by Millero (1995) to the 'total' 
+        # scale ...". 
+        # This subtraction of 0.015 to switch from the SWS to Total scale is not good for 2 reasons:
+        # (1) The 0.015 value is inexact (not constant), e.g., it is 0.022 at T=25, S=35, P=0;
+	# (2) It makes no sense to switch to the Total scale when just below you switch back to the SWS scale.
+        # The best solution is to reestablish the original equation (SWS scale) and delete the subsequent conversion
+
+	# now the original formulation: Millero (1995)
+
+	lnK2P = -8814.715 / TK + 172.1033 - 27.927 * log(TK) + (-160.34 / TK + 1.3566) * sqrt(S) + (0.37335 / TK - 0.05778) * S;
+
 	K2P = exp(lnK2P);
 	
 
 # ---- Conversion from Total scale to seawater scale before pressure corrections
+#      *** JCO: This is no longer necessary: with original formulation (Millero, 1995), K2P is on "seawater scale"!
 
-factor <- kconv(S=S, T=T, P=rep(0,nK))$ktotal2SWS
-K2P <- K2P * factor
+#factor <- kconv(S=S, T=T, P=rep(0,nK))$ktotal2SWS
+#K2P <- K2P * factor
 
 # ----------------- Pressure Correction ------------------	
 K2P <- Pcorrect(Kvalue=K2P, Ktype="K2p", T=T, S=S, P=P, pHscale="SWS")

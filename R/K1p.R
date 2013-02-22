@@ -1,4 +1,5 @@
 # Copyright (C) 2003 Jean-Pierre Gattuso and Aurelien Proye
+# Revised by James Orr, 2012-01-17
 #
 # This file is part of seacarb.
 #
@@ -33,18 +34,32 @@ TC = T + tk;           # TC [C]; T[K]
 	#
 	#   (DOE, 1994)  (Dickson and Goyet): pH_T, mol/(kg-soln)
 	#   Ch.5 p. 16
-	#	
+	#	*** J. Orr (15 Jan 2013): Formulation changed to be on the SWS scale (without later conversion)
 	
-	lnK1P = -4576.752 / TC + 115.525 - 18.453*log(TC) + (-106.736 / TC + 0.69171) * sqrt(S) + (-0.65643 / TC - 0.01844) * S;
+	#lnK1P = -4576.752 / TC + 115.525 - 18.453*log(TC) + (-106.736 / TC + 0.69171) * sqrt(S) + (-0.65643 / TC - 0.01844) * S;
+
+	# From J. C. Orr on 15 Jan 2013:
+	# The formulation above was a modified version of Millero (1995) where Dickson et al. (2007) subtracted 0.015
+        # from Millero's original constant (115.54) to give 115.525 (the 2nd term above). BUT Dickson's reason for that 
+        # operation was to "convert--approximately--from theSWS pH scale (including HF) used by Millero (1995) to the 'total' 
+        # scale ...". 
+        # This subtraction of 0.015 to switch from the SWS to Total scale is not good for 2 reasons:
+        # (1) The 0.015 value is inexact (not constant), e.g., it is 0.022 at T=25, S=35, P=0;
+	# (2) It makes no sense to switch to the Total scale when just below you switch back to the SWS scale.
+        # The best solution is to reestablish the original equation (SWS scale) and delete the subsequent scale conversion.
+
+	# now the original formulation: Millero (1995)
+	lnK1P = -4576.752 / TC + 115.54  - 18.453*log(TC) + (-106.736 / TC + 0.69171) * sqrt(S) + (-0.65643 / TC - 0.01844) * S;
 	
 	K1P = exp(lnK1P);
 
 
 # ---- Conversion from Total scale to seawater scale before pressure corrections
+#      *** JC Orr: This is no longer necessary: with original formulation (Millero, 1995), K1P is on "seawater scale"!
 
-factor <- kconv(S=S, T=T, P=rep(0,nK))$ktotal2SWS
+#factor <- kconv(S=S, T=T, P=rep(0,nK))$ktotal2SWS
 
-K1P <- K1P * factor
+#K1P <- K1P * factor
 
 # ----------------- Pressure Correction ------------------
 	

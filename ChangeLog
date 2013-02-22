@@ -1,6 +1,18 @@
 -----------------------------------
+version 2.4.8, 2013-02-22
+The previousverion 2.4.7 was rejected by CRAN. This version is an attempt to fix two issues. There are no bug fix nor new capabilities.
+
+-----------------------------------
+version 2.4.7, 2013-01-18 [not distributed through CRAN which rejected it]
+Thanks to James Orr for identifying the errors below and providing corrected code for all the routines mentioned.
+- Corrected a bug in the calculation of Kf, the stability constant of hydrogen fluoride, according to Dickson and Goyet (1994)[flag kf="dg"]. The effect on computed results is negligible.
+- Corrected a bug in the pressure correction of Ksi, the dissociation constant of Si(OH)4. The coefficient a2 had the wrong sign. There is no impact on surface values; small but significant differences will be found for deep samples where Si concentrations are substantial.
+- Modified calculations of Kw, K1p, K2p, K3p and Ksi to use the exact method to convert each constant from the seawater to the total scale instead of the approximation that simply subtracts 0.015 (Dickson et al., 2007, Chapter 5, page 14, footnote 5). That "constant" now varies from 0.000 to 0.032, but the impact on computed results are quite small (as are differences between the Seawater and Total scales)
+- Made minor changes to Kf and kconv for consistent recovery of the kf option.
+
+-----------------------------------
 version 2.4.6, 2012-12-12
-- Corrected a small bu which prevented to use function K2 with a vector.
+- Corrected a small bug which prevented to use function K2 with a vector.
 
 -----------------------------------
 version 2.4.5, 2012-10-18

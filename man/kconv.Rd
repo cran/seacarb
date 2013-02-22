@@ -4,7 +4,7 @@
 \title{Conversion factors to change the pH scale of dissociation constants}
 \description{Conversion factors from the total scale to the free and seawater scales}
 \usage{
-kconv(S=35,T=25, P=0, kf="x")
+kconv(S=35,T=25, P=0, kf)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -12,7 +12,7 @@ kconv(S=35,T=25, P=0, kf="x")
   \item{T}{Temperature in degrees Celsius, default is 25oC}
   \item{P}{Hydrostatic pressure in bar (surface = 0), default is 0}
   \item{kf}{"pf" for using Kf from Perez and Fraga (1987) and "dg" for using Kf from Dickson and Riley (1979 in Dickson and Goyet, 1994);
-  the default value is "pf", except if T is outside the ragne 9 to 33oC or of S is outside the range 10 to 40. In these cases, the default is "dg".}	
+if the fonction Kf was used previously, the default value is the value given for the argument kf in the fonction Kf. If the Kf function was not used previously, the default value is "pf", except if T is outside the range 9 to 33oC or of S is outside the range 10 to 40. In these cases, the default is "dg".}	
 }
 
 \value{
@@ -23,9 +23,14 @@ The function returns a list with 3 conversion factors :
 }
 
 \details{It is critical to consider that each formulation is valid in specific ranges of temperature and salinity:
-- Perez and Fraga (1987): S ranging between 10 and 40 and T ranging between 9 and 33oC.
-- Dickson and Riley (1979 in Dickson and Goyet, 1994): S ranging between 0 and 45 and T ranging between 0 and 45oC.
- } 
+
+\itemize{
+  \item Perez and Fraga (1987): S ranging between 10 and 40 and T ranging between 9 and 33oC.
+  \item Dickson and Riley (1979 in Dickson and Goyet, 1994): S ranging between 0 and 45 and T ranging between 0 and 45oC.
+}
+
+Note that kconv is used in many functions (i.e. K1, K2, K1P, K2P, K3P, Kw, Ksi, etc...) without user controls it. To force a particular formulation for Kf, which will be then used in kconv, it is recommended to start the session by indicating your preferred formulation using the folloawing commands: Kf(kf="dg") or Kf(kf="pf").    
+}
 
 \references{Dickson A.G. and F.J. Millero, 1987 A comparison of the equilibrium constants for the dissociation of carbonic acid in seawater media. \emph{Deep-Sea Research} \bold{34}:1733-1743.}
 

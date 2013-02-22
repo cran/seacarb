@@ -1,4 +1,5 @@
 # Copyright (C) 2008 Karline Soetaert (K.Soetaert@nioo.knaw.nl) and Heloise Lavigne
+# Revised by James Orr, 2012-01-17
 #
 # This file is part of seacarb.
 #
@@ -24,7 +25,7 @@
 #--------------------------------------------------------------
 
 
-"kconv" <- function (S=35,T=25,P=0,kf='x')
+"kconv" <- function (S=35,T=25,P=0,kf)
 
 {
 	#--------------------------------------------------------------
@@ -51,7 +52,19 @@
 	#
 	#   (Dickson and Riley, 1979 in Dickson and Goyet,
 	#   1994, Chapter 5, p. 14)
-	#   pH-scale: 'total'
+	#   pH-scale: 'free'
+
+	# When df is not given as an argument, use the global var dfg, if it exists
+	# dfg is now defined in any previous call to Kf routine, when kf is given as an argument
+#	kfg <- NULL; rm(kfg); # just to avoid a "note" during the compilation of the package
+	if (missing(kf)) {
+#          if (exists("kfg")) {
+            kf <- get("kfg", envir = parent.frame()) 
+#          } else {
+#            kf <- "x"
+#          }
+        }
+
 	Kf = Kf(S=S, T=T, P=P, kf=kf, pHscale="F")
 	#Kf  = Kf*total2free       # convert Kf from total to free pH scale
 

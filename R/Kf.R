@@ -1,4 +1,5 @@
 # Copyright (C) 2008 Jean-Pierre Gattuso and Heloise Lavigne and Aurelien Proye
+# Revised by James Orr, 2012-01-17
 #
 # This file is part of seacarb.
 #
@@ -22,6 +23,17 @@ if(length(P)!=nK){P <- rep(P[1], nK)}
 if(length(kf)!=nK){kf <- rep(kf[1], nK)}
 if(length(pHscale)!=nK){pHscale <- rep(pHscale[1], nK)}
  
+##----------Make kf a global variable to facilitate pH scale changes in multiple routines
+
+#kfg <- NULL; rm(kfg); # just to avoid a "note" during the compilation of the package
+  if (missing(kf)) {
+#    kfg <<- "x"
+    assign("kfg", "x", envir = parent.frame())
+  } else {
+#    kfg <<- kf
+    assign("kfg", kf, envir = parent.frame())
+  }
+
 ##----------Check the validity of the method regarding the T/S range
 
 for(i in 1:nK){
@@ -75,7 +87,8 @@ Kfpf <- Kfpf * factor
 #   1994, Chapter 5, p. 14)
 #   pH-scale: 'free' (require to convert in total scale after pressure corrections 
 
-lnKfdg = 1590.2/TK - 12.641 + 1.525*sqrt(ION);
+#lnKfdg = 1590.2/TK - 12.641 + 1.525*sqrt(ION);
+lnKfdg = 1590.2/TK - 12.641 + 1.525*sqrt(ION) + log(1-0.001005*S);
 
 Kfdg <- exp(lnKfdg)
 

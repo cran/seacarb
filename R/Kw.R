@@ -1,4 +1,5 @@
 # Copyright (C) 2008 Jean-Pierre Gattuso and Heloise Lavigne and Aurelien Proye
+# Revised by James Orr, 2012-01-17
 #
 # This file is part of seacarb.
 #
@@ -34,18 +35,30 @@ TK = T + tk;           # T [C]; TK[K]
 	#       Millero (1995)(in Guide to Best Practices in Ocean CO2 Measurements (2007, Chapter 5, p.16))
 	#       $K_w$ in mol/kg-soln.
 	#       pH-scale: pH$_{total}$ ('total` scale).
+	#	*** J. Orr (15 Jan 2013): Formulation changed to be on the SWS scale (without later conversion)
 	                                                     
-	
-	tmp1 = -13847.26/TK + 148.9652 - 23.6521 * log(TK); ## second term is 148.9652 as given in Dickson (2007) instead of 148.96502 as recommanded in DOE (1994). 
+	#tmp1 = -13847.26/TK + 148.9652 - 23.6521 * log(TK); ## second term is 148.9652 as given in Dickson (2007) instead of 148.96502 as recommanded in DOE (1994). 
+
+	# From J. C. Orr on 15 Jan 2013:
+	# The formulation above was a modified version of Millero (1995) where Dickson et al. (2007) subtracted 0.015
+        # from Millero's original constant (148.9802) to give 148.9652 (the 2nd term above). BUT Dickson's reason for that 
+        # operation was to "convert--approximately--from theSWS pH scale (including HF) used by Millero (1995) to the 'total' 
+        # scale ...". 
+        # This subtraction of 0.015 to switch from the SWS to Total scale is not good for 2 reasons:
+        # (1) The 0.015 value is inexact (not constant), e.g., it is 0.022 at T=25, S=35, P=0;
+	# (2) It makes no sense to switch to the Total scale when just below you switch back to the SWS scale.
+        # The best solution is to reestablish the original equation (SWS scale) and delete the subsequent scale conversion.
+
+	tmp1 = -13847.26/TK + 148.9802 - 23.6521 * log(TK); # now the original formulation: Millero (1995)
 	tmp2 = + (118.67/TK - 5.977 + 1.0495*log(TK))*sqrt(S) - 0.01615*S;
 	
 	lnKw =  tmp1 + tmp2;
 	Kw  = exp(lnKw);
 
 # ---- Conversion from Total scale to seawater scale before pressure corrections
-
-factor <- kconv(S=S, T=T, P=rep(0,nK))$ktotal2SWS
-Kw <- Kw * factor
+#      *** JCO: This is no longer necessary: with original formulation (Millero, 1995), Kw is on "seawater scale"!
+#factor <- kconv(S=S, T=T, P=rep(0,nK))$ktotal2SWS
+#Kw <- Kw * factor
 
 # ----------------- Pressure Correction ------------------	
 Kw <- Pcorrect(Kvalue=Kw, Ktype="Kw", T=T, S=S, P=P, pHscale="SWS")

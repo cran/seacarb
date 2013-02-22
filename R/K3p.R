@@ -1,4 +1,5 @@
 # Copyright (C) 2008 Jean-Pierre Gattuso and Heloise Lavigne and Aurelien Proye
+# Revised by James Orr, 2012-01-17
 #
 # This file is part of seacarb.
 #
@@ -35,15 +36,31 @@ TK = T + tk;           # T [C]; TK[K]
 	#  
 	#   Ch.5 p. 15
 	#
+	#	*** J. Orr (15 Jan 2013): Formulation changed to be on the SWS scale (without later conversion)
+	
+	#lnK3P = -3070.75 / TK - 18.141 + (17.27039 / TK + 2.81197) * sqrt(S) + (-44.99486 / TK - 0.09984) * S;
+	
+	# From J. C. Orr on 15 Jan 2013:
+	# The formulation above was a modified version of Millero (1995) where Dickson et al. (2007) subtracted 0.015
+        # from Millero's original constant (18.126) to give 18.141 (the 2nd term above). BUT Dickson's reason for that 
+        # operation was to "convert--approximately--from the SWS pH scale (including HF) used by Millero (1995) to the 'total' 
+        # scale ...". 
+        # This subtraction of 0.015 to switch from the SWS to Total scale is not good for 2 reasons:
+        # (1) The 0.015 value is inexact (not constant), e.g., it is 0.022 at T=25, S=35, P=0;
+	# (2) It makes no sense to switch to the Total scale when just below you switch back to the SWS scale.
+        # The best solution is to reestablish the original equation (SWS scale) and delete the subsequent scale conversion
+
+	# now the original formulation: Millero (1995)
 		
-	lnK3P = -3070.75 / TK - 18.141 + (17.27039 / TK + 2.81197) * sqrt(S) + (-44.99486 / TK - 0.09984) * S;
+	lnK3P = -3070.75 / TK - 18.126 + (17.27039 / TK + 2.81197) * sqrt(S) + (-44.99486 / TK - 0.09984) * S;
 	
 	K3P = exp(lnK3P);
 
 
 # ---- Conversion from Total scale to seawater scale before pressure corrections
-factor <- kconv(S=S, T=T, P=rep(0,nK))$ktotal2SWS
-K3P <- K3P * factor
+#      *** JCO: This is no longer necessary: with original formulation (Millero, 1995), K3P is on "seawater scale"!
+#factor <- kconv(S=S, T=T, P=rep(0,nK))$ktotal2SWS
+#K3P <- K3P * factor
 
 # ----------------- Pressure Correction ------------------	
 K3P <- Pcorrect(Kvalue=K3P, Ktype="K3p", T=T, S=S, P=P, pHscale="SWS")
