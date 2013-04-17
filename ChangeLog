@@ -1,6 +1,15 @@
 -----------------------------------
+version 2.4.10, 2013-04-17
+- Added function carbex to experiment potential future changes. DO NOT USE this function
+
+-----------------------------------
+version 2.4.9, 2013-03-11
+- Replaced Kh by K0, the right symbol for the solubility of carbon dioxide in sea water. Many functions and help files were changed.
+- The range of salinity for K1 and K2 according to Roy et al. (1993) was wrong (0-45). The correct range of salinity (5-45) is now used. Several functions, including K1 and K2, and their help files were changed.
+
+-----------------------------------
 version 2.4.8, 2013-02-22
-The previousverion 2.4.7 was rejected by CRAN. This version is an attempt to fix two issues. There are no bug fix nor new capabilities.
+The previous version 2.4.7 was rejected by CRAN. This version is an attempt to fix two issues. There are no bug fix nor new capabilities.
 
 -----------------------------------
 version 2.4.7, 2013-01-18 [not distributed through CRAN which rejected it]

@@ -10,11 +10,11 @@ pHconv(flag=1,pH=8.10,S=35,T=25, P=0, ks="d")
 \arguments{
   \item{flag}{choice of the type of conversion :
 	flag=1: seawater scale to total scale
-	flag=2: free scale to the total scale
-	flag=3: total scale to the seawater scale
-	flag=4: total scale to the free scale
-	flag=5: seawater scale to the free scale
-	flag=6: free scale to the seawater scale
+	flag=2: free scale to total scale
+	flag=3: total scale to seawater scale
+	flag=4: total scale to free scale
+	flag=5: seawater scale to free scale
+	flag=6: free scale to seawater scale
 	default is flag=1}
   \item{pH}{Enter the value of pH which need to be converted, default is 8.100}
   \item{S}{Salinity, default is 35}
@@ -27,7 +27,7 @@ pHconv(flag=1,pH=8.10,S=35,T=25, P=0, ks="d")
 The function returns the values of pH converted
 }
 
-\details{The Dickson (1990) constant is recommended by Guide to Best Practices for Ocean CO2 Measurements (2007). It is critical to consider that each formulation is valid in specific ranges of temperature and salinity:
+\details{The Dickson (1990) constant is recommended by the Guide to Best Practices for Ocean CO2 Measurements (2007). It is critical to consider that each formulation is valid in specific ranges of temperature and salinity:
 
 \itemize{
 \item Dickson (1990): S ranging between 5 and 45 and T ranging between 0 and 45oC.

@@ -1,11 +1,11 @@
 \encoding{latin1}
-\name{carbm}
-\alias{carbm}
+\name{carbex}
+\alias{carbex}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Parameters of the seawater carbonate system, in case of artificial addition of boron}
-\description{Returns parameters of the seawater carbonate system, in case of artificial addition of boron in seawater.}
-\usage{carbm(flag, var1, var2, badd=0, S=35, T=25, P=0, Pt=0, Sit=0, 	              
-k1k2="x", kf="x", ks="d", pHscale="T", b="l10")}
+\title{Parameters of the seawater carbonate system [EXPERIMENTAL VERSION]}
+\description{Returns parameters of the seawater carbonate system. [THIS IS AN EXPERIMENTAL VERSION, USE carb INSTEAD]}
+\usage{carbex(flag, var1, var2, S=35, T=25, P=0, Pt=0, Sit=0,
+        k1k2="x", kf="x", ks="d", pHscale="T", b="l10")}
 %- maybe also 'usage' for other objects documented here.
 \arguments{
 	\item{flag}{select the couple of variables available. The flags which can be used are: 
@@ -52,7 +52,6 @@ flag = 25     pCO2 and DIC given
 }
 	\item{var1}{Value of the first  variable in mol/kg, except for pH and for pCO2 in \eqn{\mu}atm}
 	\item{var2}{Value of the second  variable in mol/kg, except for pH}
-	\item{badd}{Quantity of boron added in seawater in mol/kg, default is 0}
 	\item{S}{Salinity}
 	\item{T}{Temperature in degrees Celsius}
   	\item{P}{Hydrostatic pressure in bar (surface = 0)}
@@ -162,8 +161,47 @@ Heloise Lavigne and Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
 \examples{
 
 ## With a couple of variables
-carbm(flag=8, var1=8.7, var2=0.002571, S=38, T=21, P=0, Pt=0, Sit=0, pHscale="T", 
-  kf="pf", k1k2="l", ks="d", badd=0.003) 
+carbex(flag=8, var1=8.2, var2=0.00234, S=35, T=25, P=0, Pt=0, Sit=0,
+	pHscale="T", kf="pf", k1k2="l", ks="d", b="l10")
+
+## Using vectors as arguments
+flag <- c(8, 2, 8)
+var1 <- c(8.2, 7.477544e-06, 8.2)
+var2 <- c(0.002343955, 0.001649802, 2400e-6)
+S <- c(35, 35, 30)
+T <- c(25, 25, 30)
+P <- c(0, 0, 0)
+Pt <- c(0, 0, 0)
+Sit <- c(0, 0, 0)
+kf <- c("pf", "pf", "pf")
+k1k2 <- c("l", "l", "l")
+pHscale <- c("T", "T", "T")
+b <- c("l10", "l10", "l10")
+carbex(flag=flag, var1=var1, var2=var2, S=S, T=T, P=P,
+	Pt=Pt, Sit=Sit, kf=kf, k1k2=k1k2, pHscale=pHscale, b=b)
+
+## Test with all flags 
+flag <- c((1:15), (21:25))
+var1 <- c(8.200000, 7.308171e-06, 7.308171e-06, 7.308171e-06, 7.308171e-06, 
+	8.2, 8.2, 8.2, 8.2, 0.001646857, 0.001646857, 0.001646857, 0.0002822957, 
+	0.0002822957, 0.00234, 258.2164, 258.2164, 258.2164, 258.2164, 258.2164 )
+var2 <- c(7.308171e-06, 0.001646857, 0.0002822957, 0.00234, 0.001936461, 
+	0.001646857, 0.0002822957, 0.00234, 0.001936461, 0.0002822957, 
+	0.00234, 0.001936461,  0.00234, 0.001936461, 0.001936461, 8.2, 
+	0.001646857, 0.0002822957, 0.00234, 0.001936461)
+carbex(flag=flag, var1=var1, var2=var2)
+
+## Test using a data frame 
+data(seacarb_test_P0)	#test data set for P=0 (surface)
+tab <- seacarb_test_P0
+
+## method 1 using the column numbers
+carbex(flag=tab[[1]], var1=tab[[2]], var2=tab[[3]], S=tab[[4]], T=tab[[5]], 
+	P=tab[[6]], Sit=tab[[8]], Pt=tab[[7]])
+
+## method 2 using the column names
+carbex(flag=tab$flag, var1=tab$var1, var2=tab$var2, S=tab$S, T=tab$T, P=tab$P, 
+	Sit=tab$Sit, Pt=tab$Pt)
 
 }
 \keyword{utilities}

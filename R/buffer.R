@@ -79,7 +79,7 @@ K2 <- K2(S=S, T=T, P=P, pHscale=pHscale, k1k2=k1k2)
 Ks <- Ks(S=S, T=T, P=P, ks=ks)
 Kf <- Kf(S=S, T=T, P=P, pHscale=pHscale, kf=kf)
 Kw <- Kw(S=S, T=T, P=P, pHscale=pHscale)
-Kh <- Kh(S=S, T=T, P=P)
+K0 <- K0(S=S, T=T, P=P)
 Kb <- Kb(S=S, T=T, P=P, pHscale=pHscale)
 K1p <- K1p(S=S, T=T, P=P, pHscale=pHscale)
 K2p <- K2p(S=S, T=T, P=P, pHscale=pHscale)
@@ -125,10 +125,10 @@ rho <- rho(S=S,T=T,P=P)
 	PhiH=1/ (h*log(10)* (D +(-Kb*bor/((h+Kb)*(h+Kb)))  + (-Kw/(h*h))-1))  ; 
 
 	Pi=(h*K1*(h+2*K2)*DIC)  /  ((h*h+h*K1+K1*K2)*(h*h+h*K1+K1*K2));
-	PiH=((-h/Kh)*log(10)*Pi)*PhiH;
-	PiB=CO2/(Kh*DIC)*BetaB;
-	PiD=CO2/(Kh*DIC)*BetaD;
-	PiC=CO2/(Kh*DIC)*BetaC;
+	PiH=((-h/K0)*log(10)*Pi)*PhiH;
+	PiB=CO2/(K0*DIC)*BetaB;
+	PiD=CO2/(K0*DIC)*BetaD;
+	PiC=CO2/(K0*DIC)*BetaC;
 	
 	col <- c("PhiD", "BetaD", "PiD", "PhiB", "BetaB", "PiB", "PhiC", "BetaC", "PiC", "PhiH", "PiH")
 	res <- data.frame(PhiD,BetaD,PiD,PhiB,BetaB,PiB,PhiC,BetaC,PiC,PhiH,PiH)

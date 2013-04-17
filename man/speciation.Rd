@@ -49,7 +49,7 @@ speciation(K1p(), K2p(), K3p(), conc=0.001)
 Tseq <- seq(0, 30, by=0.5)
 pHseq <- carb(flag=15, var1=2300e-6, var2=1900e-6, S=35, T=Tseq, P=0)$pH
 CO2  <- speciation(K1(T=Tseq), K2(T=Tseq), conc=1900, pH=pHseq)$C1
-pCO2 <- CO2/Kh(T=Tseq)
+pCO2 <- CO2/K0(T=Tseq)
 plot(Tseq, pCO2, xlab="Temperature (oC)", ylab="pCO2 (uatm)", type="l", 
 	main="effect of temperature on pCO2")
 legend("topleft", c(expression(sum(CO[2])==1900~umol~kg^"-1"), 

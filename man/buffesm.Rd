@@ -71,7 +71,7 @@ flag = 25     pCO2 and DIC given
 
 \emph{For K1 and K2:}
 \itemize{
-\item Roy et al. (1993): S ranging between 0 and 45 and T ranging between 0 and 45oC.
+\item Roy et al. (1993): S ranging between 5 and 45 and T ranging between 0 and 45oC.
 
 \item Lueker et al. (2000): S ranging between 19 and 43 and T ranging between 2 and 35oC.
 
@@ -80,7 +80,7 @@ flag = 25     pCO2 and DIC given
 \item Millero (2010): S ranging between 1 and 50 and T ranging between 0 and 50oC. Millero (2010) provides a K1 and K2 formulation for the seawater, total and free pH scales. Therefore, when this method is used and if P=0, K1 and K2 are computed with the formulation corresponding to the pH scale given in the flag? "pHscale". 
 }
 
-\emph{For Kh:}
+\emph{For K0:}
 \itemize{
 \item Perez and Fraga (1987): S ranging between 10 and 40 and T ranging between 9 and 33oC.
 

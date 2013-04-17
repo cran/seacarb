@@ -183,7 +183,7 @@ K2[i] <- K2[i]*factor
 
 for(i in 1:nK){
 if((k1k2[i]=='l')&((T[i]>35)|(T[i]<2)|(S[i]<19)|(S[i]>43))){warning("S and/or T is outside the range of validity of the formulation used for K2.")}
-if((k1k2[i]=='r')&((T[i]>45)|(S[i]>45))){warning("S and/or T is outside the range of validity of the formulation used for K2.")}
+if((k1k2[i]=='r')&((T[i]>45)|(S[i]<5)|(S[i]>45))){warning("S and/or T is outside the range of validity of the formulation used for K2.")}
 if((T[i]>50)|(S[i]>50)){warning("S and/or T is outside the range of validity of the formulations available for K2 in seacarb.")}
 }
 

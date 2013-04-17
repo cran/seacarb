@@ -18,7 +18,7 @@ K1(S = 35, T = 25, P = 0, k1k2="x", pHscale="T")
 \details{The Lueker et al. (2000) constant is recommended by Guide to Best Practices for Ocean CO2 Measurements (2007). It is, however, critical to consider that each formulation is only valid for specific ranges of temperature and salinity:
 
 \itemize{
-\item Roy et al. (1993): S ranging between 0 and 45 and T ranging between 0 and 45oC.
+\item Roy et al. (1993): S ranging between 5 and 45 and T ranging between 0 and 45oC.
 
 \item Lueker et al. (2000): S ranging between 19 and 43 and T ranging between 2 and 35oC.
 
