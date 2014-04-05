@@ -163,7 +163,7 @@ Heloise Lavigne and Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
 
 ## With a couple of variables
 carbm(flag=8, var1=8.7, var2=0.002571, S=38, T=21, P=0, Pt=0, Sit=0, pHscale="T", 
-  kf="pf", k1k2="l", ks="d", badd=0.003) 
+      kf="pf", k1k2="l", ks="d", badd=0.003) 
 
 }
 \keyword{utilities}

@@ -1,3 +1,34 @@
+version 3.0, 2014-03-06
+-----------------------------------
+1- Major update led by Jean-Marie Epitalon, who has become a coauthor of the package.
+
+2- Speed optimisation of the computation of dissociation constants by (1) using vectors rather than loops and (2) passing optional parameters. The increase in speed is up to 35x.
+
+3- Computation of dissociation constants:
+- One or two pHScale conversion factor(s) are passed as optional parameter(s) to speed-up computation: (i) kSWS2scale to convert from the seawater scale (SWS) to the pH scale selected at the hydrostatic pressure value indicated and (ii) ktotal2SWS_P0 to convert from the total scale to the SWS at an hydrostatic pressure of 0.These conversion factors are calculated using function kconv() if they are not given.
+- Computations are vectorized rather than using loops.
+- Warning messages for out-of-validity-domain: only one message per constant (instead of one per data entry).
+
+4- Pressure correction function Pcorrect:
+- Two pHScale conversion factors are passed as optional parameters to speed-up computation: (i) kconv2Scale to convert from the pH scale selected to the SWS (or free for Kf) scale at the hydrostatic pressure value indicated and (ii) kconv2ScaleP0 to convert from pH scale selected to the SWS (or free for Kf) scale at the hydrostatic pressure value indicated. These conversion factors are calculated using function kconv() if they are not given.
+- Computations are vectorized rather than using loops
+
+5- pH scale conversion kconv:
+- Two dissociation constants passed as optional parameters to speed-up computation: Ks and Kff, which is Kf on the free pH scale
+
+6- All these optional parameters not only allow faster calculations, they also allow more precise computation since the pHscale conversions are now based on the Ks and Kf values calculated as selected by the user (Dickson or Khoo for Ks, Perez & Fragra or Dickson & Goyet for Kf). In a previous version, an attempt has been made to remember Kf formulation choice but it does not support the case of data set with different choice for each entry.
+
+7- carb function:
+- Instead of looping though data: processing is made in batches
+- For each particular value f of flag, a subset of all data is created based on flag=f, then this subset is processed in one shot
+- When the Taylor approximation algorithm is used (call to uniroot()), a loop iteration over data is still used
+- Dissociation constants Kxy: for each Kxy, a vector of values for all data is computed at the beginning in one shot; there is only one call to the function Kxy()
+- When flag=8, the approximation of DIC by the Taylor algorithm is replaced by direct computation as DIC is linearly dependent on carbonate alkalinity.
+
+8- buffer function: computations are vectorized rather than using loops.
+
+9- Kf now uses a correct formulation for ionic strength.
+
 -----------------------------------
 version 2.4.10, 2013-04-17
 - Added function carbex to experiment potential future changes. DO NOT USE this function

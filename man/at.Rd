@@ -38,8 +38,8 @@ Steeve Comeau, Heloise Lavigne and Jean-Pierre Gattuso
 \examples{
 data(alkalinity)
 data <- alkalinity
-AT <- at(S=data$S[1], T=data$temperature, C=data$normality[1], pHTris=data$pHTris[1], 
-  ETris=data$ETris[1], E=data$E, weight=data$weight[1], volume=data$volume)
+AT <- at(S=data$S[1], T=data$temperature, C=data$normality[1], pHTris=data$pHTris[1],
+      ETris=data$ETris[1], E=data$E, weight=data$weight[1], volume=data$volume)
 }
 
 \keyword{utilities}

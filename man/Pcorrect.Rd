@@ -4,7 +4,8 @@
 \title{Pressure correction of equilibrium constants}
 \description{Computes the pressure correction of the equilibrium constants}
 \usage{
-Pcorrect(Kvalue, Ktype, T=25, S=35, P=0, pHscale="T")
+Pcorrect(Kvalue, Ktype, T=25, S=35, P=0, pHscale="T", 
+  kconv2ScaleP0=0, kconv2Scale=0)
 }
 
 \arguments{
@@ -30,17 +31,20 @@ Pcorrect(Kvalue, Ktype, T=25, S=35, P=0, pHscale="T")
   \item{S}{Salinity, default is 35}
   \item{P}{Hydrostatic pressure in bar (surface = 0), default is 0}
   \item{pHscale}{pHscale of the constant given in Kvalue}
-}
+  \item{kconv2ScaleP0}{Conversion factor from the pH scale selected to the SWS (or free for Kf) scale at pressure zero. It is computed if it is not given, which significantly slows down the computation}
+  \item{kconv2Scale}{Conversion factor from the pH scale selected to the SWS (or free for Kf) scale at the hydrostatic pressure value indicated. It is computed if it is not given, which significantly slows down the computation}
+}    
 
 \details{
-The pressure correction is applied on the seawater scale on K1, K2, K1p, K2p, K3p, Kb, Khs, Kn, Ksi and Kw. Hence the Kvalue is first converted on the seawater scale if needed. After pressure correction, the constant is converted back to the initial pH scale. 
-The pressure correction is applied on the free scale on Ks and Kf.
-There is no issue of the pH scale for Kspa and Kspc
-} 
+  \itemize{
+  \item The pressure correction is applied on the seawater scale for K1, K2, K1p, K2p, K3p, Kb, Khs, Kn, Ksi and Kw. Hence the K value is first converted on the seawater scale if needed. After pressure correction, the constant is converted back to the initial pH scale.
+  \item The pressure correction is applied on the free scale for Kf.
+  \item There is no issue of pH scale for Ks, Kspa and Kspc.
+}
+}
 
 \value{
   The equilibrium constant given in argument but after pressure correction
- 
 }
 
 \references{
@@ -48,7 +52,7 @@ Millero F. J., 1995 Thermodynamics of the carbon dioxide system in the oceans. \
 }
 
 \author{
-Heloise Lavigne and Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
+  Heloise Lavigne and Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
 }
 
 \seealso{

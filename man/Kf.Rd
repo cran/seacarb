@@ -5,7 +5,7 @@
 \title{Equilibrium constant of hydrogen fluoride (mol/kg)}
 \description{Stability constant of hydrogen fluoride (mol/kg)}
 \usage{
-Kf(S = 35, T = 25, P = 0, kf = "x", pHscale="T")
+Kf(S = 35, T = 25, P = 0, kf = "x", pHscale="T", Ks_p0=0, Ks_p=0)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -14,6 +14,10 @@ Kf(S = 35, T = 25, P = 0, kf = "x", pHscale="T")
   \item{P}{Hydrostatic pressure in bar (surface = 0), default is 0}
   \item{kf}{"pf" for using Kf from Perez and Fraga (1987) "dg" for using Kf from Dickson and Riley (1979 in Dickson and Goyet, 1994), default is "pf". Attention do not use a vector for this argument.}
   \item{pHscale}{choice of pH scale: "T" for the total scale, "F" for the free scale and "SWS" for using the seawater scale, default is "T" (total scale)}
+  \item{Ks_p0}{Stability constant of hydrogen sulfate (mol/kg) at pressure zero;
+needed if kf = "pf" ; if needed and not given, it is computed; if given, computation speed is increased}
+  \item{Ks_p}{Stability constant of hydrogen sulfate (mol/kg) at chosen pressure
+if not given, it is computed; if given, computation speed is increased}
 }
 
 \details{
@@ -27,9 +31,7 @@ It is, however, critical to consider that each formulation is only valid for spe
 \item Dickson and Riley (1979 in Dickson and Goyet, 1994): S ranging between 0 and 45 and T ranging between 0 and 45oC.
 }
 
-Note that the formulation chosen here for kf will be used by default in kconv. Then, it is recommended to set this formulation at the beginning of the R session. The kf formulation is retained as a global variable named "kfg", hence it is not possible to use a variable named "kfg" in the R environment.
-
-Note that the arguments can be given as a unique number or as vectors (except for kf). If the lengths of the vectors are different, the longer vector is retained and only the first value of the other vectors is used. It can therefore be critical to use vectors of the same length. 
+Note that the arguments can be given as a unique number or as vectors. If the lengths of the vectors are different, the longer vector is retained and only the first value of the other vectors is used. It can therefore be critical to use vectors of the same length. 
 
 The pressure correction was applied on the free scale. The formulation of Dickson and Riley (1979 in Dickson and Goyet, 1994) provides Kf on the free scale but that of Perez and Fraga (1987) provides it on the total scale. Hence, in that case, Kf was first transformed from the total scale to the free scale. With both formulations, the pressure correction was applied as described by Millero (1995), and the value was transformed back to the required scale (T, F or SWS).
 } 
@@ -51,7 +53,7 @@ Perez F. F. and Fraga F., 1987 Association constant of fluoride and hydrogen ion
 }
 
 \author{
-Heloise Lavigne, Aurelien Proye and Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
+Jean-Marie Epitalon and Heloise Lavigne, Aurelien Proye and Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
 }
 
 

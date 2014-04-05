@@ -25,11 +25,11 @@
 #--------------------------------------------------------------
 
 
-"kconv" <- function (S=35,T=25,P=0,kf)
+"kconv" <- function (S=35,T=25,P=0,kf='x',Ks=0,Kff=0)
 
 {
 	#--------------------------------------------------------------
-  # CONVERT equilibrium constants to free scale:
+    # CONVERT equilibrium constants to free scale:
 	#--------------------------------------------------------------
 	#------------------ Ks ----------------------------------------
 	#       Dickson and Goyet (1994), Chapter 5, p.13
@@ -41,7 +41,12 @@
 	#
 	#       the term log(1-0.001005*S) converts from
 	#       mol/kg H2O to mol/kg soln
-	Ks = Ks(S=S, T=T, P=P)                 # on free pH scale
+	
+    # if Ks not given
+    if (missing(Ks))
+	{
+	    Ks = Ks(S=S, T=T, P=P)                 # on free pH scale
+	}
 	ST  = 0.14/96.062/1.80655*S    # (mol/kg soln) total sulfate
 	total2free  = 1/(1+ST/Ks)      # Kfree = Ktotal*total2free
 	total2free <- as.numeric(total2free)	
@@ -54,19 +59,11 @@
 	#   1994, Chapter 5, p. 14)
 	#   pH-scale: 'free'
 
-	# When df is not given as an argument, use the global var dfg, if it exists
-	# dfg is now defined in any previous call to Kf routine, when kf is given as an argument
-#	kfg <- NULL; rm(kfg); # just to avoid a "note" during the compilation of the package
-	if (missing(kf)) {
-#          if (exists("kfg")) {
-            kf <- get("kfg", envir = parent.frame()) 
-#          } else {
-#            kf <- "x"
-#          }
-        }
-
-	Kf = Kf(S=S, T=T, P=P, kf=kf, pHscale="F")
-	#Kf  = Kf*total2free       # convert Kf from total to free pH scale
+    # if Kf on free pH scale is not given as an argument 
+	if (missing(Kff))
+	{
+	    Kff = Kf(S=S, T=T, P=P, kf=kf, pHscale="F")
+	}
 
 
 	#------- sws2free -----------------------------------------------
@@ -74,11 +71,11 @@
 	#       convert from pH_sws ('seawater scale`) to pH ('free`):
 	#       pH_sws = pH_free - log(1+S_T/K_S(S,T)+F_T/K_F(S,T))
 	FT = 7e-5*(S/35)                  # (mol/kg soln) total fluoride
-	free2SWS  = 1+ST/Ks+FT/Kf         # Kfree = Ksws*sws2free
+	free2SWS  = 1+ST/Ks+FT/Kff         # Kfree = Ksws*sws2free
 	free2SWS <- as.numeric(free2SWS)
 	total2SWS = total2free * free2SWS # KSWS = Ktotal*total2SWS
 	total2SWS <- as.numeric(total2SWS)
 
-return (list(ktotal2SWS=total2SWS, ktotal2free=total2free,kfree2SWS=free2SWS, kfree2total=(1/total2free), kSWS2total=(1/total2SWS), kSWS2free=(1/free2SWS)))
+    return (list(ktotal2SWS=total2SWS, ktotal2free=total2free,kfree2SWS=free2SWS, kfree2total=(1/total2free), kSWS2total=(1/total2SWS), kSWS2free=(1/free2SWS)))
 }
 

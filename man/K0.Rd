@@ -31,7 +31,7 @@ Note that the arguments can be given as a unique number or as vectors. If the le
 \references{Weiss R. F., 1974 Carbon dioxide in water and seawater: the solubility of a non-ideal gas. \emph{Marine Chemistry} \bold{2}, 203-215.}
 
 \author{
-Aurelien Proye and Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
+Jean-Marie Epitalon and Aurelien Proye and Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
 }
 
 

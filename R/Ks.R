@@ -12,25 +12,25 @@
 "Ks" <-
 function(S=35,T=25,P=0, ks="d"){
 
-nK <- max(length(S), length(T), length(P), length(ks))
+    nK <- max(length(S), length(T), length(P), length(ks))
 
-##-------- Creation de vecteur pour toutes les entrees (si vectorielles)
+    ##-------- Creation de vecteur pour toutes les entrees (si vectorielles)
 
-if(length(S)!=nK){S <- rep(S[1], nK)}
-if(length(T)!=nK){T <- rep(T[1], nK)}
-if(length(P)!=nK){P <- rep(P[1], nK)}
-if(length(ks)!=nK){ks <- rep(ks[1], nK)}
+    if(length(S)!=nK){S <- rep(S[1], nK)}
+    if(length(T)!=nK){T <- rep(T[1], nK)}
+    if(length(P)!=nK){P <- rep(P[1], nK)}
+    if(length(ks)!=nK){ks <- rep(ks[1], nK)}
 
-#-------Constantes----------------
+    #-------Constantes----------------
 
-#---- issues de equic----
-tk = 273.15;          # [K] (for conversion [deg C] <-> [K])
-TK = T + tk;           # T [C]; TK [K]
-Cl = S / 1.80655;      # Cl = chlorinity; S = salinity (per mille)
-cl3 = Cl^(1/3);   
-ION = 0.00147 + 0.03592 * Cl + 0.000068 * Cl * Cl;   # ionic strength
-iom0 = 19.924*S/(1000-1.005*S);
-ST = 0.14/96.062/1.80655*S;   # (mol/kg soln) total sulfate
+    #---- issues de equic----
+    tk = 273.15;          # [K] (for conversion [deg C] <-> [K])
+    TK = T + tk;           # T [C]; TK [K]
+    Cl = S / 1.80655;      # Cl = chlorinity; S = salinity (per mille)
+    cl3 = Cl^(1/3);   
+    ION = 0.00147 + 0.03592 * Cl + 0.000068 * Cl * Cl;   # ionic strength
+    iom0 = 19.924*S/(1000-1.005*S);
+    ST = 0.14/96.062/1.80655*S;   # (mol/kg soln) total sulfate
 
 
 	#--------------------------------------------------------------
@@ -68,40 +68,40 @@ ST = 0.14/96.062/1.80655*S;   # (mol/kg soln) total sulfate
 	#      correct for T range : 5 - 40°C
 	#      correct for S range : 20 - 45
 
-  I35 <- 0.7227
-  I <- I35*(27.570*S)/(1000-1.0016*S)   #formal ionic strenght
-  logbeta <- 647.59/TK - 6.3451 + 0.019085*TK - 0.5208*I^(0.5)
-  beta <- 10^(logbeta)
-  Ks_k <- 1/beta
+    I35 <- 0.7227
+    I <- I35*(27.570*S)/(1000-1.0016*S)   #formal ionic strenght
+    logbeta <- 647.59/TK - 6.3451 + 0.019085*TK - 0.5208*I^(0.5)
+    beta <- 10^(logbeta)
+    Ks_k <- 1/beta
 
 
-  #-------------------------------------------------------------------
-  #--------------- choice between the formulations -------------------
-  Ks <- Ks_d
-  method <- rep("Dickson (1990)", nK)
-  for(i in 1:nK){
-  if(ks[i]=="k"){ Ks[i] <- Ks_k[i]
-  method[i] <- "Khoo et al. (1977)"
-  if((T[i]<5)|(T[i]>40)|(S[i]<20)|(S[i]>45)) {warning("S and/or T is outside the range of validity of the formulation chosen for Ks.")} }
-  }
+    #-------------------------------------------------------------------
+    #--------------- choice between the formulations -------------------
+    is_k <- (ks=='k')    # everything that is not "k" is "d" by default
+    Ks <- Ks_d
+    Ks[is_k] <- Ks_k[is_k]
 
-# ------------------- Pression effect --------------------------------
+    method <- rep(NA, nK)
+    method[!is_k] <- "Dickson (1990)"
+    method[ is_k] <- "Khoo et al. (1977)"
+    
+    # ------------------- Pression effect --------------------------------
 
- Ks <- Pcorrect(Kvalue=Ks, Ktype="Ks", T=T, S=S, P=P, pHscale="F")
+    if (any(P != 0))
+        Ks <- Pcorrect(Kvalue=Ks, Ktype="Ks", T=T, S=S, P=P, pHscale="F")
 
-##------------Warnings
+    ##------------Warnings
 
-for(i in 1:nK){
-if((T[i]>45)|(S[i]>45)|(T[i]<0)|(S[i]<5)){warning("S and/or T is outside the range of validity of the formulations available for Ks in seacarb.")}
+    if (any (is_k & (T<5 | T>40 | S<20 | S>45)))
+        {warning("S and/or T is outside the range of validity of the formulation chosen for Ks.")}
+    if (any (T>45 | S>45 | T<0 | S<5))
+        warning("S and/or T is outside the range of validity of the formulations available for Ks in seacarb.")
+
+    ##------------Attributes
+
+    attr(Ks,"unit") = "mol/kg-soln"	
+    attr(Ks,"pH scale") = "free scale"
+    attr(Ks, "method") = method
+    return(Ks)
 }
 
-
-
-attr(Ks,"unit") = "mol/kg-soln"	
-attr(Ks,"pH scale") = "free scale"
-attr(Ks, "method") = method
-return(Ks)
-}
-
-
- 

@@ -6,7 +6,7 @@
 \description{Second dissociation constant of carbonic acid (mol/kg)}
 
 \usage{
-K2(S = 35, T = 25, P = 0, k1k2 = "x", pHscale = "T")
+K2(S = 35, T = 25, P = 0, k1k2 = "x", pHscale = "T", kSWS2scale=0, ktotal2SWS_P0=0)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -15,6 +15,8 @@ K2(S = 35, T = 25, P = 0, k1k2 = "x", pHscale = "T")
   \item{P}{Hydrostatic pressure in bar (surface = 0), default is 0}
   \item{k1k2}{"l" for using K1 and K2 from Lueker et al. (2000), "m06" from Millero et al. (2006), "m10" from Millero (2010) and "r" from Roy et al. (1993). "x" is the default flag; the default value is then "l", except if T is outside the range 2 to 35oC and/or S is outside the range 19 to 43. In these cases, the default value is "m10". }
   \item{pHscale}{choice of pH scale: "T" for using the total scale, "F" for using the free scale and "SWS" for using the seawater scale, default is total scale}
+  \item{kSWS2scale}{Conversion factor from the seawater scale (SWS) to the pH scale selected at the hydrostatic pressure value indicated. It is not required when k1k2 is "m10" and the hydrostatic pressure is 0. If it is required and not given, it is computed, which slows down computations.}
+  \item{ktotal2SWS_P0}{Conversion factor from the total scale to the SWS at an hydrostatic pressure of 0. It is only required when k1k2 is "l" or "r". If it is required and not given, it is computed, which slows down computations.}
 }
 
 \details{The Lueker et al. (2000) constant is recommended by Guide to Best Practices for Ocean CO2 Measurements (2007). It is, however, critical to consider that each formulation is only valid for specific ranges of temperature and salinity:
@@ -56,7 +58,7 @@ Roy R. N., Roy L. N., Vogel K. M., Porter-Moore C., Pearson T., Good C. E., Mill
 }
 
 \author{
-Heloise Lavigne, Aurelien Proye and Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
+Jean-Marie Epitalon and Heloise Lavigne, Aurelien Proye and Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
 }
 
 \seealso{
