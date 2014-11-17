@@ -21,7 +21,11 @@
 # DIC is constant in a closed system
 "ppH" <-
 function(flag, sys, var1, var2, pCO2a, vol, N, S=35, T=20, P=0, Pt=0, Sit=0, pHscale="T", k1k2='x', kf='x', ks="d"){
-	if (sys==0) {
+  # if the concentrations of total silicate and total phosphate are NA
+  # they are set at 0
+  Sit[is.na(Sit)] <- 0
+  Pt[is.na(Pt)] <- 0
+  if (sys==0) {
 		ci <- carb(flag=flag, var1=var1, var2=var2, S=S ,T=T, P=P, Pt=Pt, Sit=Sit,  pHscale=pHscale, k1k2=k1k2, kf=kf, ks=ks)
 		alkf <- (ci$ALK + vol*N)/(1+abs(vol)) #final alk - dilution is taken into account
 		dicf <- (ci$DIC)/(1+abs(vol))  #final dic - dilution is taken into account

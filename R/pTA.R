@@ -10,7 +10,12 @@
 #
 "pTA" <-
 function(flag, sys=0, var1, var2, pCO2a, co3, hco3, S=35, T=20, P=0, Pt=0, Sit=0, k1k2='x', kf='x', ks="d", pHscale="T", b="l10"){
-	if (sys==0) {
+  # if the concentrations of total silicate and total phosphate are NA
+  # they are set at 0
+  Sit[is.na(Sit)] <- 0
+  Pt[is.na(Pt)] <- 0
+  
+  if (sys==0) {
 		ci <- carb(flag=flag, var1=var1, var2=var2, S=S ,T=T, P=P, Pt=Pt, Sit=Sit, k1k2=k1k2, kf=kf, ks=ks, pHscale=pHscale, b=b)
 		alkf <- ci$ALK + 2*co3 + hco3 # final alkalinity
 		dicf <- ci$DIC + co3 + hco3	# final dic

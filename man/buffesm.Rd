@@ -5,7 +5,7 @@
 \title{Buffer capacities of the seawater carbonate system as defined by Egleston et al. (2010)}
 \description{Returns the six buffer factors of the seawater carbonate system as defined by Egleston, Sabine and Morel (2010), denoted here as ESM. Also returns the classic Revelle factor (relative change in pCO2 over that for DIC). In ESM, there are errors in the equations in Table 1 for \eqn{S}, \eqn{\Omega_{DIC}}, and \eqn{\Omega_{Alk}}. These errors have been corrected here.  The results of this routine have been validated: they produce results that are identical to those shown in ESM's Fig. 2. This routine was inspired and adapted from seacarb's ``buffer'' function. Its input arguments are indentical to those in the ``buffer'' and ``carb'' functions of seacarb.}
 \usage{
-buffesm(flag, var1, var2, S=35, T=25, P=0, Pt=0, Sit=0, k1k2="x", 
+buffesm(flag, var1, var2, S=35, T=25, Patm=1.0, P=0, Pt=0, Sit=0, k1k2="x", 
 	kf="x", ks="d", pHscale="T", b="l10")
 }
 %- maybe also 'usage' for other objects documented here.
@@ -56,9 +56,10 @@ flag = 25     pCO2 and DIC given
 	\item{var2}{enter value of the second  variable in mol/kg, except for pH}
 	\item{S}{Salinity}
 	\item{T}{Temperature in degrees Celsius}
+        \item{Patm}{Surface atmospheric pressure in atm, default 1 atm}
   	\item{P}{Hydrostatic pressure in bar (surface = 0)}
-  	\item{Pt}{Concentration of total phosphate in mol/kg}
-  	\item{Sit}{Concentration of total silicate in mol/kg}
+  	\item{Pt}{Concentration of total phosphate in mol/kg; set to 0 if NA}
+  	\item{Sit}{Concentration of total silicate in mol/kg; set to 0 if NA}
 	\item{k1k2}{"l" for using K1 and K2 from Lueker et al. (2000), "m06" from Millero et al. (2006), "m10" from Millero (2010) and "r" from Roy et al. (1993). "x" is the default flag; the default value is then "l", except if T is outside the range 2 to 35oC and/or S is outside the range 19 to 43. In these cases, the default value is "m10".}
   	\item{kf}{"pf" for using Kf from Perez and Fraga (1987) and "dg" for using Kf from Dickson and Riley (1979 in Dickson and Goyet, 1994). "x" is the default flag; the default value is then "pf", except if T is outside the range 9 to 33oC and/or S is outside the range 10 to 40. In these cases, the default is "dg".}
 	\item{ks}{"d" for using Ks from Dickon (1990), "k" for using Ks from Khoo et al. (1977), default is "d"} 

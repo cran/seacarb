@@ -10,7 +10,12 @@
 #
 #
 "pHinsi" <- function(pH=8.2, ALK=2.4e-3, Tinsi=20, Tlab=25, S=35, Pt = 0, Sit = 0, k1k2='x', kf='x', ks="d", pHscale="T", b="l10") {
-	# according to Hunter (1998)
+  # if the concentrations of total silicate and total phosphate are NA
+  # they are set at 0
+  Sit[is.na(Sit)] <- 0
+  Pt[is.na(Pt)] <- 0
+  
+  # according to Hunter (1998)
 	#si TA=0 alors calculer TA: TA=660+47.6 * S
 	dat1 <- carb(flag = 8, var1 = pH, var2 = ALK, S = S, T = Tlab, P = 0, Pt = Pt, Sit = Sit, k1k2=k1k2, kf=kf, ks=ks, pHscale=pHscale, b=b)
 	DIC <- dat1$DIC

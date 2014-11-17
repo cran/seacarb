@@ -1,4 +1,4 @@
-# Copyright (C) 2009 Jean-Pierre Gattuso and Héloise Lavigne
+# Copyright (C) 2009 Jean-Pierre Gattuso and H?loise Lavigne
 # with a most valuable contribution of Bernard Gentili <gentili@obs-vlfr.fr>
 # and valuable suggestions from Jean-Marie Epitalon <epitalon@lsce.saclay.cea.fr>
 #
@@ -32,6 +32,10 @@ if(length(ks)!=n){ ks <- rep(ks[1],n)}
 if(length(pHscale)!=n){pHscale <- rep(pHscale[1],n)}
 if(length(b)!=n){ b <- rep(b[1],n)}
 
+# if the concentrations of total silicate and total phosphate are NA
+# they are set at 0
+Sit[is.na(Sit)] <- 0
+Pt[is.na(Pt)] <- 0
 
 # initial system
 # --------------
