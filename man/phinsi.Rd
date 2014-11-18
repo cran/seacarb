@@ -5,7 +5,7 @@
 \description{pH at in situ temperature}
 \usage{
 pHinsi(pH=8.2, ALK=2.4e-3, Tinsi=20, Tlab=25, S=35, Pt=0, Sit=0, k1k2 = "x", 
-	kf = "x", ks="d", pHscale = "T", b="l10")
+	kf = "x", ks="d", pHscale = "T", b="u74")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -20,7 +20,7 @@ pHinsi(pH=8.2, ALK=2.4e-3, Tinsi=20, Tlab=25, S=35, Pt=0, Sit=0, k1k2 = "x",
   \item{kf}{"pf" for using Kf from Perez and Fraga (1987) and "dg" for using Kf from Dickson and Riley (1979 in Dickson and Goyet, 1994). "x" is the default flag; the default value is then "pf", except if T is outside the range 9 to 33oC and/or S is outside the range 10 to 40. In these cases, the default is "dg".}
   \item{ks}{"d" for using Ks from Dickon (1990), "k" for using Ks from Khoo et al. (1977), default is "d"} 
   \item{pHscale}{choice of pH scale: "T" for the total scale, "F" for the free scale and "SWS" for using the seawater scale, default is "T" (total scale)}
-  \item{b}{"l10" for computing boron total from the Lee et al. (2010) formulation or "u74" for using the Uppstrom (1974) formulation, default is "l10" }
+  \item{b}{"l10" for computing boron total from the Lee et al. (2010) formulation or "u74" for using the Uppstrom (1974) formulation, default is "u74" }
 }
 
 \value{
@@ -59,6 +59,8 @@ The arguments can be given as a unique number or as vectors. If the lengths of t
 \emph{Pressure corrections and pH scale:}
 
 \itemize{
+\item For K0, the pressure correction term of Weiss (1974) is used.
+
 \item For K1, K2, pK1, pK2, pK3, Kw, Kb, Khs and Ksi, the pressure correction was applied on the seawater scale. Hence, if needed, values were first transformed from the total scale to the seawater scale, the pressure correction applied as described by Millero (1995), and the value was transformed back to the required scale (T, F or SWS).
 
 \item For Kf, the pressure correction was applied on the free scale. The formulation of Dickson and Riley (1979 in Dickson and Goyet, 1994) provides Kf on the free scale but that of Perez and Fraga (1987) provides it on the total scale. Hence, in that case, Kf was first transformed from the total scale to the free scale. With both formulations, the pressure correction was applied as described by Millero (1995), and the value was transformed back to the required scale (T, F or SWS). 

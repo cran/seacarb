@@ -6,7 +6,7 @@
 \description{Calculates the changes in the saturation states of aragonite and calcite resulting from the manipulation of the calcium concentration}
 \usage{
 pCa(flag, var1, var2, Ca, S=35, T=20, P=0, Pt=0, Sit=0, k1k2="x", 
-	kf="x", ks="d", pHscale="T", b="l10")
+	kf="x", ks="d", pHscale="T", b="u74")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -64,9 +64,8 @@ flag = 25     pCO2 and DIC given
   	\item{kf}{"pf" for using Kf from Perez and Fraga (1987) and "dg" for using Kf from Dickson and Riley (1979 in Dickson and Goyet, 1994). "x" is the default flag; the default value is then "pf", except if T is outside the range 9 to 33oC and/or S is outside the range 10 to 40. In these cases, the default is "dg".}
 	\item{ks}{"d" for using Ks from Dickon (1990), "k" for using Ks from Khoo et al. (1977), default is "d"} 
 	\item{pHscale}{choice of pH scale: "T" for the total scale, "F" for the free scale and "SWS" for using the seawater scale, default is "T" (total scale)}
-	\item{b}{"l10" for computing boron total from the Lee et al. (2010) formulation or "u74" for using the Uppstrom (1974) formulation, default is "l10" }
+	\item{b}{"l10" for computing boron total from the Lee et al. (2010) formulation or "u74" for using the Uppstrom (1974) formulation, default is "u74" }
 }
-
 
 \details{The Lueker et al. (2000) constants for K1 and K2, the Perez and Fraga (1987) constant for Kf and the Dickson (1990) constant for Ks are recommended by Dickson et al. (2007). It is, however, critical to consider that each formulation is only valid for specific ranges of temperature and salinity:
 
@@ -100,6 +99,8 @@ The arguments can be given as a unique number or as vectors. If the lengths of t
 \emph{Pressure corrections and pH scale:}
 
 \itemize{
+\item For K0, the pressure correction term of Weiss (1974) is used.
+
 \item For K1, K2, pK1, pK2, pK3, Kw, Kb, Khs and Ksi, the pressure correction was applied on the seawater scale. Hence, if needed, values were first transformed from the total scale to the seawater scale, the pressure correction applied as described by Millero (1995), and the value was transformed back to the required scale (T, F or SWS).
 
 \item For Kf, the pressure correction was applied on the free scale. The formulation of Dickson and Riley (1979 in Dickson and Goyet, 1994) provides Kf on the free scale but that of Perez and Fraga (1987) provides it on the total scale. Hence, in that case, Kf was first transformed from the total scale to the free scale. With both formulations, the pressure correction was applied as described by Millero (1995), and the value was transformed back to the required scale (T, F or SWS). 
@@ -127,6 +128,8 @@ The arguments can be given as a unique number or as vectors. If the lengths of t
   \item{OmegaCalcite}{Omega calcite, calcite saturation state}
 }
 
+\note{\bold{Warning:} pCO2 estimates below 100 m are subject to considerable uncertainty. See Weiss (1974) and Orr et al. (2014)}
+
 \references{
 Ben-Yaakov S. and Goldhaber M. B., 1973 The influence of sea water composition on the apparent constants of the carbonate system. \emph{Deep-Sea Research} \bold{20}, 87-99.
 
@@ -146,6 +149,8 @@ Millero F. J., 2010 Carbonate constant for estuarine waters. \emph{Marine and Fr
 
 Millero F. J., Graham T. B., Huang F., Bustos-Serrano H. and Pierrot D., 2006. Dissociation constants of carbonic acid in seawater as a function of salinity and temperature.  \emph{Marine Chemistry} \bold{100}, 80-84.
 
+Orr J. C., Epitalon J.-M. and Gattuso J.-P., 2014. Comparison of seven packages that compute ocean carbonate chemistry. \emph{Biogeosciences Discussions} \bold{11}, 5327-5397.
+
 Uppstrom L.R., 1974 The boron/chlorinity ratio of the deep-sea water from the Pacific Ocean. \emph{Deep-Sea Research I} \bold{21} 161-162.
 }
 
@@ -155,9 +160,9 @@ Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}
 
 \examples{
 pCa(flag=15, var1=2302e-6, var2=2050e-6, Ca=0.01028, S=35, T=20, P=0, 
-	Pt=0, Sit=0, pHscale="T", kf="pf", k1k2="l", ks="d", b="l10") # with normal Ca concentration
+	Pt=0, Sit=0, pHscale="T", kf="pf", k1k2="l", ks="d", b="u74") # with normal Ca concentration
 pCa(flag=15, var1=2302e-6, var2=2050e-6, Ca=0.01028/2, S=35, T=20, P=0, 
-	Pt=0, Sit=0, pHscale="T", kf="pf", k1k2="l", ks="d", b="l10") # with 0.5 * Ca concentration
+	Pt=0, Sit=0, pHscale="T", kf="pf", k1k2="l", ks="d", b="u74") # with 0.5 * Ca concentration
 }
 
 \keyword{utilities}
