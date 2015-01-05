@@ -1,7 +1,7 @@
 Package: seacarb
-Title: Seawater Carbonate Chemistry with R
-Version: 3.0.3
-Date: 2014-11-18
+Title: seawater carbonate chemistry with R
+Version: 3.0.4
+Date: 2015-01-05
 LazyData: true
 Authors@R: c(person("Jean-Pierre", "Gattuso", role = c("aut", "cre", "cph"), email = "gattuso@obs-vlfr.fr"),
   person("Jean-Marie", "Epitalon", role = "aut", email = "Jean-Marie.Epitalon@cerfacs.fr"),
@@ -13,13 +13,14 @@ Authors@R: c(person("Jean-Pierre", "Gattuso", role = c("aut", "cre", "cph"), ema
   person("Karline", "Soetaert", role = "ctb"),
   person("James", "Rae", role = "ctb")
   )
+Depends: oce
 Description: Calculates parameters of the seawater carbonate system and assists the design of ocean acidification perturbation experiments.
 Encoding: UTF-8
 URL: http://CRAN.R-project.org/package=seacarb
 License: GPL (>= 2)
 Repository: CRAN
-Date/Publication: 2014-12-10 08:13:30
-Packaged: 2014-12-10 06:15:53 UTC; gattuso_mba
+Date/Publication: 2015-01-05 10:03:22
+Packaged: 2015-01-05 08:11:40 UTC; gattuso_mba
 Author: Jean-Pierre Gattuso [aut, cre, cph],
   Jean-Marie Epitalon [aut],
   Heloise Lavigne [aut],
