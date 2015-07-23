@@ -1,3 +1,12 @@
+version 3.0.8, 2015-07-23
+-----------------------------------
+- Fixed function buffesm: James Orr fixed carb var indices, made consistent with seacarb 3.0+. 
+- Removed carbm.Rd. carbm was removed in version 3.0.2 but the Rd file crept in again
+
+version 3.0.7, 2015-05-06
+-----------------------------------
+- New function carbb: added an option to indicate the amount of boron added. THIS IS AN EXPERIMENTAL FUNCTION; USE AT YOUR OWN RISK!
+
 version 3.0.6, 2015-02-03
 -----------------------------------
 - Function carb: added "standard" as 3rd "gas" option for pCO2 input at in situ temperature and atmospheric pressure
