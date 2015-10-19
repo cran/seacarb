@@ -1,7 +1,7 @@
 Package: seacarb
 Title: Seawater Carbonate Chemistry
-Version: 3.0.8
-Date: 2015-07-23
+Version: 3.0.11
+Date: 2015-10-19
 LazyData: true
 Authors@R: c(person("Jean-Pierre", "Gattuso", role = c("aut", "cre", "cph"), email = "gattuso@obs-vlfr.fr"),
   person("Jean-Marie", "Epitalon", role = "aut", email = "Jean-Marie.Epitalon@cerfacs.fr"),
@@ -20,7 +20,7 @@ URL: http://CRAN.R-project.org/package=seacarb
 License: GPL (>= 2)
 Repository: CRAN
 NeedsCompilation: no
-Packaged: 2015-07-24 06:37:36 UTC; gattuso
+Packaged: 2015-10-19 09:08:08 UTC; gattuso
 Author: Jean-Pierre Gattuso [aut, cre, cph],
   Jean-Marie Epitalon [aut],
   Heloise Lavigne [aut],
@@ -31,4 +31,4 @@ Author: Jean-Pierre Gattuso [aut, cre, cph],
   Karline Soetaert [ctb],
   James Rae [ctb]
 Maintainer: Jean-Pierre Gattuso <gattuso@obs-vlfr.fr>
-Date/Publication: 2015-07-24 09:11:57
+Date/Publication: 2015-10-19 18:17:06
