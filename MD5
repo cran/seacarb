@@ -1,5 +1,5 @@
-a97f76542cd4c2ec8baf4ab2a4a32dd5 *ChangeLog
-329e63f5df3c42c89e9ae5c4670604cd *DESCRIPTION
+3666f2626066539def3c25004eb41e01 *ChangeLog
+f592e90b2fa29c7ff4c3469031601c85 *DESCRIPTION
 2ef2c393cbb461d74d4c4d909a91e60c *NAMESPACE
 032e69e9a14790a2208c6df8cae32ae6 *R/K0.R
 131e5083a73d77deea1a20fde6d27601 *R/K1.R
@@ -45,7 +45,7 @@ c3fb7b9bd3844bea101d29a3e38535c5 *R/ppH.R
 dd1bcb395339ea8528335ef152b7ad5d *R/psi.R
 30317e2311e4d0f47890070c17db6209 *R/rho.R
 04eacd620ea04d6d2302325608921d75 *R/speciation.R
-ab6d89ae79561138321a36afed703302 *R/sysdata.rda
+ad1a75159bb1f9cb9f939bf6cc82c64e *R/sysdata.rda
 cec14e7de2dda1c945391688242b9efc *R/theta.R
 457f67fb5bb17911cd2245a7460e6678 *R/tris.R
 48cf1da36bfd3e7c527d25600c5b2227 *R/vapress.R
@@ -55,7 +55,7 @@ c5209ad9b58c04385d10f3bb7b16ea76 *R/x2pCO2.R
 f50b927a7ae4d7a497e642d593a01bb1 *data/kfg.rda
 3cc83032abf514fb5e6d27f6a5bd17f3 *data/seacarb_test_P0.txt.gz
 60743ce49edf088c3635171052419224 *data/seacarb_test_P300.txt.gz
-54c63adf5badd431f524ab579ff30ea1 *man/K0.Rd
+2783656f240c88b9477356ab7ccdb12d *man/K0.Rd
 3a87ad549332352fc083e4c888b5f06a *man/K1.Rd
 24be314bba698e708054b8bbbb7f6269 *man/K1p.Rd
 d841bed9ee3579811cfe2a67350b2877 *man/K2.Rd
@@ -65,11 +65,11 @@ f41e01b1c458bf14044e96122c072ea7 *man/K3p.Rd
 fbf96597db656d214ade8cd86eeda0a1 *man/Kf.Rd
 a521bc207a6d569745de95462ce28adb *man/Khs.Rd
 8288cb989f71769dd22b39acbcb26a3c *man/Kn.Rd
-3150d526ecb37e90a870983e669b37ec *man/Ks.Rd
+3a2eeba8a885b10493096b7dfbdac30e *man/Ks.Rd
 ce34d4deba13eb433d33bd34e30aaf16 *man/Ksi.Rd
-ae873485667937842669e70a2f862b9a *man/Kspa.Rd
-214ac00ba974dc9d1b2cd4a677910f55 *man/Kspc.Rd
-4661afd4ba410d1455541adff45f99ea *man/Kw.Rd
+88279e617f0f9bdd61c1d80c35da1ead *man/Kspa.Rd
+8ad39926b67b8c405fcd64083076bb42 *man/Kspc.Rd
+89f02da8733d10df5fc2a240f37cc580 *man/Kw.Rd
 7a9fe288228c591e40829bd2995147b1 *man/Om.Rd
 46aef70c87df1e50574e413c0ad08dc0 *man/Pcoeffs.Rd
 63247caa90b7c666c1ad2ab9f3663256 *man/Pcorrect.Rd
