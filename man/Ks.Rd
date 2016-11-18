@@ -4,7 +4,7 @@
 \title{Stability constant of hydrogen sulfate (mol/kg)}
 \description{Stability constant of hydrogen sulfate (mol/kg)}
 \usage{
-Ks(S = 35, T = 25, P = 0, ks="d")
+Ks(S=35, T=25, P=0, ks="d", warn="y")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -12,6 +12,7 @@ Ks(S = 35, T = 25, P = 0, ks="d")
   \item{T}{Temperature in degrees Celsius, default is 25oC}
   \item{P}{Hydrostatic pressure in bar (surface = 0), default is 0}
   \item{ks}{"d" for using Ks from Dickson (1990), "k" for using Ks from Khoo et al. (1977), default is "d"} 
+  \item{warn}{"y" to show warnings when T or S go beyond the valid range for Ks; "n" to supress warnings. The default is "y".}
 }
 
 \details{The Dickson (1990) constant is recommended by Guide to Best Practices for Ocean CO2 Measurements (2007). It is, however, critical to consider that each formulation is only valid for specific ranges of temperature and salinity:
@@ -36,7 +37,7 @@ Dickson A. G., 1990 Standard potential of the reaction: AgCI(s) + 1/2H2(g) = Ag(
 
 Dickson A. G., Sabine C. L. and Christian J. R., 2007 Guide to best practices for ocean CO2 measurements. \emph{PICES Special Publication} \bold{3}, 1-191.
 
-Khoo H. K., Ramette R. W., Culberson C. H. and Bates R. G., 1977 Determination of Hydrogen Ion Concentration in Seawater from 5 to 40oC: Standard Potentials at Salinities from 20 to 45. \emph{Analytical Chemistry} \bold{22}, vol49 29-34. }
+Khoo H. K., Ramette R. W., Culberson C. H. and Bates R. G., 1977 Determination of Hydrogen ion concentration in seawater from 5 to 40oC: standard potentials at salinities from 20 to 45. \emph{Analytical Chemistry} \bold{49}, 29-34. }
 
 \author{
 Heloise Lavigne, Aurelien Proye and Jean-Pierre Gattuso \email{gattuso@obs-vlfr.fr}

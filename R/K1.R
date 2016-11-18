@@ -9,7 +9,7 @@
 # You should have received a copy of the GNU General Public License along with seacarb; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
 "K1" <-
-function(S=35,T=25,P=0,k1k2='x',pHscale="T",kSWS2scale=0,ktotal2SWS_P0=0)
+function(S=35,T=25,P=0,k1k2='x',pHscale="T",kSWS2scale=0,ktotal2SWS_P0=0,warn="y")
 {
 
     nK <- max(length(S), length(T), length(P), length(k1k2), length(pHscale), length(kSWS2scale) ,length(ktotal2SWS_P0))
@@ -31,7 +31,7 @@ function(S=35,T=25,P=0,k1k2='x',pHscale="T",kSWS2scale=0,ktotal2SWS_P0=0)
     is_x <- k1k2 == 'x'
     is_outrange <- T>35 | T<2 | S<19 | S>43
     k1k2[is_x] <- 'l'  ## luecker by default
-    k1k2[is_x & is_outrange] <- "m10"  # Millero 2010 if outrange
+    k1k2[is_x & is_outrange] <- "w14"  # Waters et al. (2014) if outrange
 
     #-------Constants----------------
 
@@ -198,9 +198,9 @@ function(S=35,T=25,P=0,k1k2='x',pHscale="T",kSWS2scale=0,ktotal2SWS_P0=0)
         # Call Pcorrect() on SWS scale
 	# issue (Orr): Why are the last 2 argupments set to one here?
         K1[i_press] <- Pcorrect(Kvalue=K1[i_press], Ktype="K1", T=T[i_press], 
-             S=S[i_press], P=P[i_press], pHscale=pHsc[i_press], 1., 1.)
+             S=S[i_press], P=P[i_press], pHscale=pHsc[i_press], 1., 1., warn=warn)
         #K1[i_press] <- Pcorrect(Kvalue=K1[i_press], Ktype="K1", T=T[i_press], 
-        #    S=S[i_press], P=P[i_press], pHscale=pHsc[i_press])
+        #    S=S[i_press], P=P[i_press], pHscale=pHsc[i_press], warn=warn)
     }
 
 
@@ -224,8 +224,10 @@ function(S=35,T=25,P=0,k1k2='x',pHscale="T",kSWS2scale=0,ktotal2SWS_P0=0)
             if (any(is_free)){  kSWS2scale[is_free]  <- kconv(S=S[is_free],  T=T[is_free],  P=P[is_free])$kSWS2free }
         }
         else
+        {
             # Check its length
             if (length(kSWS2scale)!=nK) kSWS2scale <- rep(kSWS2scale[1], nK)
+        }
         # Apply pH scale correction
         K1[convert] <- K1[convert] * kSWS2scale[convert]
     }
@@ -240,10 +242,12 @@ function(S=35,T=25,P=0,k1k2='x',pHscale="T",kSWS2scale=0,ktotal2SWS_P0=0)
 
     ##------------Warnings
 
-    if (any(is_l & (T>35 | T<2 | S<19 | S>43))  || any(is_r & (T>45 | S<5 | S>45)) )
+    is_w <- warn == "y"
+
+    if (any(is_w & is_l & (T>35 | T<2 | S<19 | S>43))  || any(is_w & is_r & (T>45 | S<5 | S>45)) )
         warning("S and/or T is outside the range of validity of the formulation chosen for K1.")
 
-    if (any(T>50 | S>50)) 
+    if (any(is_w & (T>50 | S>50))) 
         warning("S and/or T is outside the range of validity of the formulations available for K1 in seacarb.")
 
     ##---------------Attributes
