@@ -1,5 +1,5 @@
-3ff00d9499232d2580fc4aee70c7855c *ChangeLog
-f98246eb66f69465fa6e0d486fa422f4 *DESCRIPTION
+e3628e8c1725ebe4670b05a330e1a18b *ChangeLog
+53abcc3610133c3dded18459a0cbbb2e *DESCRIPTION
 b68b786e8162a5670cc1e3d8def4e76d *NAMESPACE
 8e2c6975d4b1fb1f1ecb5e6cfc989c8b *R/K0.R
 b3519f7aa1611d0bd53352533bed5bb3 *R/K1.R
@@ -23,7 +23,7 @@ f1c2b5fcad566888e8e19907df65940b *R/Pcorrect.R
 70cdeb8ec9487a1f71125e99c3519956 *R/bjerrum.R
 8d044f06eb9e3f72458f97b6d07a5da3 *R/bor.R
 3ff5b50caaad9bb5e5c74e421401bbac *R/buffer.R
-aa6e5a9247f4b9e8a5b11eedaef6294e *R/buffesm.R
+80ee672cf4f20fb3b70c4c0fb3985d28 *R/buffesm.R
 44b26bbc2e3d570c5f4fd3af55a8e129 *R/carb.R
 a36acc78fa252bca23caf2a31c10fe5f *R/carbb.R
 bc64eeb87a2324d2e74d9f48ec79d782 *R/d2p.R
@@ -111,4 +111,4 @@ ed31d9e32a2a33a51f06d78bbf345e57 *man/seacarb_test_P300.Rd
 bb36ca0cd5ac4b217e85b6beec40094c *man/theta.Rd
 4f13fa546b407838176b4c328ef8fc65 *man/tris.Rd
 ed6e1eb132fc3feda8329bf3aeec86e6 *man/vapress.Rd
-c968899db346cef143861707794b416f *man/x2pCO2.Rd
+0d165aa5c7351444d8d724e30166e9f8 *man/x2pCO2.Rd
