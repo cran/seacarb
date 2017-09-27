@@ -1,5 +1,5 @@
-15a0f51922c25444234a1355af3aa9af *ChangeLog
-2add04efe877b37a6f8fd64b41f5c4be *DESCRIPTION
+4f702517f437708352b814dc3ee2afb6 *ChangeLog
+f4c2bbdc4738e32a753744084241fa0d *DESCRIPTION
 5335ab319c1fe375a7b1b2036933993f *NAMESPACE
 8e2c6975d4b1fb1f1ecb5e6cfc989c8b *R/K0.R
 b3519f7aa1611d0bd53352533bed5bb3 *R/K1.R
@@ -50,6 +50,8 @@ fb3bfd59f25cdddf1bd4387ced032bec *R/pmix.R
 c5e6fe009fa9ab07163022e845b34c01 *R/ppH.R
 de7f60460d73516d11b2b7126ccac916 *R/psi.R
 729980fdc7071d2ec2795447d355e981 *R/rho.R
+71ae7d472d6ab69e67a62ef50cbb168f *R/sf_calc.R
+5e6034de914bfa14c2ed461dbc71adf0 *R/sf_calib.R
 04eacd620ea04d6d2302325608921d75 *R/speciation.R
 569a548e631d04b4bc45586dbd2100f6 *R/sysdata.rda
 cec14e7de2dda1c945391688242b9efc *R/theta.R
@@ -59,6 +61,7 @@ c5209ad9b58c04385d10f3bb7b16ea76 *R/x2pCO2.R
 756a89743b4caa374a2109d980ecabeb *README.md
 32ce357a86310efee629da8df39ca805 *data/alkalinity.txt.gz
 f50b927a7ae4d7a497e642d593a01bb1 *data/kfg.rda
+57a918c28cad9ae435259998c1ced031 *data/seaFET.txt.gz
 3cc83032abf514fb5e6d27f6a5bd17f3 *data/seacarb_test_P0.txt.gz
 60743ce49edf088c3635171052419224 *data/seacarb_test_P300.txt.gz
 a27e1ae08f52ca2ca2573139f5129d60 *man/K0.Rd
@@ -88,8 +91,8 @@ b51bfd8cd76ab54458349db3fd4256f9 *man/bor.Rd
 8da5046c4c9bd5efef59d77d255f48ae *man/buffer.Rd
 ab6e9f8534f53b3a1e585b31a60f5653 *man/buffergen.Rd
 606676ed40182cb5e8c565a56705fa31 *man/buffesm.Rd
-cf1a2078e9c0f700dee125c6d0f74198 *man/carb.Rd
-0d74a1811d6bcc596e6bd73e329c04b9 *man/carbb.Rd
+51d78bb3a2892d5d3e59503df801930d *man/carb.Rd
+d3f02b49e4603027a3a32718792d2715 *man/carbb.Rd
 33d82678c216f4f838141399702bcbcc *man/carbfull.Rd
 46dc63c131bd608267eec0c667c533e3 *man/d2p.Rd
 edd98517fb7ee365b6eb6f6721e18f01 *man/derivnum.Rd
@@ -116,8 +119,11 @@ a2d805396c53d4ac6ddbf707d1472549 *man/pTA.Rd
 247fbb477c50f7e4b7e3a53eb27a6ebf *man/rho.Rd
 f114fd673165ecd5373ee51c4eb0a7f7 *man/sa2sp_chem.Rd
 584570d077578117413c19d02cdf9860 *man/sa2sp_geo.Rd
+c00cb870ac535f174414b6bf36cfb7d3 *man/seaFET.Rd
 6e5415843cc0d31b1e155d71627a4df7 *man/seacarb_test_P0.Rd
 ed31d9e32a2a33a51f06d78bbf345e57 *man/seacarb_test_P300.Rd
+01ed3b864f94bc7ced1a5bb05c64279f *man/sf_calc.Rd
+362dfd3be55d0172403c2d2b01511172 *man/sf_calib.Rd
 b5ad2ff2283d2cbb53991487e74dbdae *man/sp2sa_chem.Rd
 0f63d47b8007377c7c70e018919d6bfc *man/sp2sa_geo.Rd
 5091ffc2636575559171c6d419a3e39d *man/speciation.Rd
