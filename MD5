@@ -1,5 +1,5 @@
-2898091c021051a85286b61505d7015e *ChangeLog
-0f569d90cea3bfb07f4d75bb0c6b1399 *DESCRIPTION
+7f055b1fc88ff788d6198d0d16b2f9af *ChangeLog
+36c97c6dd112d5f7256470f14f6cfe21 *DESCRIPTION
 5335ab319c1fe375a7b1b2036933993f *NAMESPACE
 8e2c6975d4b1fb1f1ecb5e6cfc989c8b *R/K0.R
 b3519f7aa1611d0bd53352533bed5bb3 *R/K1.R
@@ -22,7 +22,7 @@ b34e31ff1f93a36e6f39aeeb6cd021b1 *R/Om.R
 708fc60b4757d46661ce04ba0292d619 *R/amp.R
 8578c26a3aeb5a411ca13f5489e443dd *R/at.R
 70cdeb8ec9487a1f71125e99c3519956 *R/bjerrum.R
-8d044f06eb9e3f72458f97b6d07a5da3 *R/bor.R
+ab0191e73202105a8becd4b3bb8b3ca2 *R/bor.R
 6de090119b3852e913d0921bcd6167d9 *R/buffer.R
 b59024008881773a49d70cbc55608f21 *R/buffergen.R
 759db12b2fe1ce8d9cbdc555dfd7f056 *R/buffesm.R
@@ -87,7 +87,7 @@ baca6d0ae1cd4a27d4c60bf91b035e6d *man/Kb.Rd
 08cabcd327b4efa83befad12bd685f11 *man/amp.Rd
 deca342cb22457361f92e6239c083e47 *man/at.Rd
 3877ac1e3ae2aca624cb7ce1d4e4b745 *man/bjerrum.Rd
-b51bfd8cd76ab54458349db3fd4256f9 *man/bor.Rd
+fd3c04da396541e2962edc78648c367a *man/bor.Rd
 cd1f6e294da782a4388a005410786f7c *man/buffer.Rd
 2e0f1c079eafc5a76317a02367441b8d *man/buffergen.Rd
 3743c607e1e694336fec2e3cef0727d8 *man/buffesm.Rd
