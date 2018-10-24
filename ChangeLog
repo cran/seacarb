@@ -1,3 +1,12 @@
+version 3.2.10 2018-10-17
+-----------------------------------
+- Update: errors help (use GUM terminology)
+
+version 3.2.9 2018-06-29
+-----------------------------------
+- Update: minor change in the definition of the salinity argument in function rho.
+- Update: changed label of Y-axis: "Relative concentration (%)" rather "Concentration (mol/kg)"
+
 version 3.2.8 2018-06-26
 -----------------------------------
 - Fix (thanks to Mathilde Hagens for reporting the bug and to Jean-Marie Epitalon for identifying and fixing the bug): warnings and errors occurred when:
