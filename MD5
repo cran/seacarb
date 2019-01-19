@@ -1,5 +1,5 @@
-2db68bc0e1c5fecf32752aea5fac2de0 *ChangeLog
-4293a3508a0b454403386945effb4df4 *DESCRIPTION
+d5a0479dfcfbaf73bad47cd3e3508311 *ChangeLog
+37981fc3f0fc7ee95586eb7aba4e9f82 *DESCRIPTION
 5335ab319c1fe375a7b1b2036933993f *NAMESPACE
 8e2c6975d4b1fb1f1ecb5e6cfc989c8b *R/K0.R
 b9962c7b9dcb7d51ba88f58c41c3d738 *R/K1.R
@@ -22,7 +22,7 @@ b34e31ff1f93a36e6f39aeeb6cd021b1 *R/Om.R
 708fc60b4757d46661ce04ba0292d619 *R/amp.R
 8578c26a3aeb5a411ca13f5489e443dd *R/at.R
 b5288cf98b2eb3dcf03971b6c6a8cb39 *R/bjerrum.R
-ab0191e73202105a8becd4b3bb8b3ca2 *R/bor.R
+34084cbd7cedc08de911ca58b5fabe9c *R/bor.R
 6de090119b3852e913d0921bcd6167d9 *R/buffer.R
 b59024008881773a49d70cbc55608f21 *R/buffergen.R
 759db12b2fe1ce8d9cbdc555dfd7f056 *R/buffesm.R
@@ -44,6 +44,7 @@ ab8afa27efea167065b8dd6ff6f45501 *R/pH.R
 5f8101c2e18507e7fab9c6c7e6998eda *R/pHconv.R
 e78b384c98a15e40997412cba14963e0 *R/pHinsi.R
 34fa9df6a241bc67a10e5295e84eaeac *R/pHslope.R
+273d619aae6fe8473eb29c5cdf2e88fe *R/pHspec.R
 910a2cdb8395341d8a7c326760aa9d5b *R/pTA.R
 eee1a5c11aff71ddc18c2a7fdc7d521f *R/pgas.R
 fb3bfd59f25cdddf1bd4387ced032bec *R/pmix.R
@@ -55,10 +56,10 @@ c9dae416fcbd640e9c51809cce442670 *R/sf_calib.R
 04eacd620ea04d6d2302325608921d75 *R/speciation.R
 569a548e631d04b4bc45586dbd2100f6 *R/sysdata.rda
 cec14e7de2dda1c945391688242b9efc *R/theta.R
-457f67fb5bb17911cd2245a7460e6678 *R/tris.R
+fc3feb3fc0b64afb827c6dd858522079 *R/tris.R
 48cf1da36bfd3e7c527d25600c5b2227 *R/vapress.R
 c5209ad9b58c04385d10f3bb7b16ea76 *R/x2pCO2.R
-756a89743b4caa374a2109d980ecabeb *README.md
+a2310cd6b803e0245a867adfb5b3b4b7 *README.md
 32ce357a86310efee629da8df39ca805 *data/alkalinity.txt.gz
 f50b927a7ae4d7a497e642d593a01bb1 *data/kfg.rda
 57a918c28cad9ae435259998c1ced031 *data/seaFET.txt.gz
@@ -87,7 +88,7 @@ baca6d0ae1cd4a27d4c60bf91b035e6d *man/Kb.Rd
 08cabcd327b4efa83befad12bd685f11 *man/amp.Rd
 deca342cb22457361f92e6239c083e47 *man/at.Rd
 98d54a577bac3c5f8a378055bb5c293f *man/bjerrum.Rd
-fd3c04da396541e2962edc78648c367a *man/bor.Rd
+efaaeead33f8aeed261c5bc09f9b8935 *man/bor.Rd
 cd1f6e294da782a4388a005410786f7c *man/buffer.Rd
 2e0f1c079eafc5a76317a02367441b8d *man/buffergen.Rd
 3743c607e1e694336fec2e3cef0727d8 *man/buffesm.Rd
@@ -111,6 +112,7 @@ bd490d0d9f901006439d774cabe4537f *man/p2xCO2.Rd
 409608d69f83648362234bee32755f1d *man/pHconv.Rd
 92aaef5b7c05e37c2a3ca7a779dfaced *man/pHinsi.Rd
 26b25dca9f00def6f6fe4085cf4923f5 *man/pHslope.Rd
+599fcc06cc5e8035852ad46588187730 *man/pHspec.Rd
 177ee1f9b8922306bad4f6383881df55 *man/pTA.Rd
 4e077a0c3b7d725f1119e975edd996f8 *man/pgas.Rd
 2ae0e17fec5682ae04fe4ae2a81097d1 *man/pmix.Rd
@@ -130,6 +132,6 @@ b5ad2ff2283d2cbb53991487e74dbdae *man/sp2sa_chem.Rd
 cfd248f23ba8ff4ae632cb0ef6971acf *man/teos2eos_chem.Rd
 48ae451ae94cede18a1e503426ae36c9 *man/teos2eos_geo.Rd
 bb36ca0cd5ac4b217e85b6beec40094c *man/theta.Rd
-4f13fa546b407838176b4c328ef8fc65 *man/tris.Rd
+7ffa26bfe60bd183a5e4fb682eb83a7a *man/tris.Rd
 ed6e1eb132fc3feda8329bf3aeec86e6 *man/vapress.Rd
 0d165aa5c7351444d8d724e30166e9f8 *man/x2pCO2.Rd
