@@ -1,5 +1,5 @@
-9624de696ff56b944e8cdf972c044b27 *ChangeLog
-35c163d7e1440bd5c9a552f42ba309b2 *DESCRIPTION
+5e85c21a440302e8eaf046969fbf3700 *ChangeLog
+0b8bb4faf831868da4034c2f09e09d53 *DESCRIPTION
 5335ab319c1fe375a7b1b2036933993f *NAMESPACE
 8e2c6975d4b1fb1f1ecb5e6cfc989c8b *R/K0.R
 b9962c7b9dcb7d51ba88f58c41c3d738 *R/K1.R
@@ -53,6 +53,9 @@ de7f60460d73516d11b2b7126ccac916 *R/psi.R
 729980fdc7071d2ec2795447d355e981 *R/rho.R
 e0e63ddd988d181ef5c29c6bb2a72835 *R/sf_calc.R
 c9dae416fcbd640e9c51809cce442670 *R/sf_calib.R
+0481556416f37e32f02cfcc3c2802cb1 *R/sir.R
+108fe3919e5501b379fb3751e87f2167 *R/sir_b.R
+e94ab50fc42e0d3c4cb667c6b2d58215 *R/sir_full.R
 04eacd620ea04d6d2302325608921d75 *R/speciation.R
 569a548e631d04b4bc45586dbd2100f6 *R/sysdata.rda
 cec14e7de2dda1c945391688242b9efc *R/theta.R
@@ -126,6 +129,9 @@ c00cb870ac535f174414b6bf36cfb7d3 *man/seaFET.Rd
 ed31d9e32a2a33a51f06d78bbf345e57 *man/seacarb_test_P300.Rd
 01ed3b864f94bc7ced1a5bb05c64279f *man/sf_calc.Rd
 362dfd3be55d0172403c2d2b01511172 *man/sf_calib.Rd
+e76e027ddeba0f38729a5565c848436a *man/sir.Rd
+63d17e0efb6a35bcb2c1f2e322fac332 *man/sir_b.Rd
+b13628ea6d10ceaad0bf32beb3ac1433 *man/sir_full.Rd
 b5ad2ff2283d2cbb53991487e74dbdae *man/sp2sa_chem.Rd
 0f63d47b8007377c7c70e018919d6bfc *man/sp2sa_geo.Rd
 5091ffc2636575559171c6d419a3e39d *man/speciation.Rd
