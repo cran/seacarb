@@ -1,5 +1,5 @@
-582297ecbbcec20b03337443c9f610a3 *ChangeLog
-a6b65f6c45f1467aa5ece827693fa3c2 *DESCRIPTION
+d398b0edd4254a1787e4132df1bd6e78 *ChangeLog
+a742f23079af421d7abc997b7191015c *DESCRIPTION
 5335ab319c1fe375a7b1b2036933993f *NAMESPACE
 8e2c6975d4b1fb1f1ecb5e6cfc989c8b *R/K0.R
 26387511eaf7589c47af84764307214f *R/K1.R
@@ -20,7 +20,6 @@ ba8747169cfbb34a3ddd99a2df730e3b *R/Kspa.R
 b34e31ff1f93a36e6f39aeeb6cd021b1 *R/Om.R
 5d73b7e3451267f7e64d188d566f589a *R/Pcorrect.R
 708fc60b4757d46661ce04ba0292d619 *R/amp.R
-8578c26a3aeb5a411ca13f5489e443dd *R/at.R
 b5288cf98b2eb3dcf03971b6c6a8cb39 *R/bjerrum.R
 34084cbd7cedc08de911ca58b5fabe9c *R/bor.R
 6de090119b3852e913d0921bcd6167d9 *R/buffer.R
@@ -34,6 +33,7 @@ b738efa46adb40fa2521c1697b04a80a *R/derivnum.R
 316b1ed35575fb7113e01f59c72cec37 *R/eos.R
 9b4e07c9d76168c1e33a2fe6cee47014 *R/errors.R
 e881ae1668e72dda1586b6ad281404e1 *R/f2pCO2.R
+dd4125d47b7307b75c6da90eaf87da4b *R/fCO2insi.R
 3ee85c7aff2e86a53a85efb324123297 *R/kconv.R
 f45e9473c651f5bb66e4fcc19e3701d9 *R/oa.R
 f8c38af9759008f0e733e41014551fb5 *R/p2d.R
@@ -92,7 +92,6 @@ d3346be4a1b300ed392ffa1706cfe086 *man/SIR_b.Rd
 c5ce3ab3fd6457cc512f523fc78eb36e *man/SIR_full.Rd
 60f32acb6ab3e110044e50e75b73e539 *man/alkalinity.Rd
 08cabcd327b4efa83befad12bd685f11 *man/amp.Rd
-deca342cb22457361f92e6239c083e47 *man/at.Rd
 98d54a577bac3c5f8a378055bb5c293f *man/bjerrum.Rd
 efaaeead33f8aeed261c5bc09f9b8935 *man/bor.Rd
 5ad64956e3f79f481cc9e139a9a13ac8 *man/buffer.Rd
@@ -107,6 +106,7 @@ f4d479b2eb9270244dd5525eb7f41e12 *man/eos2teos_chem.Rd
 9541b364d0d2a6cf558ea5f88bc272dd *man/eos2teos_geo.Rd
 4103a81115bd93c8cd607fc9ce801a14 *man/errors.Rd
 d8175e6070168603cf8941a74e4e0ea4 *man/f2pCO2.Rd
+20e6a37c92af17a6577c6ae7751fc07a *man/fCO2insi.Rd
 4e973135f41ed07752f047afb977a0cb *man/kconv.Rd
 82b7025247ac4e25401f056978adbc2c *man/kfg.Rd
 d2391ab931d2a07440483e6a2a3e9a93 *man/oa.Rd
