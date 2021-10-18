@@ -1,5 +1,6 @@
-# Copyright (C) 2008 Jean-Marie Epitalon and Heloise Lavigne and Aurelien Proye and Jean-Pierre Gattuso  
-# with a most valuable contribution of Bernard Gentili
+# Copyright (C) 2021  Jean-Pierre Gattuso
+# with a most valuable contribution of Bernard Gentili <gentili@obs-vlfr.fr>
+# and valuable suggestions from Jean-Marie Epitalon <epitalon@lsce.saclay.cea.fr>
 #
 # This file is part of seacarb.
 #
@@ -11,9 +12,8 @@
 #
 #
 #
-carbb<-
-function(flag, var1, var2, S=35, T=25, Patm=1, P=0, Pt=0, Sit=0, k1k2='x', kf='x', ks="d", pHscale="T", b="u74", gas="potential", badd=0, warn="y", eos="eos80", long=1.e20, lat=1.e20){
-    
-    RES <- calculate_carb(flag, var1, var2, S, T, Patm, P, Pt, Sit, NH4t=0, HSt=0, k1k2, kf, ks, pHscale, b, gas, badd, warn, eos, long, lat, fullresult=FALSE)
-    return(RES)
+pCO2insi <- function(pCO2lab = 400, Tlab = 20, SST = 19){
+  #Takahashi (1993) recommended by Pierrot et al. (2009)
+  pCO2_insi <- pCO2lab * exp(0.0423 * (SST - Tlab))
+return(pCO2_insi)
 }

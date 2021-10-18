@@ -1,3 +1,11 @@
+version 3.3.0 2021-10-15
+-----------------------------------
+- Update: Implementation of the efﬁcient approach of the Solver Suite for Alkalinity-PH Equations (SolveSAPHE) (Munhoven, 2013, 2021). It determines the carbonate system speciation by calculating pH from total alkalinity (ALK) and dissolved inorganic carbon (DIC).
+
+version 3.2.17 2021-05-25
+-----------------------------------
+- New: function pCO2insi to express pCO2 measured in the lab at in situ temperature.
+
 version 3.2.16 2021-02-22
 -----------------------------------
 - Update: all functions using K1 and K2 now provide the additional formulation of Shockman & Byrne (2021) to calculate these constants.
