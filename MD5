@@ -1,5 +1,5 @@
-0773eace595d5ddca3ff50711c3274ee *ChangeLog
-ab98eeaa835fd8a231aaa371faaecc58 *DESCRIPTION
+2aef3733d8c692a4ba759bfe825b885d *ChangeLog
+9a8bc71ae5089398c057191adc969cfe *DESCRIPTION
 b2d806d88e6edc08a998e9370c50478a *NAMESPACE
 8e2c6975d4b1fb1f1ecb5e6cfc989c8b *R/K0.R
 043f62fd12635e1c38955b3f6b32161d *R/K1.R
@@ -103,7 +103,7 @@ ec077ea24239060c156c5ad5384a8b3a *man/carb.Rd
 af5cece91f4b08c8a74461638e035cd1 *man/carbb.Rd
 f29752e18d5928bea2dbbca8fee2ba4c *man/carbfull.Rd
 46dc63c131bd608267eec0c667c533e3 *man/d2p.Rd
-8141dee20df058889b791db288328d8c *man/derivnum.Rd
+b5e18d479cff3e744316781424a02452 *man/derivnum.Rd
 f4d479b2eb9270244dd5525eb7f41e12 *man/eos2teos_chem.Rd
 9541b364d0d2a6cf558ea5f88bc272dd *man/eos2teos_geo.Rd
 23a64e58e0ad49f997e77ff4f309105b *man/errors.Rd
