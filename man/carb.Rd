@@ -59,7 +59,7 @@ flag = 25     pCO2 and DIC given
   \item{P}{Hydrostatic pressure in bar (surface = 0)}
   \item{Pt}{Concentration of total phosphate in mol/kg; set to 0 if NA}
   \item{Sit}{Concentration of total silicate in mol/kg; set to 0 if NA}
-  \item{k1k2}{"l" for using K1 and K2 from Lueker et al. (2000), "m02" from Millero et al. (2002), "m06" from Millero et al. (2006), "m10" from Millero (2010), "mp2" from Mojica Prieto et al. (2002), "p18" from Papadimitriou et al. (2018), "r" from Roy et al. (1993), "sb21" from Shockman & Byrne (2021), "s20" from Sulpis et al. (2020), and "w14" from Waters et al. (2014). "x" is the default flag; the default value is then "l", except if T is outside the range 2 to 35oC and/or S is outside the range 19 to 43. In these cases, the default value is "w14".}
+  \item{k1k2}{"cw" for using K1 and K2 from Cai & Wang (1998), "l" from Lueker et al. (2000), "m02" from Millero et al. (2002), "m06" from Millero et al. (2006), "m10" from Millero (2010), "mp2" from Mojica Prieto et al. (2002), "p18" from Papadimitriou et al. (2018), "r" from Roy et al. (1993), "sb21" from Shockman & Byrne (2021), "s20" from Sulpis et al. (2020), and "w14" from Waters et al. (2014). "x" is the default flag; the default value is then "l", except if T is outside the range 2 to 35oC and/or S is outside the range 19 to 43. In these cases, the default value is "w14".}
 	\item{kf}{"pf" for using Kf from Perez and Fraga (1987) and "dg" for using Kf from Dickson and Riley (1979 in Dickson and Goyet, 1994). "x" is the default flag; the default value is then "pf", except if T is outside the range 9 to 33oC and/or S is outside the range 10 to 40. In these cases, the default is "dg".}
 	\item{ks}{"d" for using Ks from Dickson (1990) and "k" for using Ks from Khoo et al. (1977), default is "d"} 
 	\item{pHscale}{"T" for the total scale, "F" for the free scale and "SWS" for using the seawater scale, default is "T" (total scale)}
@@ -75,6 +75,8 @@ flag = 25     pCO2 and DIC given
 
 \emph{For K1 and K2:}
 \itemize{
+\item Cai and Wang (1998): S ranging between 0 and 40 and T ranging between 0.2 and 30oC.
+
 \item Lueker et al. (2000): S ranging between 19 and 43 and T ranging between 2 and 35oC.
 
 \item Millero et al. (2002): S ranging from 34 to 37 and T ranging between -1.6 and 35oC.
@@ -153,6 +155,8 @@ long and lat are used as conversion parameters from absolute to practical salini
 \note{\bold{Warning:} pCO2 estimates below 100 m are subject to considerable uncertainty. See Weiss (1974) and Orr et al. (2015)}
 
 \references{
+Cai W. J., and Wang Y., 1998. The chemistry, fluxes, and sources of carbon dioxide in the estuarine waters of the Satilla and Altamaha Rivers, Georgia. \emph{Limnology and Oceanography} \bold{43}, 657-668.
+
 Dickson A. G. and Riley J. P., 1979 The estimation of acid dissociation constants in seawater media from potentiometric titrations with strong base. I. The ionic product of water. \emph{Marine Chemistry} \bold{7}, 89-99.
 
 Dickson A. G., 1990 Standard potential of the reaction: AgCI(s) + 1/2H2(g) = Ag(s) + HCI(aq), and the standard acidity constant of the ion HSO4 in synthetic sea water from 273.15 to 318.15 K. \emph{Journal of Chemical Thermodynamics} \bold{22}, 113-127.
@@ -196,11 +200,11 @@ Heloise Lavigne, James Orr and Jean-Pierre Gattuso \email{jean-pierre.gattuso@im
 
 \examples{
 
-## With a couple of variables
+## 1. With a couple of variables
 carb(flag=8, var1=8.2, var2=0.00234, S=35, T=25, P=0, Patm=1.0, Pt=0, Sit=0,
 	pHscale="T", kf="pf", k1k2="l", ks="d", b="u74")
 
-## Using vectors as arguments
+## 2. Using vectors as arguments
 flag <- c(8, 2, 8)
 var1 <- c(8.2, 7.477544e-06, 8.2)
 var2 <- c(0.002343955, 0.001649802, 2400e-6)
@@ -214,9 +218,29 @@ k1k2 <- c("l", "l", "l")
 pHscale <- c("T", "T", "T")
 b <- c("l10", "l10", "l10")
 carb(flag=flag, var1=var1, var2=var2, S=S, T=T, P=P,
-  Pt=Pt, Sit=Sit, kf=kf, k1k2=k1k2, pHscale=pHscale, b=b)
+	Pt=Pt, Sit=Sit, kf=kf, k1k2=k1k2, pHscale=pHscale, b=b)
 
-## Test with all flags 
+## 3. Special case: when input pH is on NBS scale (not a standard option in seacarb) 
+##    -> example for pH-Alk input pair (flag 8) and Cai & Wang (1998) K1,K2 
+pHNBS <- c(8.2, 8.1, 8.0)
+talk <- c(2300, 2350, 2400) * 1e-6
+S <- c(35, 32.5, 30)
+T <- c(25, 15, 10)
+
+## 3a. convert pHNBS to pHSWS (using total activity coeff. fH), then use carb with pHscale="SWS"
+pHSWS <- pHnbs2sws(pHNBS, S=S, T=T)
+carb(flag=8, var1=pHSWS, var2=talk, S=S, T=T, P=0, Patm=1.0, Pt=0, Sit=0,
+	pHscale="SWS", kf="pf", k1k2="cw", ks="d", b="u74")
+
+## 3b. conversely for input pairs without pH,  convert computed pH on SWS scale to NBS scale, 
+##     with function pHsws2nbs
+##    -> example for Alk-DIC input pair (flag 15) and Cai & Wang (1998) K1,K2 
+dic <- c(2000., 2030., 2060) * 1e-6
+output = carb(flag=15, var1=talk, var2=dic, S=S, T=T, P=0, Patm=1.0, Pt=0, Sit=0,
+	pHscale="SWS", kf="pf", k1k2="cw", ks="d", b="u74")
+pHNBS  = pHsws2nbs(output$pH, S=S, T=T)
+
+## 4. Test with all flags 
 flag <- c((1:15), (21:25))
 var1 <- c(8.200000, 7.308171e-06, 7.308171e-06, 7.308171e-06, 7.308171e-06, 
 	8.2, 8.2, 8.2, 8.2, 0.001646857, 0.001646857, 0.001646857, 0.0002822957, 
@@ -227,15 +251,15 @@ var2 <- c(7.308171e-06, 0.001646857, 0.0002822957, 0.00234, 0.001936461,
 	0.001646857, 0.0002822957, 0.00234, 0.001936461)
 carb(flag=flag, var1=var1, var2=var2)
 
-## Test using a data frame 
+## 5. Test using a data frame 
 data(seacarb_test_P0)	#test data set for P=0 (surface)
 tab <- seacarb_test_P0[14:19,]
 
-## method 1 using the column numbers
+## 5a. method 1 using the column numbers
 carb(flag=tab[[1]], var1=tab[[2]], var2=tab[[3]], S=tab[[4]], T=tab[[5]], 
 P=tab[[6]], Sit=tab[[8]], Pt=tab[[7]])
 
-## method 2 using the column names
+## 5b. method 2 using the column names
 carb(flag=tab$flag, var1=tab$var1, var2=tab$var2, S=tab$S, T=tab$T, 
 P=tab$P, Sit=tab$Sit, Pt=tab$Pt)
 

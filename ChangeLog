@@ -1,6 +1,14 @@
+version 3.3.3 2024-02-14
+-----------------------------------
+- Update: added K1 and K2 from Cai & Wang (1998) (thanks to James Orr)
+- New: function pHnbs2sws to convert pHNBS to pHSWS using the total hydrogen ion activity coefficient, which depends on T and S (thanks to James Orr)
+- New: function pHsws2nbs to convert pHSWS to pHNBS using the total hydrogen ion activity coefficient, which depends on T and S (thanks to James Orr)
+- New: function fH to compute the total hydrogen ion activity coefficient (thanks to James Orr)
+
+
 version 3.3.2 2023-05-21
 -----------------------------------
-- Update: minor by JME to fix bug in identified by S. Petton
+- Update: fixed bugs identified by S. Petton on carb, calculate_carb and derivnum (thanks to Jean-Marie Epitalon)
 - Update: updated email address Jean-Pierre Gattuso
 
 version 3.3.1 2022-07-04
